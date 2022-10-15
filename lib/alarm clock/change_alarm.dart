@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/screens/alarm clock/data.dart';
-import 'package:uhr/screens/alarm clock/textInputDecoration.dart';
+import 'package:uhr/alarm clock/data.dart';
+import 'package:uhr/alarm clock/textInputDecoration.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
+import 'package:uhr/notificationService.dart';
 
 // Screen um bereits bestehenden Alarm zu ändern
 
@@ -45,6 +46,7 @@ class _ChangeAlarmState extends State<ChangeAlarm> {
         actions: [IconButton(
           icon: Icon(Icons.delete_outline),
           onPressed: () {
+            NotificationService().cancelNotification(alarms[index].getID);
             alarms.removeRange(index, index+  1);
             Navigator.pushReplacementNamed(context, '/alarm_clock');
           },

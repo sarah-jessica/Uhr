@@ -1,4 +1,4 @@
-import 'package:uhr/screens/alarm clock/data.dart';
+import 'package:uhr/alarm clock/data.dart';
 import 'package:uhr/notificationService.dart';
 
 // class 'Alarm' with necessary details and functions to turn it on or off

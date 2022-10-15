@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/screens/alarm clock/alarm_clock.dart';
-import 'package:uhr/screens/alarm%20clock/add_alarm.dart';
-import 'package:uhr/screens/timer/timer.dart';
-import 'package:uhr/screens/stopwatch.dart';
-import 'package:uhr/screens/alarm clock/add_alarm.dart';
-import 'package:uhr/screens/alarm clock/change_alarm.dart';
+import 'package:uhr/alarm clock/alarm_clock.dart';
+import 'package:uhr/alarm%20clock/add_alarm.dart';
+import 'package:uhr/timer/timer.dart';
+import 'package:uhr/stopwatch/stopwatch.dart';
+import 'package:uhr/alarm clock/add_alarm.dart';
+import 'package:uhr/alarm clock/change_alarm.dart';
 import 'package:uhr/notificationService.dart';
-import 'package:uhr/screens/timer/running_timer.dart';
-import 'package:uhr/screens/timer/paused_timer.dart';
+import 'package:uhr/timer/running_timer.dart';
+import 'package:uhr/timer/paused_timer.dart';
 
 
 //sound und icon wird in notification.dart nicht anerkannt / default sound wird nicht auf dem Emulator abgespielt

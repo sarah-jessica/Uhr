@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/screens/alarm clock/data.dart';
+import 'package:uhr/alarm clock/data.dart';
 
 // generates tiles to display all alarms in alarm_clock.dart
 

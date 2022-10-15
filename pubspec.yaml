@@ -37,6 +37,7 @@ dependencies:
   flutter_local_notifications: ^12.0.1+1
   flutter_timer_countdown: ^1.0.5
   timezone: ^0.9.0
+  stop_watch_timer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

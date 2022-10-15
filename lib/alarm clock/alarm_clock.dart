@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/screens/clock_appbar.dart';
-import 'package:uhr/screens/alarm clock/alarm_tile.dart';
-import 'package:uhr/screens/alarm clock/data.dart';
+import 'package:uhr/clock_appbar.dart';
+import 'package:uhr/alarm clock/alarm_tile.dart';
+import 'package:uhr/alarm clock/data.dart';
 
 //home screen for the alarm clock
 

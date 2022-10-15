@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/screens/clock_appbar.dart';
+import 'package:uhr/clock_appbar.dart';
 import 'data.dart';
+
+// Screen der gezeigt wird wenn der Timer pausiert ist
 
 class pausedTimer extends StatefulWidget {
   const pausedTimer({Key? key}) : super(key: key);

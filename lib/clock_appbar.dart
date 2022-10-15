@@ -14,8 +14,6 @@ class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _ClockAppBarState extends State<ClockAppBar> {
 
-  String currentRoute = '/alarm_clock';
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +30,18 @@ class _ClockAppBarState extends State<ClockAppBar> {
             IconButton(
               icon: Icon(Icons.alarm),
               onPressed: () {
-                setState(() => currentRoute = '/alarm_clock');
                 Navigator.pushReplacementNamed(context, '/alarm_clock');
               },
             ),
             IconButton(
               icon: Icon(Icons.timer_sharp),
               onPressed: () {
-                setState(() => currentRoute = '/stopwatch');
                 Navigator.pushReplacementNamed(context, '/stopwatch');
               } ,
             ),
             IconButton(
               icon: Icon(Icons.hourglass_empty),
               onPressed: () {
-                setState(() => currentRoute = '/timer');
                 Navigator.pushReplacementNamed(context, '/timer');
               },
             ),

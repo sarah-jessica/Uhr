@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/screens/alarm clock/data.dart';
-import 'package:uhr/screens/alarm clock/alarm.dart';
-import 'package:uhr/screens/alarm clock/textInputDecoration.dart';
+import 'package:uhr/alarm clock/data.dart';
+import 'package:uhr/alarm clock/alarm.dart';
+import 'package:uhr/alarm clock/textInputDecoration.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 
 //screen to set a new alarm

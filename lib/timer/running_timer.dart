@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/screens/clock_appbar.dart';
+import 'package:uhr/clock_appbar.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:uhr/notificationService.dart';
 import 'data.dart';
 
-
+// Screen der gezeigt wird wenn der Timer läuft
 
 class runningTimer extends StatefulWidget {
   const runningTimer({Key? key}) : super(key: key);
