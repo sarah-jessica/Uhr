@@ -9,12 +9,12 @@ import 'package:uhr/notificationService.dart';
 import 'package:uhr/timer/running_timer.dart';
 import 'package:uhr/timer/paused_timer.dart';
 
-
-//sound und icon wird in notification.dart nicht anerkannt / default sound wird nicht auf dem Emulator abgespielt
-//ob der Alarm bei daily jeden Tag ausgelöst wird, ist nicht getestet
-// ggf. Formkey bei change_alarm und add_alarm ergänzen
-// Warning beim definieren eines Namens für eine Alarm: 'A RenderFlex overflowed by 89 pixels on the bottom.'
-
+/*
+ - ob der Alarm bei der Einstellung 'daily' jeden Tag ausgelöst wird, ist nicht getestet
+ - ggf. einen Form-Key bei change_alarm und add_alarm ergänzen
+ - Warning beim Eingeben eines Namens für einen Alarm: 'A RenderFlex overflowed by 89 pixels on the bottom.'
+ - assertion 'There are multiple heroes that share the same tag within a subtree.' tritt auf
+*/
 
 void main() async {
 
