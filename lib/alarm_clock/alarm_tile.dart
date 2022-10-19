@@ -5,13 +5,13 @@ import 'package:uhr/alarm_clock/data.dart';
 
 class AlarmTile extends StatefulWidget {
 
-  final int index;
-  final DateTime time;
-  final String name;
-  final bool isOn;
-  final bool rep;
+  int index;
+  DateTime time;
+  String name;
+  bool isOn;
+  bool rep;
 
-  const AlarmTile({Key? key,
+  AlarmTile({Key? key,
     required this.index,
     required this.time,
     required this.name,
@@ -44,7 +44,7 @@ class _AlarmTileState extends State<AlarmTile> {
             value: widget.isOn,
             onChanged: (val) {
               setState(() {
-                //widget.isOn = val;
+                widget.isOn = val;
                 alarms[widget.index].changeAlarm(val);
               });
             },
