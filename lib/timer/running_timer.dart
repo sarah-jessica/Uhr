@@ -6,14 +6,14 @@ import 'data.dart';
 
 // Screen der gezeigt wird wenn der Timer läuft
 
-class runningTimer extends StatefulWidget {
-  const runningTimer({Key? key}) : super(key: key);
+class RunningTimer extends StatefulWidget {
+  const RunningTimer({Key? key}) : super(key: key);
 
   @override
-  State<runningTimer> createState() => _runningTimerState();
+  State<RunningTimer> createState() => _RunningTimerState();
 }
 
-class _runningTimerState extends State<runningTimer> {
+class _RunningTimerState extends State<RunningTimer> {
 
   @override
   void initState() {
@@ -28,48 +28,46 @@ class _runningTimerState extends State<runningTimer> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ClockAppBar(),
-      body: Container(
-          child: Column(
+      appBar: const ClockAppBar(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          TimerCountdown(
+            enableDescriptions: false,
+            timeTextStyle: const TextStyle(
+                fontSize: 60,
+                color: Colors.black
+            ),
+            format: CountDownTimerFormat.hoursMinutesSeconds,
+            endTime: setTime,
+            onEnd: () {
+              NotificationService().timerNotification(999, 'Timer Expired', '');
+            },
+          ),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TimerCountdown(
-                enableDescriptions: false,
-                timeTextStyle: TextStyle(
-                    fontSize: 60,
-                    color: Colors.black
-                ),
-                format: CountDownTimerFormat.hoursMinutesSeconds,
-                endTime: setTime,
-                onEnd: () {
-                  NotificationService().timerNotification(999, 'Timer Expired', '');
+              FloatingActionButton(
+                onPressed: () {
+                  setState(() {
+                    Navigator.pushReplacementNamed(context, '/paused_timer');
+                  });
                 },
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                child: const Icon(Icons.pause, size: 30.0,),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FloatingActionButton(
-                    onPressed: () {
-                      setState(() {
-                        Navigator.pushReplacementNamed(context, '/paused_timer');
-                      });
-                    },
-                    child: Icon(Icons.pause, size: 30.0,),
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                  ),
-                  FloatingActionButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/timer');
-                    },
-                    child: Icon(Icons.stop_outlined, size: 40.0,),
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                  ),
-                ],
-              )
+              FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/timer');
+                },
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                child: const Icon(Icons.stop_outlined, size: 40.0,),
+              ),
             ],
-          ),
+          )
+        ],
       ),
     );
   }

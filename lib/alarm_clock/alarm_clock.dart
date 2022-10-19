@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uhr/clock_appbar.dart';
-import 'package:uhr/alarm clock/alarm_tile.dart';
-import 'package:uhr/alarm clock/data.dart';
+import 'package:uhr/alarm_clock/alarm_tile.dart';
+import 'package:uhr/alarm_clock/data.dart';
 
 //home screen for the alarm clock
 
@@ -30,7 +30,7 @@ class _AlarmClockState extends State<AlarmClock> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ClockAppBar(),
+      appBar: const ClockAppBar(),
       body: ListView.builder(
           itemCount: alarms.length,
           itemBuilder: (context, index) {
@@ -43,10 +43,10 @@ class _AlarmClockState extends State<AlarmClock> {
           }
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add_alarm, size: 40.0,),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         onPressed: ()  => Navigator.pushReplacementNamed(context, '/add_alarm'),
+        child: const Icon(Icons.add_alarm, size: 40.0,),
       ) ,
     );
   }

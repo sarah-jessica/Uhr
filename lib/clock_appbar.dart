@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
   const ClockAppBar({Key? key}) : super(key: key);
@@ -25,22 +23,21 @@ class _ClockAppBarState extends State<ClockAppBar> {
       centerTitle: true,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
-              icon: Icon(Icons.alarm),
+              icon: const Icon(Icons.alarm),
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/alarm_clock');
               },
             ),
             IconButton(
-              icon: Icon(Icons.timer_sharp),
+              icon: const Icon(Icons.timer_sharp),
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/stopwatch');
               } ,
             ),
             IconButton(
-              icon: Icon(Icons.hourglass_empty),
+              icon: const Icon(Icons.hourglass_empty),
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/timer');
               },

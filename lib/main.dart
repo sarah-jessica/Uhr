@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/alarm clock/alarm_clock.dart';
-import 'package:uhr/alarm%20clock/add_alarm.dart';
+import 'package:uhr/alarm_clock/alarm_clock.dart';
+import 'package:uhr/alarm_clock/add_alarm.dart';
+import 'package:uhr/alarm_clock/change_alarm.dart';
 import 'package:uhr/timer/timer.dart';
 import 'package:uhr/stopwatch/stopwatch.dart';
-import 'package:uhr/alarm clock/add_alarm.dart';
-import 'package:uhr/alarm clock/change_alarm.dart';
 import 'package:uhr/notificationService.dart';
 import 'package:uhr/timer/running_timer.dart';
 import 'package:uhr/timer/paused_timer.dart';
@@ -35,13 +34,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/alarm_clock',
       routes: {
-        '/alarm_clock' : (context) => AlarmClock(),
-        '/stopwatch' : (context) => Stopwatch(),
-        '/timer' : (context) => Timer(),
-        '/add_alarm' : (context) => AddAlarm(),
-        '/change_alarm' : (context) => ChangeAlarm(),
-        '/running_timer' : (context) => runningTimer(),
-        '/paused_timer' : (context) => pausedTimer(),
+        '/alarm_clock' : (context) => const AlarmClock(),
+        '/stopwatch' : (context) => const Stopwatch(),
+        '/timer' : (context) => const Timer(),
+        '/add_alarm' : (context) => const AddAlarm(),
+        '/change_alarm' : (context) => const ChangeAlarm(),
+        '/running_timer' : (context) => const RunningTimer(),
+        '/paused_timer' : (context) => const PausedTimer(),
       },
     );
 

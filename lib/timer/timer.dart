@@ -22,45 +22,43 @@ class _TimerState extends State<Timer> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ClockAppBar(),
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(height: 80.0),
-            TimePickerSpinner(
-              time: DateTime(0, 0, 0, 0, 5, 0),
-              isShowSeconds: true,
-              is24HourMode: true,
-              isForce2Digits: true,
-              normalTextStyle: TextStyle(
-                  fontSize: 30,
-                  color: Colors.black12
-              ),
-              highlightedTextStyle: TextStyle(
-                  fontSize: 30,
-                  color: Colors.black
-              ),
-              spacing: 40,
-              itemHeight: 80,
-              onTimeChange: (time) {
-                setState(() => this.time = time);
-              },
+      appBar: const ClockAppBar(),
+      body: Column(
+        children: [
+          const SizedBox(height: 80.0),
+          TimePickerSpinner(
+            time: DateTime(0, 0, 0, 0, 5, 0),
+            isShowSeconds: true,
+            is24HourMode: true,
+            isForce2Digits: true,
+            normalTextStyle: const TextStyle(
+                fontSize: 30,
+                color: Colors.black12
             ),
-            SizedBox(height: 80.0,),
-            FloatingActionButton(
-              onPressed: () {
-                setState(() {
-                  time = DateTime.now().add(Duration(hours: time.hour, minutes:time.minute, seconds: time.second));
-                });
-                setTime = time;
-                Navigator.pushReplacementNamed(context, '/running_timer');
-              },
-              child: Icon(Icons.play_arrow_outlined, size: 40.0,),
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
-            )
-          ],
-        ),
+            highlightedTextStyle: const TextStyle(
+                fontSize: 30,
+                color: Colors.black
+            ),
+            spacing: 40,
+            itemHeight: 80,
+            onTimeChange: (time) {
+              setState(() => this.time = time);
+            },
+          ),
+          const SizedBox(height: 80.0,),
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                time = DateTime.now().add(Duration(hours: time.hour, minutes:time.minute, seconds: time.second));
+              });
+              setTime = time;
+              Navigator.pushReplacementNamed(context, '/running_timer');
+            },
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            child: const Icon(Icons.play_arrow_outlined, size: 40.0,),
+          )
+        ],
       ),
     );
   }
