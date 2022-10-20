@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:uhr/clock_appbar.dart';
-import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
-import 'package:uhr/notificationService.dart';
-import 'data.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
+import 'package:uhr/timer/data.dart';
+import 'package:uhr/notification_service.dart';
 
-// Screen der gezeigt wird wenn der Timer läuft
+// running timer screen
 
 class RunningTimer extends StatefulWidget {
   const RunningTimer({Key? key}) : super(key: key);
@@ -15,16 +15,19 @@ class RunningTimer extends StatefulWidget {
 
 class _RunningTimerState extends State<RunningTimer> {
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-
+  final _isHours = true;
+  final StopWatchTimer _stopWatchTimer = StopWatchTimer(
+      mode: StopWatchMode.countDown,
+      onEnded: () => NotificationService().timerNotification(999, 'Timer expired', ''),
+  );
 
   @override
   Widget build(BuildContext context) {
 
+    _stopWatchTimer.setPresetHoursTime(setTime.hour);
+    _stopWatchTimer.setPresetMinuteTime(setTime.minute);
+    _stopWatchTimer.setPresetSecondTime(setTime.second);
+    _stopWatchTimer.onStartTimer();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -32,35 +35,43 @@ class _RunningTimerState extends State<RunningTimer> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          TimerCountdown(
-            enableDescriptions: false,
-            timeTextStyle: const TextStyle(
-                fontSize: 60,
-                color: Colors.black
-            ),
-            format: CountDownTimerFormat.hoursMinutesSeconds,
-            endTime: setTime,
-            onEnd: () {
-              NotificationService().timerNotification(999, 'Timer Expired', '');
+          StreamBuilder<int>(
+            stream: _stopWatchTimer.rawTime,
+            initialData: _stopWatchTimer.rawTime.value,
+            builder: (context, snap) {
+              final value = snap.data!;
+              final displayTime =
+              StopWatchTimer.getDisplayTime(value, hours: _isHours);
+              return Text(
+                displayTime,
+                style: const TextStyle(
+                    fontSize: 40,
+                    fontFamily: 'Helvetica',
+                    fontWeight: FontWeight.bold
+                ),
+              );
             },
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    Navigator.pushReplacementNamed(context, '/paused_timer');
-                  });
-                },
+                onPressed: () {_stopWatchTimer.onStartTimer();},
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                child: const Icon(Icons.play_arrow_outlined, size: 40.0,),
+              ),
+              FloatingActionButton(
+                onPressed: () {_stopWatchTimer.onStopTimer();},
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.pause, size: 30.0,),
               ),
               FloatingActionButton(
                 onPressed: () {
+                  _stopWatchTimer.onStopTimer();
                   Navigator.pushReplacementNamed(context, '/timer');
-                },
+                  },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.stop_outlined, size: 40.0,),
@@ -71,5 +82,4 @@ class _RunningTimerState extends State<RunningTimer> {
       ),
     );
   }
-
 }

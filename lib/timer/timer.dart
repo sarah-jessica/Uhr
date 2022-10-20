@@ -14,7 +14,7 @@ class Timer extends StatefulWidget {
 
 class _TimerState extends State<Timer> {
 
-  DateTime time = DateTime.now();
+  DateTime time = DateTime(0, 0, 0, 0, 0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class _TimerState extends State<Timer> {
         children: [
           const SizedBox(height: 80.0),
           TimePickerSpinner(
-            time: DateTime(0, 0, 0, 0, 5, 0),
+            time: time,
             isShowSeconds: true,
             is24HourMode: true,
             isForce2Digits: true,
@@ -48,9 +48,9 @@ class _TimerState extends State<Timer> {
           const SizedBox(height: 80.0,),
           FloatingActionButton(
             onPressed: () {
-              setState(() {
-                time = DateTime.now().add(Duration(hours: time.hour, minutes:time.minute, seconds: time.second));
-              });
+              //setState(() {
+              //  time = time.add(Duration(hours: time.hour, minutes:time.minute, seconds: time.second));
+              //});
               setTime = time;
               Navigator.pushReplacementNamed(context, '/running_timer');
             },

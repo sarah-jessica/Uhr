@@ -4,11 +4,11 @@ import 'package:uhr/alarm_clock/add_alarm.dart';
 import 'package:uhr/alarm_clock/change_alarm.dart';
 import 'package:uhr/timer/timer.dart';
 import 'package:uhr/stopwatch/stopwatch.dart';
-import 'package:uhr/notificationService.dart';
+import 'package:uhr/notification_service.dart';
 import 'package:uhr/timer/running_timer.dart';
-import 'package:uhr/timer/paused_timer.dart';
 
 /*
+ - Warning beim Starten der App: 'Operand of null-aware operation '!' has type 'WidgetsBinding' which excludes null.'
  - ob der Alarm bei der Einstellung 'daily' jeden Tag ausgelöst wird, ist nicht getestet
  - ggf. einen Form-Key bei change_alarm und add_alarm ergänzen
  - Warning beim Eingeben eines Namens für einen Alarm: 'A RenderFlex overflowed by 89 pixels on the bottom.'
@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
         '/add_alarm' : (context) => const AddAlarm(),
         '/change_alarm' : (context) => const ChangeAlarm(),
         '/running_timer' : (context) => const RunningTimer(),
-        '/paused_timer' : (context) => const PausedTimer(),
       },
     );
 
