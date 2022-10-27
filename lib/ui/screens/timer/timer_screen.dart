@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/clock_appbar.dart';
+import 'package:uhr/ui/widgets/clock_appbar.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'data.dart';
+import 'package:uhr/provider/timer/data_provider.dart';
 
-// Screen mit dem der Timer eingestellt werden kann
+// Screen mit dem der TimerScreen eingestellt werden kann
 
-class Timer extends StatefulWidget {
-  const Timer({Key? key}) : super(key: key);
+class TimerScreen extends StatefulWidget {
+  const TimerScreen({Key? key}) : super(key: key);
 
   @override
-  State<Timer> createState() => _TimerState();
+  State<TimerScreen> createState() => _TimerScreenState();
 }
 
-class _TimerState extends State<Timer> {
+class _TimerScreenState extends State<TimerScreen> {
 
   DateTime time = DateTime(0, 0, 0, 0, 0, 0);
 
@@ -21,8 +21,8 @@ class _TimerState extends State<Timer> {
 
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: const ClockAppBar(),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           const SizedBox(height: 80.0),
@@ -52,7 +52,7 @@ class _TimerState extends State<Timer> {
               //  time = time.add(Duration(hours: time.hour, minutes:time.minute, seconds: time.second));
               //});
               setTime = time;
-              Navigator.pushReplacementNamed(context, '/running_timer');
+              Navigator.pushReplacementNamed(context, '/running_TimerScreen');
             },
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,

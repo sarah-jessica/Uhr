@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/alarm_clock/data.dart';
-import 'package:uhr/alarm_clock/textInputDecoration.dart';
+import 'package:uhr/provider/alarm_clock/data.dart';
+import 'package:uhr/ui/widgets/text_input_decoration.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:uhr/notificationService.dart';
+import 'package:uhr/services/notification_service.dart';
 
 // Screen um bereits bestehenden Alarm zu ändern
 
-class ChangeAlarm extends StatefulWidget {
-  const ChangeAlarm({Key? key}) : super(key: key);
+class ChangeAlarmScreen extends StatefulWidget {
+  const ChangeAlarmScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChangeAlarm> createState() => _ChangeAlarmState();
+  State<ChangeAlarmScreen> createState() => _ChangeAlarmScreenState();
 }
 
-class _ChangeAlarmState extends State<ChangeAlarm> {
+class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
 
   DateTime time = DateTime.now();
   String name = 'Alarm';

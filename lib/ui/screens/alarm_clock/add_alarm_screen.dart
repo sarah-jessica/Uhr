@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/alarm_clock/data.dart';
-import 'package:uhr/alarm_clock/alarm.dart';
-import 'package:uhr/alarm_clock/textInputDecoration.dart';
+import 'package:uhr/provider/alarm_clock/data.dart';
+import 'package:uhr/models/alarm_model.dart';
+import 'package:uhr/ui/widgets/text_input_decoration.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 
 //screen to set a new alarm
 
-class AddAlarm extends StatefulWidget {
-  const AddAlarm({Key? key}) : super(key: key);
+class AddAlarmScreen extends StatefulWidget {
+  const AddAlarmScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddAlarm> createState() => _AddAlarmState();
+  State<AddAlarmScreen> createState() => _AddAlarmScreenState();
 }
 
-class _AddAlarmState extends State<AddAlarm> {
+class _AddAlarmScreenState extends State<AddAlarmScreen> {
 
   DateTime time = DateTime.now();
   String name = 'Alarm';
@@ -43,7 +43,7 @@ class _AddAlarmState extends State<AddAlarm> {
               //set day for alarm to the next day
               setState(() => time = time.add(const Duration(days: 1)));
             }
-            alarms.add(Alarm(time, name, true, rep));
+            alarms.add(AlarmModel(time, name, true, rep));
             Navigator.pushReplacementNamed(context, '/alarm_clock');
           },
         ),],

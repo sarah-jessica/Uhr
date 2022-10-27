@@ -1,10 +1,10 @@
-import 'package:uhr/alarm_clock/data.dart';
-import 'package:uhr/notificationService.dart';
+import 'package:uhr/provider/alarm_clock/data.dart';
+import 'package:uhr/services/notification_service.dart';
 
 // class 'Alarm' with necessary details and functions to turn it on or off
 
 
-class Alarm {
+class AlarmModel {
   late DateTime time;
   late String name;
   bool isOn = false;
@@ -16,11 +16,11 @@ class Alarm {
   }
 
 
-  Alarm(this.time, this.name, bool isOn, this.rep) {
+  AlarmModel(this.time, this.name, bool isOn, this.rep) {
     if (alarms.isEmpty) {
       id = 0;
     } else {
-      // makes sure to skip id 999, which is used for timer notifications
+      // makes sure to skip id 999, which is used for TimerScreen notifications
       id = alarms[alarms.length-1].getID + 1 == 999 ? alarms[alarms.length-1].getID + 2 : alarms[alarms.length-1].getID + 1;
     }
 

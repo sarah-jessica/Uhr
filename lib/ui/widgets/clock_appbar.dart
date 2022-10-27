@@ -39,7 +39,7 @@ class _ClockAppBarState extends State<ClockAppBar> {
             IconButton(
               icon: const Icon(Icons.hourglass_empty),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/timer');
+                Navigator.pushReplacementNamed(context, '/TimerScreen');
               },
             ),
           ],

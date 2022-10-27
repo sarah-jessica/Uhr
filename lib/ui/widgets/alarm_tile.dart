@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/alarm_clock/data.dart';
+import 'package:uhr/provider/alarm_clock/data.dart';
 
-// generates tiles to display all alarms in alarm_clock.dart
+// generates tiles to display all alarms in alarm_clock_screen.dart
 
 class AlarmTile extends StatefulWidget {
 

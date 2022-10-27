@@ -1,43 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/clock_appbar.dart';
+import 'package:uhr/ui/widgets/clock_appbar.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:uhr/timer/data.dart';
-import 'package:uhr/notification_service.dart';
 
-// running timer screen
+// stopwatch screen
 
-class RunningTimer extends StatefulWidget {
-  const RunningTimer({Key? key}) : super(key: key);
+class StopwatchScreen extends StatefulWidget {
+  const StopwatchScreen({Key? key}) : super(key: key);
 
   @override
-  State<RunningTimer> createState() => _RunningTimerState();
+  State<StopwatchScreen> createState() => _StopwatchScreenState();
 }
 
-class _RunningTimerState extends State<RunningTimer> {
+class _StopwatchScreenState extends State<StopwatchScreen> {
 
   final _isHours = true;
-  final StopWatchTimer _stopWatchTimer = StopWatchTimer(
-      mode: StopWatchMode.countDown,
-      onEnded: () => NotificationService().timerNotification(999, 'Timer expired', ''),
-  );
+  final StopWatchTimer _stopWatchTimerScreen = StopWatchTimer();
 
   @override
   Widget build(BuildContext context) {
 
-    _stopWatchTimer.setPresetHoursTime(setTime.hour);
-    _stopWatchTimer.setPresetMinuteTime(setTime.minute);
-    _stopWatchTimer.setPresetSecondTime(setTime.second);
-    _stopWatchTimer.onStartTimer();
-
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: const ClockAppBar(),
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           StreamBuilder<int>(
-            stream: _stopWatchTimer.rawTime,
-            initialData: _stopWatchTimer.rawTime.value,
+            stream: _stopWatchTimerScreen.rawTime,
+            initialData: _stopWatchTimerScreen.rawTime.value,
             builder: (context, snap) {
               final value = snap.data!;
               final displayTime =
@@ -56,22 +46,19 @@ class _RunningTimerState extends State<RunningTimer> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               FloatingActionButton(
-                onPressed: () {_stopWatchTimer.onStartTimer();},
+                onPressed: () {_stopWatchTimerScreen.onStartTimer();},
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.play_arrow_outlined, size: 40.0,),
               ),
               FloatingActionButton(
-                onPressed: () {_stopWatchTimer.onStopTimer();},
+                onPressed: () {_stopWatchTimerScreen.onStopTimer();},
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.pause, size: 30.0,),
               ),
               FloatingActionButton(
-                onPressed: () {
-                  _stopWatchTimer.onStopTimer();
-                  Navigator.pushReplacementNamed(context, '/timer');
-                  },
+                onPressed: () {_stopWatchTimerScreen.onResetTimer();},
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.stop_outlined, size: 40.0,),

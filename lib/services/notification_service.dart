@@ -87,7 +87,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.cancel(id);
   }
 
-  void timerNotification (int id, String title, String body) async {
+  void timerScreenNotification (int id, String title, String body) async {
     await flutterLocalNotificationsPlugin.show(
       id,
       title,

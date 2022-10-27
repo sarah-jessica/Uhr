@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/alarm_clock/alarm_clock.dart';
-import 'package:uhr/alarm_clock/add_alarm.dart';
-import 'package:uhr/alarm_clock/change_alarm.dart';
-import 'package:uhr/timer/timer.dart';
-import 'package:uhr/stopwatch/stopwatch.dart';
-import 'package:uhr/notification_service.dart';
-import 'package:uhr/timer/running_timer.dart';
+import 'package:uhr/ui/screens/alarm_clock/alarm_clock_screen.dart';
+import 'package:uhr/ui/screens/alarm_clock/add_alarm_screen.dart';
+import 'package:uhr/ui/screens/alarm_clock/change_alarm_screen.dart';
+import 'package:uhr/ui/screens/timer/timer_screen.dart';
+import 'package:uhr/ui/screens/stopwatch/stopwatch_screen.dart';
+import 'package:uhr/services/notification_service.dart';
+import 'package:uhr/ui/screens/timer/running_timer_screen.dart';
 
 /*
  - Warning beim Starten der App: 'Operand of null-aware operation '!' has type 'WidgetsBinding' which excludes null.'
@@ -34,12 +34,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/alarm_clock',
       routes: {
-        '/alarm_clock' : (context) => const AlarmClock(),
-        '/stopwatch' : (context) => const Stopwatch(),
-        '/timer' : (context) => const Timer(),
-        '/add_alarm' : (context) => const AddAlarm(),
-        '/change_alarm' : (context) => const ChangeAlarm(),
-        '/running_timer' : (context) => const RunningTimer(),
+        '/alarm_clock' : (context) => const AlarmClockScreen(),
+        '/stopwatch' : (context) => const StopwatchScreen(),
+        '/TimerScreen' : (context) => const TimerScreen(),
+        '/add_alarm' : (context) => const AddAlarmScreen(),
+        '/change_alarm' : (context) => const ChangeAlarmScreen(),
+        '/running_TimerScreen' : (context) => const RunningTimerScreenScreen(),
       },
     );
 

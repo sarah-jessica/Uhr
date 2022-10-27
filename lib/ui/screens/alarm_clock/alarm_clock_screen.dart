@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/clock_appbar.dart';
-import 'package:uhr/alarm_clock/alarm_tile.dart';
-import 'package:uhr/alarm_clock/data.dart';
+import 'package:uhr/ui/widgets/clock_appbar.dart';
+import 'package:uhr/ui/widgets/alarm_tile.dart';
+import 'package:uhr/provider/alarm_clock/data.dart';
 
 //home screen for the alarm clock
 
-class AlarmClock extends StatefulWidget {
-  const AlarmClock({Key? key}) : super(key: key);
+class AlarmClockScreen extends StatefulWidget {
+  const AlarmClockScreen({Key? key}) : super(key: key);
 
   @override
-  State<AlarmClock> createState() => _AlarmClockState();
+  State<AlarmClockScreen> createState() => _AlarmClockScreenState();
 }
 
-class _AlarmClockState extends State<AlarmClock> {
+class _AlarmClockScreenState extends State<AlarmClockScreen> {
 
   @override
   void initState () {
@@ -29,8 +29,8 @@ class _AlarmClockState extends State<AlarmClock> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: const ClockAppBar(),
+      backgroundColor: Colors.white,
       body: ListView.builder(
           itemCount: alarms.length,
           itemBuilder: (context, index) {
