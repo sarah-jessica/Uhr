@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/ui/widgets/clock_appbar.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:uhr/provider/timer/data_provider.dart';
+import 'package:uhr/ui/screens/timer/running_timer_screen.dart';
 
 // Screen mit dem der TimerScreen eingestellt werden kann
 
@@ -21,7 +21,6 @@ class _TimerScreenState extends State<TimerScreen> {
 
 
     return Scaffold(
-      appBar: const ClockAppBar(),
       backgroundColor: Colors.white,
       body: Column(
         children: [
@@ -48,11 +47,8 @@ class _TimerScreenState extends State<TimerScreen> {
           const SizedBox(height: 80.0,),
           FloatingActionButton(
             onPressed: () {
-              //setState(() {
-              //  time = time.add(Duration(hours: time.hour, minutes:time.minute, seconds: time.second));
-              //});
               setTime = time;
-              Navigator.pushReplacementNamed(context, '/running_TimerScreen');
+              _pushRunningTimerScreen(context);
             },
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
@@ -60,6 +56,13 @@ class _TimerScreenState extends State<TimerScreen> {
           )
         ],
       ),
+    );
+  }
+
+  Future<void> _pushRunningTimerScreen(BuildContext context) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const RunningTimerScreen()),
     );
   }
 }
