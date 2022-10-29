@@ -39,16 +39,12 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pushReplacementNamed(context, '/alarm_clock'),
-        ),
         actions: [IconButton(
           icon: const Icon(Icons.delete_outline),
           onPressed: () {
             NotificationService().cancelNotification(alarms[index].getID);
             alarms.removeRange(index, index+  1);
-            Navigator.pushReplacementNamed(context, '/alarm_clock');
+            Navigator.pop(context, 'Deleted');
           },
         ),],
       ),
@@ -98,7 +94,7 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
               ElevatedButton(
                 onPressed: () {
                   alarms[index].changeAlarmData(time, name, true, rep);
-                  Navigator.pushReplacementNamed(context, '/alarm_clock');
+                  Navigator.pop(context, 'Yes');
                   },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
