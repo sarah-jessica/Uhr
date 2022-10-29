@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:uhr/ui/screens/alarm_clock/alarm_clock_screen.dart';
-import 'package:uhr/ui/screens/alarm_clock/add_alarm_screen.dart';
 import 'package:uhr/ui/screens/alarm_clock/change_alarm_screen.dart';
 import 'package:uhr/ui/screens/timer/timer_screen.dart';
 import 'package:uhr/ui/screens/stopwatch/stopwatch_screen.dart';
 import 'package:uhr/services/notification_service.dart';
-import 'package:uhr/ui/screens/timer/running_timer_screen.dart';
+
 
 /*
  - Warning beim Starten der App: 'Operand of null-aware operation '!' has type 'WidgetsBinding' which excludes null.'
@@ -32,18 +31,72 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      initialRoute: '/alarm_clock',
+      home: const MyStatefulWidget(),
       routes: {
-        '/alarm_clock' : (context) => const AlarmClockScreen(),
-        '/stopwatch' : (context) => const StopwatchScreen(),
-        '/TimerScreen' : (context) => const TimerScreen(),
-        '/add_alarm' : (context) => const AddAlarmScreen(),
         '/change_alarm' : (context) => const ChangeAlarmScreen(),
-        '/running_TimerScreen' : (context) => const RunningTimerScreenScreen(),
       },
     );
-
   }
 }
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({super.key});
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        title: const Text('Clock App'),
+        bottom: TabBar(
+          indicatorColor: Colors.black,
+          controller: _tabController,
+          tabs: const <Widget>[
+            Tab(
+              icon: Icon(Icons.alarm, color: Colors.black),
+            ),
+            Tab(
+              icon: Icon(Icons.timer_sharp, color: Colors.black),
+            ),
+            Tab(
+              icon: Icon(Icons.hourglass_empty, color: Colors.black),
+            ),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: const <Widget>[
+          Center(
+            child: AlarmClockScreen(),
+          ),
+          Center(
+            child: StopwatchScreen(),
+          ),
+          Center(
+            child: TimerScreen(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
 
