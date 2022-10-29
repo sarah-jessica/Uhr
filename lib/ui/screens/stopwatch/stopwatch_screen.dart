@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/ui/widgets/clock_appbar.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 // stopwatch screen
@@ -20,7 +19,6 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: const ClockAppBar(),
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
