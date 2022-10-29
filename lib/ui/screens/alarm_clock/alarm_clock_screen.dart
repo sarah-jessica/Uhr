@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/ui/widgets/clock_appbar.dart';
+import 'package:uhr/ui/screens/alarm_clock/add_alarm_screen.dart';
 import 'package:uhr/ui/widgets/alarm_tile.dart';
 import 'package:uhr/provider/alarm_clock/data.dart';
 
@@ -29,7 +29,6 @@ class _AlarmClockScreenState extends State<AlarmClockScreen> {
     }
 
     return Scaffold(
-      appBar: const ClockAppBar(),
       backgroundColor: Colors.white,
       body: ListView.builder(
           itemCount: alarms.length,
@@ -45,9 +44,17 @@ class _AlarmClockScreenState extends State<AlarmClockScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        onPressed: ()  => Navigator.pushReplacementNamed(context, '/add_alarm'),
+        onPressed: ()  => _pushAddAlarmScreen(context),
         child: const Icon(Icons.add_alarm, size: 40.0,),
       ) ,
     );
+  }
+
+  Future<void> _pushAddAlarmScreen(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddAlarmScreen()),
+    );
+    if (result == 'Yes') setState(() {});
   }
 }
