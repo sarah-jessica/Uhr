@@ -32,10 +32,6 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pushReplacementNamed(context, '/alarm_clock'),
-        ),
         actions: [IconButton(
           icon: const Icon(Icons.check),
           onPressed: () {
@@ -44,7 +40,7 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
               setState(() => time = time.add(const Duration(days: 1)));
             }
             alarms.add(AlarmModel(time, name, true, rep));
-            Navigator.pushReplacementNamed(context, '/alarm_clock');
+            Navigator.pop(context, 'Yes');
           },
         ),],
       ),
