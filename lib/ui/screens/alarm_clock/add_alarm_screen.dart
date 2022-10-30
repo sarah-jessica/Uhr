@@ -47,47 +47,49 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
-          child: Column(
-            children: [
-              const SizedBox(height: 20.0),
-              TimePickerSpinner(
-                is24HourMode: true,
-                isForce2Digits: true,
-                normalTextStyle: const TextStyle(
-                  fontSize: 30,
-                  color: Colors.black12
-                  ),
-                highlightedTextStyle: const TextStyle(
-                  fontSize: 30,
-                  color: Colors.black
-                  ),
-                spacing: 40,
-                itemHeight: 80,
-                onTimeChange: (time) {
-                  setState(() => this.time = time.subtract(Duration(seconds: time.second)));
-                },
-              ),
-              const SizedBox(height: 40.0),
-              TextFormField(
-                initialValue: name,
-                decoration: textInputDecoration.copyWith(label: const Text('Alarm Name', style: TextStyle(fontSize: 25.0))),
-                onChanged: (val) {
-                  setState(() => name = val);
-                },
-              ),
-              const SizedBox(height: 40.0),
-              DropdownButtonFormField(
-                decoration: textInputDecoration.copyWith(label: const Text('Repetition', style: TextStyle(fontSize: 25.0))),
-                value: rep ? 'Daily' : 'Once',
-                items: reps.map((r) {
-                  return DropdownMenuItem(
-                    value: r,
-                    child: Text(r),
-                  );
-                }).toList(),
-                onChanged: (val) => setState(() => val == 'Daily' ? rep = true : rep = false),
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 20.0),
+                TimePickerSpinner(
+                  is24HourMode: true,
+                  isForce2Digits: true,
+                  normalTextStyle: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.black12
+                    ),
+                  highlightedTextStyle: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.black
+                    ),
+                  spacing: 40,
+                  itemHeight: 80,
+                  onTimeChange: (time) {
+                    setState(() => this.time = time.subtract(Duration(seconds: time.second)));
+                  },
+                ),
+                const SizedBox(height: 40.0),
+                TextFormField(
+                  initialValue: name,
+                  decoration: textInputDecoration.copyWith(label: const Text('Alarm Name', style: TextStyle(fontSize: 25.0))),
+                  onChanged: (val) {
+                    setState(() => name = val);
+                  },
+                ),
+                const SizedBox(height: 40.0),
+                DropdownButtonFormField(
+                  decoration: textInputDecoration.copyWith(label: const Text('Repetition', style: TextStyle(fontSize: 25.0))),
+                  value: rep ? 'Daily' : 'Once',
+                  items: reps.map((r) {
+                    return DropdownMenuItem(
+                      value: r,
+                      child: Text(r),
+                    );
+                  }).toList(),
+                  onChanged: (val) => setState(() => val == 'Daily' ? rep = true : rep = false),
+                ),
+              ],
+            ),
           ),
         ),
       ),
