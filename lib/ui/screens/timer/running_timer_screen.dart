@@ -6,14 +6,14 @@ import 'package:uhr/services/notification_service.dart';
 
 // running TimerScreen screen
 
-class RunningTimerScreenScreen extends StatefulWidget {
-  const RunningTimerScreenScreen({Key? key}) : super(key: key);
+class RunningTimerScreen extends StatefulWidget {
+  const RunningTimerScreen({Key? key}) : super(key: key);
 
   @override
-  State<RunningTimerScreenScreen> createState() => _RunningTimerScreenScreenState();
+  State<RunningTimerScreen> createState() => _RunningTimerScreenScreenState();
 }
 
-class _RunningTimerScreenScreenState extends State<RunningTimerScreenScreen> {
+class _RunningTimerScreenScreenState extends State<RunningTimerScreen> {
 
   final _isHours = true;
   final StopWatchTimer _stopWatchTimerScreen = StopWatchTimer(
