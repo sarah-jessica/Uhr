@@ -43,7 +43,7 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
                 alarms[index].getID,
               );
               alarms.removeRange(index, index + 1);
-              Navigator.pop(context, 'Deleted');
+              Navigator.pop(context);
             },
           ),
         ],
@@ -115,7 +115,7 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
                       true,
                       rep,
                     );
-                    Navigator.pop(context, 'Yes');
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.white,
