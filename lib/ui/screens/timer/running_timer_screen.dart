@@ -56,18 +56,21 @@ class _RunningTimerScreenScreenState extends State<RunningTimerScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               FloatingActionButton(
+                heroTag: 'start',
                 onPressed: () {_stopWatchTimerScreen.onStartTimer();},
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.play_arrow_outlined, size: 40.0,),
               ),
               FloatingActionButton(
+                heroTag: 'pause',
                 onPressed: () {_stopWatchTimerScreen.onStopTimer();},
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.pause, size: 30.0,),
               ),
               FloatingActionButton(
+                heroTag: 'stop',
                 onPressed: () {
                   _stopWatchTimerScreen.onStopTimer();
                   Navigator.pushReplacementNamed(context, '/TimerScreen');

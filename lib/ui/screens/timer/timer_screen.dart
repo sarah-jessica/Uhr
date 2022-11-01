@@ -46,6 +46,7 @@ class _TimerScreenState extends State<TimerScreen> {
           ),
           const SizedBox(height: 80.0,),
           FloatingActionButton(
+            heroTag: 'start',
             onPressed: () {
               setTime = time;
               _pushRunningTimerScreen(context);
