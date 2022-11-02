@@ -7,12 +7,11 @@ import 'package:timezone/data/latest.dart' as tz;
 class NotificationService {
   static final NotificationService _notificationService = NotificationService._internal();
 
-
   factory NotificationService() {
     return _notificationService;
   }
 
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   NotificationService._internal();
 
@@ -20,67 +19,40 @@ class NotificationService {
     const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('@mipmap/ic_launcher');
 
-
     const InitializationSettings initializationSettings =
     InitializationSettings(
         android: initializationSettingsAndroid,
 
     );
-
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
     tz.initializeTimeZones();
-
   }
+
+  final notificationDetails = const NotificationDetails(
+    android: AndroidNotificationDetails(
+      'main_channel',
+      'Main Channel',
+      importance: Importance.max,
+      priority: Priority.max,
+      icon: '@mipmap/ic_launcher',
+      playSound: true,
+      //sound: RawResourceAndroidNotificationSound('alarm_buzzer_experia'),
+      enableVibration: true,
+    ),
+  );
 
 
   Future<void> showNotification(int id, String title, String body, DateTime time, bool rep) async {
-    if (rep == false) {
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        id,
-        title,
-        body,
-        tz.TZDateTime.from(time, tz.getLocation('Europe/Berlin')),
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-            'main_channel',
-            'Main Channel',
-            importance: Importance.max,
-            priority: Priority.max,
-            icon: '@mipmap/ic_launcher',
-            playSound: true,
-            //sound: RawResourceAndroidNotificationSound('alarm_buzzer_experia'),
-            enableVibration: true,
-
-          ),
-        ),
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-        androidAllowWhileIdle: true,
-      );
-    } else {
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        id,
-        title,
-        body,
-          tz.TZDateTime.from(time, tz.getLocation('Europe/Berlin')),
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-              'main_channel',
-              'Main Channel',
-              importance: Importance.max,
-              priority: Priority.max,
-              icon: '@mipmap/ic_launcher',
-              playSound: true,
-              //sound: RawResourceAndroidNotificationSound('alarm_buzzer_experia'),
-              enableVibration: true,
-
-          ),
-        ),
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-        androidAllowWhileIdle: true,
-          matchDateTimeComponents: DateTimeComponents.time
-      );
-    }
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.from(time, tz.getLocation('Europe/Berlin')),
+      notificationDetails,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      androidAllowWhileIdle: true,
+      matchDateTimeComponents: DateTimeComponents.time
+    );
   }
 
   Future<void> cancelNotification(int id) async {
@@ -92,18 +64,7 @@ class NotificationService {
       id,
       title,
       body,
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'main_channel',
-          'Main Channel',
-          importance: Importance.max,
-          priority: Priority.max,
-          icon: '@mipmap/ic_launcher',
-          playSound: true,
-          //sound: RawResourceAndroidNotificationSound('alarm_buzzer_experia'),
-          enableVibration: true,
-        ),
-      ),
+      notificationDetails,
     );
   }
 
