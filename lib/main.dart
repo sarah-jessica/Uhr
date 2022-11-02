@@ -10,8 +10,6 @@ import 'package:uhr/services/notification_service.dart';
  - Warning beim Starten der App: 'Operand of null-aware operation '!' has type 'WidgetsBinding' which excludes null.'
  - ob der Alarm bei der Einstellung 'daily' jeden Tag ausgelöst wird, ist nicht getestet
  - ggf. einen Form-Key bei change_alarm und add_alarm ergänzen
- - Warning beim Eingeben eines Namens für einen Alarm: 'A RenderFlex overflowed by 89 pixels on the bottom.'
- - assertion 'There are multiple heroes that share the same tag within a subtree.' tritt auf
 */
 
 void main() async {
