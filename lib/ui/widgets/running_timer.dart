@@ -1,43 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/ui/widgets/clock_appbar.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:uhr/provider/timer/data_provider.dart';
-import 'package:uhr/services/notification_service.dart';
 
-// running TimerScreen screen
+// running Timer widget
 
-class RunningTimerScreen extends StatefulWidget {
-  const RunningTimerScreen({Key? key}) : super(key: key);
+class RunningTimer extends StatefulWidget {
+
+  final VoidCallback onStopped;
+
+  const RunningTimer({
+    Key? key,
+    required this.onStopped,
+  }) : super(key: key);
 
   @override
-  State<RunningTimerScreen> createState() => _RunningTimerScreenScreenState();
+  State<RunningTimer> createState() => _RunningTimerState();
 }
 
-class _RunningTimerScreenScreenState extends State<RunningTimerScreen> {
+class _RunningTimerState extends State<RunningTimer> {
 
   final _isHours = true;
-  final StopWatchTimer _stopWatchTimerScreen = StopWatchTimer(
-      mode: StopWatchMode.countDown,
-      onEnded: () => NotificationService().timerScreenNotification(999, 'TimerScreen expired', ''),
-  );
 
   @override
   Widget build(BuildContext context) {
 
-    _stopWatchTimerScreen.setPresetHoursTime(setTime.hour);
-    _stopWatchTimerScreen.setPresetMinuteTime(setTime.minute);
-    _stopWatchTimerScreen.setPresetSecondTime(setTime.second);
-    _stopWatchTimerScreen.onStartTimer();
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: const ClockAppBar(),
-      body: Column(
+    return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           StreamBuilder<int>(
-            stream: _stopWatchTimerScreen.rawTime,
-            initialData: _stopWatchTimerScreen.rawTime.value,
+            stream: stopWatchTimer.rawTime,
+            initialData: stopWatchTimer.rawTime.value,
             builder: (context, snap) {
               final value = snap.data!;
               final displayTime =
@@ -57,14 +49,20 @@ class _RunningTimerScreenScreenState extends State<RunningTimerScreen> {
             children: [
               FloatingActionButton(
                 heroTag: 'start',
-                onPressed: () {_stopWatchTimerScreen.onStartTimer();},
+                onPressed: () {
+                  stopWatchTimer.onStartTimer();
+                  isPaused = false;
+                  },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.play_arrow_outlined, size: 40.0,),
               ),
               FloatingActionButton(
                 heroTag: 'pause',
-                onPressed: () {_stopWatchTimerScreen.onStopTimer();},
+                onPressed: () {
+                  stopWatchTimer.onStopTimer();
+                  isPaused = true;
+                  },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.pause, size: 30.0,),
@@ -72,9 +70,10 @@ class _RunningTimerScreenScreenState extends State<RunningTimerScreen> {
               FloatingActionButton(
                 heroTag: 'stop',
                 onPressed: () {
-                  _stopWatchTimerScreen.onStopTimer();
-                  Navigator.pushReplacementNamed(context, '/TimerScreen');
-                  },
+                  stopWatchTimer.onStopTimer();
+                  isPaused = false;
+                  widget.onStopped();
+                },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.stop_outlined, size: 40.0,),
@@ -82,7 +81,6 @@ class _RunningTimerScreenScreenState extends State<RunningTimerScreen> {
             ],
           )
         ],
-      ),
     );
   }
 }

@@ -54,7 +54,7 @@ class AlarmModel {
         String minute = time.minute < 10 ? '0${time.minute}' : time.minute.toString();
 
         // set alarm
-        NotificationService().showNotification(id, name, '$hour : $minute', time, rep);
+        NotificationService().showNotification(id, name, '$hour : $minute', time);
       } else {
         NotificationService().cancelNotification(id);
       }
