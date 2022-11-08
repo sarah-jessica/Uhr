@@ -42,7 +42,7 @@ class NotificationService {
   );
 
 
-  Future<void> showNotification(int id, String title, String body, DateTime time, bool rep) async {
+  Future<void> showNotification(int id, String title, String body, DateTime time) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
