@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:uhr/provider/timer/data_provider.dart';
+import 'package:provider/provider.dart';
 
 // Widget mit dem der TimerScreen eingestellt werden kann
 
-class SetTimer extends StatefulWidget {
-  final VoidCallback startedTimer;
+class SetTimer extends StatefulWidget{
 
-  const SetTimer({
-    Key? key,
-    required this.startedTimer,
-  }) : super(key: key);
+  const SetTimer({Key? key,}) : super(key: key);
 
   @override
   State<SetTimer> createState() => _SetTimerState();
@@ -52,12 +49,7 @@ class _SetTimerState extends State<SetTimer> {
             onPressed: () {
               setState(() {
                 setTime = time;
-                resetStopWatchTimer();
-                stopWatchTimer.setPresetHoursTime(setTime.hour);
-                stopWatchTimer.setPresetMinuteTime(setTime.minute);
-                stopWatchTimer.setPresetSecondTime(setTime.second);
-                stopWatchTimer.onStartTimer();
-                widget.startedTimer();
+                myTimer.start();
               });
             },
             backgroundColor: Colors.white,
@@ -67,5 +59,5 @@ class _SetTimerState extends State<SetTimer> {
         ],
     );
   }
-
 }
+
