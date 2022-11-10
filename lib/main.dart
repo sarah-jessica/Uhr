@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uhr/ui/screens/alarm_clock/alarm_clock_screen.dart';
 import 'package:uhr/ui/screens/alarm_clock/change_alarm_screen.dart';
 import 'package:uhr/ui/screens/timer/timer_screen.dart';
 import 'package:uhr/ui/screens/stopwatch/stopwatch_screen.dart';
 import 'package:uhr/services/notification_service.dart';
+import 'package:provider/provider.dart';
+import 'package:uhr/provider/timer/data_provider.dart';
 
 
 /*
@@ -17,14 +20,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().initNotification();
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider<MyTimer>(
+      create: (_) => MyTimer(),
+      child: const MyApp(),
+    ),
+
+      //const MyApp()
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
 
