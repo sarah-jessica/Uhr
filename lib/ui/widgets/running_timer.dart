@@ -28,8 +28,8 @@ class _RunningTimerState extends State<RunningTimer> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           StreamBuilder<int>(
-            stream: stopWatchTimer.rawTime,
-            initialData: stopWatchTimer.rawTime.value,
+            stream: myTimer.rawTime,
+            initialData: myTimer.rawTimeValue,
             builder: (context, snap) {
               final value = snap.data!;
               final displayTime =
@@ -50,8 +50,7 @@ class _RunningTimerState extends State<RunningTimer> {
               FloatingActionButton(
                 heroTag: 'start',
                 onPressed: () {
-                  stopWatchTimer.onStartTimer();
-                  isPaused = false;
+                  myTimer.start();
                   },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
@@ -60,9 +59,8 @@ class _RunningTimerState extends State<RunningTimer> {
               FloatingActionButton(
                 heroTag: 'pause',
                 onPressed: () {
-                  stopWatchTimer.onStopTimer();
-                  isPaused = true;
-                  },
+                  myTimer.pause();
+                },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.pause, size: 30.0,),
@@ -70,9 +68,7 @@ class _RunningTimerState extends State<RunningTimer> {
               FloatingActionButton(
                 heroTag: 'stop',
                 onPressed: () {
-                  stopWatchTimer.onStopTimer();
-                  isPaused = false;
-                  widget.onStopped();
+                  myTimer.stop();
                 },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
