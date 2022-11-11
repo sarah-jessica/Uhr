@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:uhr/services/notification_service.dart';
-import 'package:provider/provider.dart';
-import 'package:uhr/ui/screens/timer/timer_screen.dart';
 
 // Datei mit Informationen, auf die andere Dateien Zugriff haben sollen
 
-DateTime setTime = DateTime(0, 0, 0, 0, 0, 0);
-MyTimer myTimer = MyTimer();
-
-class MyTimer extends ChangeNotifier{
+class MyTimer extends ChangeNotifier {
+  DateTime setTime = DateTime(0, 0, 0, 0, 0, 0);
 
   StopWatchTimer _stopWatchTimer = StopWatchTimer(
     mode: StopWatchMode.countDown,
