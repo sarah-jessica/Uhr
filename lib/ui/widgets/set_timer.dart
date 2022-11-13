@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:uhr/provider/timer/data_provider.dart';
+import 'package:uhr/provider/timer/mytimer_provider.dart';
 import 'package:provider/provider.dart';
 
 // Widget mit dem der TimerScreen eingestellt werden kann
