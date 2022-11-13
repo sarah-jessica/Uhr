@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/provider/timer/data_provider.dart';
+import 'package:uhr/provider/timer/mytimer_provider.dart';
 import 'package:uhr/ui/widgets/running_timer.dart';
 import 'package:uhr/ui/widgets/set_timer.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,7 @@ class _TimerScreenState extends State<TimerScreen> {
         return Scaffold(
           backgroundColor: Colors.white,
           body: myTimer.isRunning || myTimer.isPaused ?
-          RunningTimer(onStopped: () {setState(() {});}) :
+          const RunningTimer() :
           const SetTimer(),
         );
       },

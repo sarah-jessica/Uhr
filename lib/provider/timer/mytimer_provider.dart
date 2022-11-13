@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:uhr/services/notification_service.dart';
 
-// Datei mit Informationen, auf die andere Dateien Zugriff haben sollen
-
 class MyTimer extends ChangeNotifier {
   DateTime setTime = DateTime(0, 0, 0, 0, 0, 0);
 

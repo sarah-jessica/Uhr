@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:uhr/provider/timer/data_provider.dart';
+import 'package:uhr/provider/timer/mytimer_provider.dart';
 
 // running Timer widget
 
 class RunningTimer extends StatefulWidget {
 
-  final VoidCallback onStopped;
-
-  const RunningTimer({
-    Key? key,
-    required this.onStopped,
-  }) : super(key: key);
+  const RunningTimer({Key? key,}) : super(key: key);
 
   @override
   State<RunningTimer> createState() => _RunningTimerState();
