@@ -1,4 +1,5 @@
 import 'package:uhr/services/notification_service.dart';
+import 'package:uhr/utils/extensions.dart';
 
 // class 'Alarm' with necessary details and functions to turn it on or off
 
@@ -17,7 +18,7 @@ class AlarmModel {
     if (isOn) changeAlarm(isOn);
   }
 
-  void changeAlarmData (DateTime time, String name, bool isOn, bool rep) {
+  void changeAlarmData(DateTime time, String name, bool isOn, bool rep) {
     changeAlarm(false);
     this.time = time;
     this.name = name;
@@ -26,7 +27,6 @@ class AlarmModel {
   }
 
   void changeAlarm(bool isOn) {
-
     if (this.isOn != isOn) {
       this.isOn = isOn;
 
@@ -39,16 +39,11 @@ class AlarmModel {
           time = time.subtract(const Duration(days: 1));
         }
 
-        // converting time to String
-        String hour = time.hour < 10 ? '0${time.hour}' : time.hour.toString();
-        String minute = time.minute < 10 ? '0${time.minute}' : time.minute.toString();
-
         // set alarm
-        NotificationService().showNotification(id, name, '$hour : $minute', time);
+        NotificationService().showNotification(id, name, time.toFormattedTimeString(), time);
       } else {
         NotificationService().cancelNotification(id);
       }
     }
   }
 }
-
