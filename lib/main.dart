@@ -5,8 +5,8 @@ import 'package:uhr/ui/screens/alarm_clock/change_alarm_screen.dart';
 import 'package:uhr/ui/screens/timer/timer_screen.dart';
 import 'package:uhr/ui/screens/stopwatch/stopwatch_screen.dart';
 import 'package:uhr/services/notification_service.dart';
-import 'package:provider/provider.dart';
-import 'package:uhr/provider/timer/data_provider.dart';
+import 'package:uhr/provider/timer/mytimer_provider.dart';
+import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 
 
 /*
@@ -21,8 +21,11 @@ void main() async {
   await NotificationService().initNotification();
 
   runApp(
-    ChangeNotifierProvider<MyTimer>(
-      create: (_) => MyTimer(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MyTimer()),
+        ChangeNotifierProvider(create: (_) => MyAlarmList()),
+      ],
       child: const MyApp(),
     ),
 
