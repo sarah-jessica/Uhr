@@ -7,7 +7,7 @@ class MyTimer extends ChangeNotifier {
 
   StopWatchTimer _stopWatchTimer = StopWatchTimer(
     mode: StopWatchMode.countDown,
-    onEnded: () => NotificationService().timerScreenNotification(999, 'Timer expired', ''),
+    onEnded: () => NotificationService().timerNotification(999, 'Timer expired', ''),
   );
 
   bool _isPaused = false;
@@ -24,7 +24,7 @@ class MyTimer extends ChangeNotifier {
     } else {
       _stopWatchTimer = StopWatchTimer(
         mode: StopWatchMode.countDown,
-        onEnded: () => NotificationService().timerScreenNotification(999, 'Timer expired', ''),
+        onEnded: () => NotificationService().timerNotification(999, 'Timer expired', ''),
       );
       _stopWatchTimer.setPresetHoursTime(setTime.hour);
       _stopWatchTimer.setPresetMinuteTime(setTime.minute);
