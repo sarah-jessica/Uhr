@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
+import 'package:uhr/utils/extensions.dart';
 
 // Tiles to display all alarms in alarm_clock_screen.dart
 
@@ -27,9 +28,6 @@ class AlarmTile extends StatefulWidget {
 class _AlarmTileState extends State<AlarmTile> {
   @override
   Widget build(BuildContext context) {
-    final hour = widget.time.hour < 10 ? '0${widget.time.hour}' : widget.time.hour.toString();
-    final minute = widget.time.minute < 10 ? '0${widget.time.minute}' : widget.time.minute.toString();
-
     return Consumer<MyAlarmList>(
       builder: (context, myAlarmList, child) {
         return Padding(
@@ -43,7 +41,7 @@ class _AlarmTileState extends State<AlarmTile> {
             ),
             child: ListTile(
               leading: Text(
-                '$hour : $minute',
+                widget.time.toFormattedTimeString(),
                 style: const TextStyle(fontSize: 25.0),
               ),
               title: Text(
@@ -67,7 +65,7 @@ class _AlarmTileState extends State<AlarmTile> {
             ),
           ),
         );
-      }
+      },
     );
   }
 
