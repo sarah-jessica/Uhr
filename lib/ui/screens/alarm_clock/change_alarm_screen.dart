@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:uhr/ui/widgets/text_input_decoration.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
@@ -85,7 +86,8 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
                       onChanged: (val) => name = val,
                     ),
                     const SizedBox(height: 40.0),
-                    DropdownButtonFormField(
+                    // TODO(Sarah): Anstelle von bool kann man hier direkt mit RepetitionType arbeiten
+                    DropdownButtonFormField<RepetitionType>(
                       decoration: textInputDecoration.copyWith(
                         label: const Text(
                           'Repetition',

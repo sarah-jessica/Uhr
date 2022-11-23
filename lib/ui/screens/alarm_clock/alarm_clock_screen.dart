@@ -25,6 +25,8 @@ class _AlarmClockScreenState extends State<AlarmClockScreen> {
             body: ListView.builder(
                 itemCount: myAlarmList.alarms.length,
                 itemBuilder: (context, index) {
+                  // TODO(Sarah): Anstelle von 5 Parametern, am besten einfach nur den Alarm selbst übergeben
+
                   return AlarmTile(
                     index: index,
                     time: myAlarmList.alarms[index].time,

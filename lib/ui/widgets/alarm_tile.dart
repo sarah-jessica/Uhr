@@ -6,6 +6,10 @@ import 'package:uhr/utils/extensions.dart';
 // Tiles to display all alarms in alarm_clock_screen.dart
 
 class AlarmTile extends StatefulWidget {
+  // TODO(Sarah): Anstelle von 5 Parametern, am besten einfach nur den Alarm selbst übergeben
+  // final AlarmModel alarm;
+
+
   final int index;
   final DateTime time;
   final String name;
@@ -73,6 +77,7 @@ class _AlarmTileState extends State<AlarmTile> {
     await Navigator.pushNamed(
       context,
       '/change_alarm',
+      // TODO(Sarah): Auch hier besser den Alarm übergeben
       arguments: {
         'index': widget.index,
       },

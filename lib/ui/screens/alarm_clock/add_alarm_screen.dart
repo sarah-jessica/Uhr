@@ -42,6 +42,7 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
                   //set day for alarm to the next day
                   time = time.add(const Duration(days: 1));
                 }
+                // TODO(Sarah): Richtige Parameter übergeben
                 myAlarmList.addAlarm(time, name, rep);
                 Navigator.pop(context, 'Yes');
               },

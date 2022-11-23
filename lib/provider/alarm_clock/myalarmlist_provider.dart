@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/models/alarm_model.dart';
 import 'package:uhr/services/notification_service.dart';
 
 // Daten auf die alle Klassen zugreifen dürfen
 
 class MyAlarmList extends ChangeNotifier {
-  List<AlarmModel> alarms = [];
+  final alarms = <AlarmModel>[];
 
+  void addAlarm({
+    required DateTime time,
+    required String name,
+    required RepetitionType repetition,
+  }) {
+    final alarm = AlarmModel.create(
+      name: name,
+      time: time,
+      repetition: repetition,
+    );
 
-  void addAlarm(DateTime time, String name, bool rep) {
-    int id;
-    if (alarms.isEmpty) {
-      id = 0;
-    } else {
-      // makes sure to skip id 999, which is used for TimerScreen notifications
-      id = alarms[alarms.length-1].getID + 1 == 999 ? alarms[alarms.length-1].getID + 2 : alarms[alarms.length-1].getID + 1;
-    }
-    alarms.add(AlarmModel(time, name, true, rep, id));
+    alarms.add(alarm);
     notifyListeners();
   }
 
-  void deleteAlarm (int index) {
+  // TODO(Sarah): Anstelle des index, die Id des Alarms übergeben
+  // alarms.removeWhere((alarm) => alarm.id == id);
+  void deleteAlarm(int index) {
     NotificationService().cancelNotification(
       alarms[index].getID,
     );
