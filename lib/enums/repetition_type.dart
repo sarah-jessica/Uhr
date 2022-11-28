@@ -1,4 +1,9 @@
+import 'package:flutter/foundation.dart';
+
 enum RepetitionType { once, daily }
 
-// TODO(Sarah): Enums können auch mit extensions erweitert werden
-// hier bietet sich für das DropdownMenuItem im change_alarm_screen z.B. eine asString() Funktion an, die jeweils die String 'Daily' oder 'Once' zurückgibt
+extension RepetitionTypeExtension on RepetitionType {
+  String asString () {
+    return this == RepetitionType.daily ? "Daily" : "Once";
+  }
+}

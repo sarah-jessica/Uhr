@@ -1,12 +1,8 @@
 import 'package:uhr/enums/repetition_type.dart';
-import 'package:uhr/services/notification_service.dart';
-import 'package:uhr/utils/extensions.dart';
-import 'package:uuid/uuid.dart';
-
-// class 'Alarm' with necessary details and functions to turn it on or off
+import 'dart:math';
 
 class AlarmModel {
-  final String id;
+  final int id;
   final String name;
   final DateTime time;
   final RepetitionType repetition;
@@ -26,57 +22,30 @@ class AlarmModel {
     required RepetitionType repetition,
     bool? isOn,
   }) {
-    final id = const Uuid().v1();
+    //final id = const Uuid().v1(); Die ID der Notification muss int sein
+    final id = Random().nextInt(2147483647);
 
     return AlarmModel._(
       id: id,
       name: name,
       time: time,
       repetition: repetition,
-      isOn: isOn,
+      isOn: isOn ?? true,
     );
   }
 
-  AlarmModel copyWith({String? name}) {
+  AlarmModel copyWith({
+    String? name,
+    DateTime? time,
+    RepetitionType? type,
+    bool? isOn,
+  }) {
     return AlarmModel._(
+      id: id,
       name: name ?? this.name,
-      // TODO(Sarah): restliche Parameter
+      time: time ?? this.time,
+      repetition: type ?? repetition,
+      isOn: isOn ?? this.isOn,
     );
-  }
-
-  // AlarmModel(this.time, this.name, bool isOn, this.rep, this.id) {
-  //   if (isOn) changeAlarm(isOn);
-  // }
-
-
-  // TODO(Sarah): Logik aus dem Model entfernen und in den Provider verschieben
-  void changeAlarmData(DateTime time, String name, bool isOn, bool rep) {
-    changeAlarm(false);
-    this.time = time;
-    this.name = name;
-    this.rep = rep;
-    if (isOn) changeAlarm(isOn);
-  }
-
-  // TODO(Sarah): Logik aus dem Model entfernen und in den Provider verschieben
-  void changeAlarm(bool isOn) {
-    if (this.isOn != isOn) {
-      this.isOn = isOn;
-
-      if (isOn) {
-        if (time.isBefore(DateTime.now())) {
-          //set day for alarm to the next day
-          time = time.add(const Duration(days: 1));
-        } else if (time.subtract(const Duration(days: 1)).isAfter(DateTime.now())) {
-          //set day for alarm to today
-          time = time.subtract(const Duration(days: 1));
-        }
-
-        // set alarm
-        NotificationService().showNotification(id, name, time.toFormattedTimeString(), time);
-      } else {
-        NotificationService().cancelNotification(id);
-      }
-    }
   }
 }

@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uhr/enums/repetition_type.dart';
+import 'package:uhr/models/alarm_model.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:uhr/utils/extensions.dart';
 
-// Tiles to display all alarms in alarm_clock_screen.dart
-
 class AlarmTile extends StatefulWidget {
-  // TODO(Sarah): Anstelle von 5 Parametern, am besten einfach nur den Alarm selbst übergeben
-  // final AlarmModel alarm;
 
-
-  final int index;
-  final DateTime time;
-  final String name;
-  final bool isOn;
-  final bool rep;
+  final AlarmModel alarm;
 
   const AlarmTile({
     Key? key,
-    required this.index,
-    required this.time,
-    required this.name,
-    required this.isOn,
-    required this.rep,
+    required this.alarm
   }) : super(key: key);
 
   @override
@@ -45,21 +34,21 @@ class _AlarmTileState extends State<AlarmTile> {
             ),
             child: ListTile(
               leading: Text(
-                widget.time.toFormattedTimeString(),
+                widget.alarm.time.toFormattedTimeString(),
                 style: const TextStyle(fontSize: 25.0),
               ),
               title: Text(
-                widget.name,
+                widget.alarm.name,
                 style: const TextStyle(fontSize: 20.0),
               ),
               subtitle: Text(
-                widget.rep ? 'Daily' : 'Once',
+                widget.alarm.repetition == RepetitionType.daily ? 'Daily' : 'Once',
                 style: const TextStyle(fontSize: 20.0),
               ),
               trailing: Switch(
-                value: widget.isOn,
+                value: widget.alarm.isOn!,
                 onChanged: (val) {
-                  myAlarmList.changeAlarmStatus(widget.index, val);
+                  myAlarmList.changeAlarmState(widget.alarm.id, val);
                 },
                 activeColor: Colors.black,
               ),
@@ -77,9 +66,8 @@ class _AlarmTileState extends State<AlarmTile> {
     await Navigator.pushNamed(
       context,
       '/change_alarm',
-      // TODO(Sarah): Auch hier besser den Alarm übergeben
       arguments: {
-        'index': widget.index,
+        'alarm': widget.alarm,
       },
     );
   }

@@ -4,8 +4,6 @@ import 'package:uhr/ui/widgets/alarm_tile.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:provider/provider.dart';
 
-//home screen for the alarm clock
-
 class AlarmClockScreen extends StatefulWidget {
   const AlarmClockScreen({Key? key}) : super(key: key);
 
@@ -25,14 +23,8 @@ class _AlarmClockScreenState extends State<AlarmClockScreen> {
             body: ListView.builder(
                 itemCount: myAlarmList.alarms.length,
                 itemBuilder: (context, index) {
-                  // TODO(Sarah): Anstelle von 5 Parametern, am besten einfach nur den Alarm selbst übergeben
-
-                  return AlarmTile(
-                    index: index,
-                    time: myAlarmList.alarms[index].time,
-                    name: myAlarmList.alarms[index].name,
-                    isOn: myAlarmList.alarms[index].isOn,
-                    rep: myAlarmList.alarms[index].rep,
+                 return AlarmTile(
+                      alarm: myAlarmList.alarms[index]
                   );
                 }),
             floatingActionButton: FloatingActionButton(
@@ -50,10 +42,9 @@ class _AlarmClockScreenState extends State<AlarmClockScreen> {
   }
 
   Future<void> _pushAddAlarmScreen(BuildContext context) async {
-    final result = await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const AddAlarmScreen()),
     );
-    if (result == 'Yes') setState(() {});
   }
 }

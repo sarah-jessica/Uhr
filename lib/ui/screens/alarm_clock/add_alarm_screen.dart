@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:uhr/ui/widgets/text_input_decoration.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:provider/provider.dart';
-
-//screen to set a new alarm
 
 class AddAlarmScreen extends StatefulWidget {
   const AddAlarmScreen({Key? key}) : super(key: key);
@@ -17,14 +16,11 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
 
   DateTime time = DateTime.now();
   String name = 'Alarm';
-  bool rep = false;
-
+  RepetitionType rep = RepetitionType.once;
   List<String> reps = ['Once', 'Daily'];
-
 
   @override
   Widget build(BuildContext context) {
-
     return Consumer<MyAlarmList>(
       builder: (context, myAlarmList, child) {
         return Scaffold(
@@ -42,16 +38,20 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
                   //set day for alarm to the next day
                   time = time.add(const Duration(days: 1));
                 }
-                // TODO(Sarah): Richtige Parameter übergeben
-                myAlarmList.addAlarm(time, name, rep);
-                Navigator.pop(context, 'Yes');
+                myAlarmList.addAlarm(
+                    time: time,
+                    name: name,
+                    repetition: rep
+                );
+                Navigator.pop(context);
               },
             ),
             ],
           ),
           body: Container(
             padding: const EdgeInsets.symmetric(
-                vertical: 20.0, horizontal: 50.0),
+                vertical: 20.0, horizontal: 50.0
+            ),
             child: Form(
               child: SingleChildScrollView(
                 child: Column(
@@ -86,19 +86,18 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
                       },
                     ),
                     const SizedBox(height: 40.0),
-                    DropdownButtonFormField(
+                    DropdownButtonFormField<RepetitionType>(
                       decoration: textInputDecoration.copyWith(
                           label: const Text(
                               'Repetition', style: TextStyle(fontSize: 25.0))),
-                      value: rep ? 'Daily' : 'Once',
-                      items: reps.map((r) {
+                      value: rep,
+                      items: RepetitionType.values.map((r) {
                         return DropdownMenuItem(
                           value: r,
-                          child: Text(r),
+                          child: Text(r.asString()),
                         );
                       }).toList(),
-                      onChanged: (val) =>
-                        val == 'Daily' ? rep = true : rep = false
+                      onChanged: (val) => rep = val!,
                     ),
                   ],
                 ),
