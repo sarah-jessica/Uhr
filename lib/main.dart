@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uhr/ui/screens/alarm_clock/alarm_clock_screen.dart';
-import 'package:uhr/ui/screens/alarm_clock/change_alarm_screen.dart';
 import 'package:uhr/ui/screens/timer/timer_screen.dart';
 import 'package:uhr/ui/screens/stopwatch/stopwatch_screen.dart';
 import 'package:uhr/services/notification_service.dart';
 import 'package:uhr/provider/timer/mytimer_provider.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
-
 
 /*
  - Warning beim Starten der App: 'Operand of null-aware operation '!' has type 'WidgetsBinding' which excludes null.'
@@ -16,7 +14,6 @@ import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 */
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().initNotification();
 
@@ -28,8 +25,6 @@ void main() async {
       ],
       child: const MyApp(),
     ),
-
-      //const MyApp()
   );
 }
 
@@ -38,12 +33,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(
-      home: const MyStatefulWidget(),
-      routes: {
-        '/change_alarm' : (context) => const ChangeAlarmScreen(),
-      },
+    return const MaterialApp(
+      home: MyStatefulWidget(),
     );
   }
 }
@@ -55,8 +46,7 @@ class MyStatefulWidget extends StatefulWidget {
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget>
-    with TickerProviderStateMixin {
+class _MyStatefulWidgetState extends State<MyStatefulWidget> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -106,6 +96,3 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget>
     );
   }
 }
-
-
-
