@@ -1,35 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:uhr/enums/repetition_type.dart';
-import 'package:uhr/models/alarm_model.dart';
-import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:uhr/ui/widgets/text_input_decoration.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:provider/provider.dart';
+import 'package:uhr/view_models/change_alarm_view_model.dart';
 
-class ChangeAlarmScreen extends StatefulWidget {
+class ChangeAlarmScreen extends StatelessWidget {
   const ChangeAlarmScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChangeAlarmScreen> createState() => _ChangeAlarmScreenState();
-}
-
-class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
-  late DateTime time;
-  late String name;
-  late RepetitionType rep;
-
-  Map data = {};
-
-  @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as Map;
-    AlarmModel alarm = data['alarm'];
-    time = alarm.time;
-    name = alarm.name;
-    rep = alarm.repetition;
-
-    return Consumer<MyAlarmList>(
-      builder: (context, myAlarmList, child) {
+    return Consumer<ChangeAlarmViewModel>(
+      builder: (_, viewModel, __) {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -42,7 +24,7 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
               IconButton(
                 icon: const Icon(Icons.delete_outline),
                 onPressed: () {
-                  myAlarmList.deleteAlarm(alarm.id);
+                  viewModel.deleteAlarm();
                   Navigator.pop(context);
                 },
               ),
@@ -59,7 +41,7 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
                   children: [
                     const SizedBox(height: 20.0),
                     TimePickerSpinner(
-                      time: alarm.time,
+                      time: viewModel.currentAlarm.time,
                       is24HourMode: true,
                       isForce2Digits: true,
                       normalTextStyle: const TextStyle(
@@ -72,18 +54,17 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
                       ),
                       spacing: 40,
                       itemHeight: 80,
-                      onTimeChange: (time) =>  this.time = time,
+                      onTimeChange: viewModel.onDateSelected,
                     ),
                     const SizedBox(height: 40.0),
                     TextFormField(
-                      initialValue: alarm.name,
+                      controller: viewModel.alarmNameTextEditingController,
                       decoration: textInputDecoration.copyWith(
                         label: const Text(
                           'Alarm Name',
                           style: TextStyle(fontSize: 25.0),
                         ),
                       ),
-                      onChanged: (val) => name = val,
                     ),
                     const SizedBox(height: 40.0),
                     DropdownButtonFormField<RepetitionType>(
@@ -93,24 +74,21 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
                           style: TextStyle(fontSize: 25.0),
                         ),
                       ),
-                      value: alarm.repetition,
+                      value: viewModel.currentAlarm.repetition,
                       items: RepetitionType.values.map((r) {
                         return DropdownMenuItem(
                           value: r,
-                          child: Text(r.asString()),
+                          child: Text(
+                            r.asString(),
+                          ),
                         );
                       }).toList(),
-                      onChanged: (val) => rep = val!,
+                      onChanged: viewModel.onRepetitionSelected,
                     ),
                     const SizedBox(height: 40.0),
                     ElevatedButton(
                       onPressed: () {
-                        myAlarmList.changeAlarmData(
-                          alarm.id,
-                          time,
-                          name,
-                          rep,
-                        );
+                        viewModel.updateAlarm();
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
@@ -129,7 +107,7 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
             ),
           ),
         );
-      }
+      },
     );
   }
 }
