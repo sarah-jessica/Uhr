@@ -1,34 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
+import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/ui/widgets/text_input_decoration.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:provider/provider.dart';
+import 'package:uhr/view_models/change_alarm_view_model.dart';
 
-// Screen um bereits bestehenden Alarm zu ändern
-
-class ChangeAlarmScreen extends StatefulWidget {
+class ChangeAlarmScreen extends StatelessWidget {
   const ChangeAlarmScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChangeAlarmScreen> createState() => _ChangeAlarmScreenState();
-}
-
-class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
-  DateTime time = DateTime.now();
-  String name = 'Alarm';
-  bool rep = false;
-
-  List<String> reps = ['Once', 'Daily'];
-
-  Map data = {};
-
-  @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)!.settings.arguments as Map;
-    int index = data['index'];
-
-    return Consumer<MyAlarmList>(
-      builder: (context, myAlarmList, child) {
+    return Consumer<ChangeAlarmViewModel>(
+      builder: (_, viewModel, __) {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -41,7 +24,7 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
               IconButton(
                 icon: const Icon(Icons.delete_outline),
                 onPressed: () {
-                  myAlarmList.deleteAlarm(index);
+                  viewModel.deleteAlarm();
                   Navigator.pop(context);
                 },
               ),
@@ -58,7 +41,7 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
                   children: [
                     const SizedBox(height: 20.0),
                     TimePickerSpinner(
-                      time: myAlarmList.alarms[index].time,
+                      time: viewModel.currentAlarm.time,
                       is24HourMode: true,
                       isForce2Digits: true,
                       normalTextStyle: const TextStyle(
@@ -71,46 +54,41 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
                       ),
                       spacing: 40,
                       itemHeight: 80,
-                      onTimeChange: (time) => setState(() => this.time = time),
+                      onTimeChange: viewModel.onDateSelected,
                     ),
                     const SizedBox(height: 40.0),
                     TextFormField(
-                      initialValue: myAlarmList.alarms[index].name,
+                      controller: viewModel.alarmNameTextEditingController,
                       decoration: textInputDecoration.copyWith(
                         label: const Text(
                           'Alarm Name',
                           style: TextStyle(fontSize: 25.0),
                         ),
                       ),
-                      onChanged: (val) => name = val,
                     ),
                     const SizedBox(height: 40.0),
-                    DropdownButtonFormField(
+                    DropdownButtonFormField<RepetitionType>(
                       decoration: textInputDecoration.copyWith(
                         label: const Text(
                           'Repetition',
                           style: TextStyle(fontSize: 25.0),
                         ),
                       ),
-                      value: myAlarmList.alarms[index].rep ? 'Daily' : 'Once',
-                      items: reps.map((r) {
+                      value: viewModel.currentAlarm.repetition,
+                      items: RepetitionType.values.map((r) {
                         return DropdownMenuItem(
                           value: r,
-                          child: Text(r),
+                          child: Text(
+                            r.asString(),
+                          ),
                         );
                       }).toList(),
-                      onChanged: (val) =>
-                        val == 'Daily' ? rep = true : rep = false,
+                      onChanged: viewModel.onRepetitionSelected,
                     ),
                     const SizedBox(height: 40.0),
                     ElevatedButton(
                       onPressed: () {
-                        myAlarmList.changeAlarmData(
-                          index,
-                          time,
-                          name,
-                          rep,
-                        );
+                        viewModel.updateAlarm();
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
@@ -129,7 +107,7 @@ class _ChangeAlarmScreenState extends State<ChangeAlarmScreen> {
             ),
           ),
         );
-      }
+      },
     );
   }
 }
