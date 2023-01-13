@@ -9,9 +9,9 @@ class StartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsRouter(
         routes: const [
-          AlarmClockRoute(),
-          StopwatchRoute(),
-          TimerRoute(),
+          AlarmClockRouter(),
+          StopwatchPage(),
+          TimerPage(),
         ],
         builder: (context, child, animation) {
           final tabsRouter = AutoTabsRouter.of(context);
