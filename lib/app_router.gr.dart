@@ -11,102 +11,112 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i7;
-import 'package:flutter/material.dart' as _i8;
+import 'package:auto_route/auto_route.dart' as _i8;
+import 'package:flutter/material.dart' as _i9;
 
-import 'ui/screens/alarm_clock/add_alarm_screen.dart' as _i3;
-import 'ui/screens/alarm_clock/alarm_clock_screen.dart' as _i2;
-import 'ui/screens/alarm_clock/change_alarm_screen.dart' as _i4;
-import 'ui/screens/start_screen.dart' as _i1;
-import 'ui/screens/stopwatch/stopwatch_screen.dart' as _i5;
-import 'ui/screens/timer/timer_screen.dart' as _i6;
+import 'services/alarm_clock_router.dart' deferred as _i2;
+import 'ui/screens/alarm_clock/add_alarm_screen.dart' as _i6;
+import 'ui/screens/alarm_clock/alarm_clock_screen.dart' as _i5;
+import 'ui/screens/alarm_clock/change_alarm_screen.dart' as _i7;
+import 'ui/screens/start_screen.dart' deferred as _i1;
+import 'ui/screens/stopwatch/stopwatch_screen.dart' as _i3;
+import 'ui/screens/timer/timer_screen.dart' as _i4;
 
-class AppRouter extends _i7.RootStackRouter {
-  AppRouter([_i8.GlobalKey<_i8.NavigatorState>? navigatorKey])
+class AppRouter extends _i8.RootStackRouter {
+  AppRouter([_i9.GlobalKey<_i9.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i7.PageFactory> pagesMap = {
-    StartRoute.name: (routeData) {
-      return _i7.MaterialPageX<dynamic>(
+  final Map<String, _i8.PageFactory> pagesMap = {
+    StartPage.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i1.StartScreen(),
+        child: _i8.DeferredWidget(
+          _i1.loadLibrary,
+          () => _i1.StartScreen(),
+        ),
       );
     },
-    AlarmClockRoute.name: (routeData) {
-      return _i7.MaterialPageX<dynamic>(
+    AlarmClockRouter.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i2.AlarmClockScreen(),
+        child: _i8.DeferredWidget(
+          _i2.loadLibrary,
+          () => _i2.AlarmClockRouter(),
+        ),
       );
     },
-    AddAlarmRoute.name: (routeData) {
-      return _i7.MaterialPageX<dynamic>(
+    StopwatchPage.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.AddAlarmScreen(),
+        child: const _i3.StopwatchScreen(),
       );
     },
-    ChangeAlarmRoute.name: (routeData) {
-      return _i7.MaterialPageX<dynamic>(
+    TimerPage.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.ChangeAlarmScreen(),
+        child: const _i4.TimerScreen(),
       );
     },
-    StopwatchRoute.name: (routeData) {
-      return _i7.MaterialPageX<dynamic>(
+    AlarmClockPage.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.StopwatchScreen(),
+        child: const _i5.AlarmClockScreen(),
       );
     },
-    TimerRoute.name: (routeData) {
-      return _i7.MaterialPageX<dynamic>(
+    AddAlarmPage.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.TimerScreen(),
+        child: const _i6.AddAlarmScreen(),
+      );
+    },
+    ChangeAlarmPage.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i7.ChangeAlarmScreen(),
       );
     },
   };
 
   @override
-  List<_i7.RouteConfig> get routes => [
-        _i7.RouteConfig(
-          StartRoute.name,
+  List<_i8.RouteConfig> get routes => [
+        _i8.RouteConfig(
+          StartPage.name,
           path: '/',
+          deferredLoading: true,
           children: [
-            _i7.RouteConfig(
-              AlarmClockRoute.name,
-              path: '',
-              parent: StartRoute.name,
+            _i8.RouteConfig(
+              AlarmClockRouter.name,
+              path: 'alarmClockRouter',
+              parent: StartPage.name,
+              deferredLoading: true,
               children: [
-                _i7.RouteConfig(
-                  AddAlarmRoute.name,
-                  path: 'add-alarm-screen',
-                  parent: AlarmClockRoute.name,
+                _i8.RouteConfig(
+                  AlarmClockPage.name,
+                  path: '',
+                  parent: AlarmClockRouter.name,
                 ),
-                _i7.RouteConfig(
-                  ChangeAlarmRoute.name,
-                  path: 'change-alarm-screen',
-                  parent: AlarmClockRoute.name,
+                _i8.RouteConfig(
+                  AddAlarmPage.name,
+                  path: 'addAlarmScreen',
+                  parent: AlarmClockRouter.name,
+                ),
+                _i8.RouteConfig(
+                  ChangeAlarmPage.name,
+                  path: 'changeAlarmScreen',
+                  parent: AlarmClockRouter.name,
                 ),
               ],
             ),
-            _i7.RouteConfig(
-              AddAlarmRoute.name,
-              path: 'add-alarm-screen',
-              parent: StartRoute.name,
-            ),
-            _i7.RouteConfig(
-              ChangeAlarmRoute.name,
-              path: 'change-alarm-screen',
-              parent: StartRoute.name,
-            ),
-            _i7.RouteConfig(
-              StopwatchRoute.name,
+            _i8.RouteConfig(
+              StopwatchPage.name,
               path: 'stopwatch-screen',
-              parent: StartRoute.name,
+              parent: StartPage.name,
             ),
-            _i7.RouteConfig(
-              TimerRoute.name,
+            _i8.RouteConfig(
+              TimerPage.name,
               path: 'timer-screen',
-              parent: StartRoute.name,
+              parent: StartPage.name,
             ),
           ],
         )
@@ -115,74 +125,86 @@ class AppRouter extends _i7.RootStackRouter {
 
 /// generated route for
 /// [_i1.StartScreen]
-class StartRoute extends _i7.PageRouteInfo<void> {
-  const StartRoute({List<_i7.PageRouteInfo>? children})
+class StartPage extends _i8.PageRouteInfo<void> {
+  const StartPage({List<_i8.PageRouteInfo>? children})
       : super(
-          StartRoute.name,
+          StartPage.name,
           path: '/',
           initialChildren: children,
         );
 
-  static const String name = 'StartRoute';
+  static const String name = 'StartPage';
 }
 
 /// generated route for
-/// [_i2.AlarmClockScreen]
-class AlarmClockRoute extends _i7.PageRouteInfo<void> {
-  const AlarmClockRoute({List<_i7.PageRouteInfo>? children})
+/// [_i2.AlarmClockRouter]
+class AlarmClockRouter extends _i8.PageRouteInfo<void> {
+  const AlarmClockRouter({List<_i8.PageRouteInfo>? children})
       : super(
-          AlarmClockRoute.name,
-          path: '',
+          AlarmClockRouter.name,
+          path: 'alarmClockRouter',
           initialChildren: children,
         );
 
-  static const String name = 'AlarmClockRoute';
+  static const String name = 'AlarmClockRouter';
 }
 
 /// generated route for
-/// [_i3.AddAlarmScreen]
-class AddAlarmRoute extends _i7.PageRouteInfo<void> {
-  const AddAlarmRoute()
+/// [_i3.StopwatchScreen]
+class StopwatchPage extends _i8.PageRouteInfo<void> {
+  const StopwatchPage()
       : super(
-          AddAlarmRoute.name,
-          path: 'add-alarm-screen',
-        );
-
-  static const String name = 'AddAlarmRoute';
-}
-
-/// generated route for
-/// [_i4.ChangeAlarmScreen]
-class ChangeAlarmRoute extends _i7.PageRouteInfo<void> {
-  const ChangeAlarmRoute()
-      : super(
-          ChangeAlarmRoute.name,
-          path: 'change-alarm-screen',
-        );
-
-  static const String name = 'ChangeAlarmRoute';
-}
-
-/// generated route for
-/// [_i5.StopwatchScreen]
-class StopwatchRoute extends _i7.PageRouteInfo<void> {
-  const StopwatchRoute()
-      : super(
-          StopwatchRoute.name,
+          StopwatchPage.name,
           path: 'stopwatch-screen',
         );
 
-  static const String name = 'StopwatchRoute';
+  static const String name = 'StopwatchPage';
 }
 
 /// generated route for
-/// [_i6.TimerScreen]
-class TimerRoute extends _i7.PageRouteInfo<void> {
-  const TimerRoute()
+/// [_i4.TimerScreen]
+class TimerPage extends _i8.PageRouteInfo<void> {
+  const TimerPage()
       : super(
-          TimerRoute.name,
+          TimerPage.name,
           path: 'timer-screen',
         );
 
-  static const String name = 'TimerRoute';
+  static const String name = 'TimerPage';
+}
+
+/// generated route for
+/// [_i5.AlarmClockScreen]
+class AlarmClockPage extends _i8.PageRouteInfo<void> {
+  const AlarmClockPage()
+      : super(
+          AlarmClockPage.name,
+          path: '',
+        );
+
+  static const String name = 'AlarmClockPage';
+}
+
+/// generated route for
+/// [_i6.AddAlarmScreen]
+class AddAlarmPage extends _i8.PageRouteInfo<void> {
+  const AddAlarmPage()
+      : super(
+          AddAlarmPage.name,
+          path: 'addAlarmScreen',
+        );
+
+  static const String name = 'AddAlarmPage';
+}
+
+/// generated route for
+/// [_i7.ChangeAlarmScreen]
+class ChangeAlarmPage extends _i8.PageRouteInfo<void> {
+  const ChangeAlarmPage()
+      : super(
+          ChangeAlarmPage.name,
+          path: 'changeAlarmScreen',
+        );
+
+  static const String name = 'ChangeAlarmPage';
 }
