@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/models/alarm_model.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
@@ -53,9 +55,7 @@ class _AlarmTileState extends State<AlarmTile> {
                 },
                 activeColor: Colors.black,
               ),
-              onTap: () async {
-                await _pushChangeAlarmScreen(context);
-              },
+              onTap: () => context.pushRoute(const ChangeAlarmPage()),
             ),
           ),
         );
