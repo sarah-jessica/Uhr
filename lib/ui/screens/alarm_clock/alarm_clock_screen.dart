@@ -34,7 +34,7 @@ class _AlarmClockScreenState extends State<AlarmClockScreen> {
               backgroundColor: Colors.white,
               foregroundColor: Colors.black,
               onPressed: () {
-                context.pushRoute(const AddAlarmRoute());
+                context.pushRoute(const AddAlarmPage());
               },
               child: const Icon(
                 Icons.add_alarm,
@@ -46,6 +46,7 @@ class _AlarmClockScreenState extends State<AlarmClockScreen> {
     );
   }
 
+  // überbleibsel der alten Navigation
   Future<void> _pushAddAlarmScreen(BuildContext context) async {
     await Navigator.push(
       context,

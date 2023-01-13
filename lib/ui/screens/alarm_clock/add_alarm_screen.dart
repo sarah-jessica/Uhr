@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
@@ -31,6 +32,12 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
             centerTitle: true,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                context.popRoute();
+              },
+            ),
             actions: [IconButton(
               icon: const Icon(Icons.check),
               onPressed: () {
@@ -43,7 +50,7 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
                     name: name,
                     repetition: rep
                 );
-                Navigator.pop(context);
+                context.popRoute();
               },
             ),
             ],

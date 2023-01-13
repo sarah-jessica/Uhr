@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/ui/widgets/text_input_decoration.dart';
@@ -25,7 +26,7 @@ class ChangeAlarmScreen extends StatelessWidget {
                 icon: const Icon(Icons.delete_outline),
                 onPressed: () {
                   viewModel.deleteAlarm();
-                  Navigator.pop(context);
+                  context.popRoute();
                 },
               ),
             ],
@@ -89,7 +90,7 @@ class ChangeAlarmScreen extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         viewModel.updateAlarm();
-                        Navigator.pop(context);
+                        context.popRoute();
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.white,
