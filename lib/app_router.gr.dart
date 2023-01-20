@@ -14,6 +14,7 @@
 import 'package:auto_route/auto_route.dart' as _i8;
 import 'package:flutter/material.dart' as _i9;
 
+import 'models/alarm_model.dart' as _i10;
 import 'services/alarm_clock_router.dart' deferred as _i2;
 import 'ui/screens/alarm_clock/add_alarm_screen.dart' as _i6;
 import 'ui/screens/alarm_clock/alarm_clock_screen.dart' as _i5;
@@ -71,9 +72,13 @@ class AppRouter extends _i8.RootStackRouter {
       );
     },
     ChangeAlarmPage.name: (routeData) {
+      final args = routeData.argsAs<ChangeAlarmPageArgs>();
       return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.ChangeAlarmScreen(),
+        child: _i7.ChangeAlarmScreen(
+          key: args.key,
+          alarm: args.alarm,
+        ),
       );
     },
   };
@@ -199,12 +204,34 @@ class AddAlarmPage extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.ChangeAlarmScreen]
-class ChangeAlarmPage extends _i8.PageRouteInfo<void> {
-  const ChangeAlarmPage()
-      : super(
+class ChangeAlarmPage extends _i8.PageRouteInfo<ChangeAlarmPageArgs> {
+  ChangeAlarmPage({
+    _i9.Key? key,
+    required _i10.AlarmModel alarm,
+  }) : super(
           ChangeAlarmPage.name,
           path: 'changeAlarmScreen',
+          args: ChangeAlarmPageArgs(
+            key: key,
+            alarm: alarm,
+          ),
         );
 
   static const String name = 'ChangeAlarmPage';
+}
+
+class ChangeAlarmPageArgs {
+  const ChangeAlarmPageArgs({
+    this.key,
+    required this.alarm,
+  });
+
+  final _i9.Key? key;
+
+  final _i10.AlarmModel alarm;
+
+  @override
+  String toString() {
+    return 'ChangeAlarmPageArgs{key: $key, alarm: $alarm}';
+  }
 }

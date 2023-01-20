@@ -6,8 +6,31 @@ import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:provider/provider.dart';
 import 'package:uhr/view_models/change_alarm_view_model.dart';
 
+import '../../../models/alarm_model.dart';
+import '../../../provider/alarm_clock/myalarmlist_provider.dart';
+
 class ChangeAlarmScreen extends StatelessWidget {
-  const ChangeAlarmScreen({Key? key}) : super(key: key);
+  final AlarmModel alarm;
+
+  const ChangeAlarmScreen({
+    Key? key,
+    required this.alarm,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => ChangeAlarmViewModel(
+        myAlarmListProvider: context.read<MyAlarmList>(),
+        currentAlarm: alarm,
+      ),
+      child: const _ChangeAlarmScreen(),
+    );
+  }
+}
+
+class _ChangeAlarmScreen extends StatelessWidget {
+  const _ChangeAlarmScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
