@@ -1,25 +1,18 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-
-// generates tiles to display all alarms in alarm_clock_screen.dart
+import 'package:provider/provider.dart';
+import 'package:uhr/app_router.gr.dart';
+import 'package:uhr/enums/repetition_type.dart';
+import 'package:uhr/models/alarm_model.dart';
+import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
+import 'package:uhr/utils/extensions.dart';
 
 class AlarmTile extends StatefulWidget {
-  final int index;
-  final DateTime time;
-  final String name;
-  final bool isOn;
-  final bool rep;
-  final VoidCallback onUpdate;
-  final Function(bool) onAlarmStatusChanged;
+  final AlarmModel alarm;
 
   const AlarmTile({
     Key? key,
-    required this.index,
-    required this.time,
-    required this.name,
-    required this.isOn,
-    required this.rep,
-    required this.onUpdate,
-    required this.onAlarmStatusChanged,
+    required this.alarm,
   }) : super(key: key);
 
   @override
@@ -29,55 +22,46 @@ class AlarmTile extends StatefulWidget {
 class _AlarmTileState extends State<AlarmTile> {
   @override
   Widget build(BuildContext context) {
-    final hour = widget.time.hour < 10 ? '0${widget.time.hour}' : widget.time.hour.toString();
-    final minute =
-        widget.time.minute < 10 ? '0${widget.time.minute}' : widget.time.minute.toString();
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: Card(
-        margin: const EdgeInsets.fromLTRB(
-          20.0,
-          6.0,
-          20.0,
-          0.0,
-        ),
-        child: ListTile(
-          leading: Text(
-            '$hour : $minute',
-            style: const TextStyle(fontSize: 25.0),
+    return Consumer<MyAlarmList>(
+      builder: (context, myAlarmList, child) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Card(
+            margin: const EdgeInsets.fromLTRB(
+              20.0,
+              6.0,
+              20.0,
+              0.0,
+            ),
+            child: ListTile(
+              leading: Text(
+                widget.alarm.time.toFormattedTimeString(),
+                style: const TextStyle(fontSize: 25.0),
+              ),
+              title: Text(
+                widget.alarm.name,
+                style: const TextStyle(fontSize: 20.0),
+              ),
+              subtitle: Text(
+                widget.alarm.repetition == RepetitionType.daily ? 'Daily' : 'Once',
+                style: const TextStyle(fontSize: 20.0),
+              ),
+              trailing: Switch(
+                value: widget.alarm.isOn!,
+                onChanged: (val) {
+                  myAlarmList.changeAlarmState(widget.alarm.id, val);
+                },
+                activeColor: Colors.black,
+              ),
+              onTap: () => context.pushRoute(
+                ChangeAlarmPage(
+                  alarm: widget.alarm,
+                ),
+              ),
+            ),
           ),
-          title: Text(
-            widget.name,
-            style: const TextStyle(fontSize: 20.0),
-          ),
-          subtitle: Text(
-            widget.rep ? 'Daily' : 'Once',
-            style: const TextStyle(fontSize: 20.0),
-          ),
-          trailing: Switch(
-            value: widget.isOn,
-            onChanged: (val) {
-              widget.onAlarmStatusChanged(val);
-            },
-            activeColor: Colors.black,
-          ),
-          onTap: () async {
-            await _pushChangeAlarmScreen(context);
-          },
-        ),
-      ),
-    );
-  }
-
-  Future<void> _pushChangeAlarmScreen(BuildContext context) async {
-    await Navigator.pushNamed(
-      context,
-      '/change_alarm',
-      arguments: {
-        'index': widget.index,
+        );
       },
     );
-    widget.onUpdate();
   }
 }
