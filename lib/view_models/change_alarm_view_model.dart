@@ -8,10 +8,10 @@ class ChangeAlarmViewModel extends ChangeNotifier {
   final MyAlarmList myAlarmListProvider;
   final AlarmModel currentAlarm;
 
-  ChangeAlarmViewModel(
-    this.myAlarmListProvider,
-    this.currentAlarm,
-  ) {
+  ChangeAlarmViewModel({
+    required this.myAlarmListProvider,
+    required this.currentAlarm,
+  }) {
     alarmNameTextEditingController.text = currentAlarm.name;
   }
 

@@ -3,6 +3,8 @@ import 'package:uhr/ui/screens/alarm_clock/add_alarm_screen.dart';
 import 'package:uhr/ui/widgets/alarm_tile.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:uhr/app_router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 
 class AlarmClockScreen extends StatefulWidget {
   const AlarmClockScreen({Key? key}) : super(key: key);
@@ -28,9 +30,12 @@ class _AlarmClockScreenState extends State<AlarmClockScreen> {
                   );
                 }),
             floatingActionButton: FloatingActionButton(
+              heroTag: "1",
               backgroundColor: Colors.white,
               foregroundColor: Colors.black,
-              onPressed: () => _pushAddAlarmScreen(context),
+              onPressed: () {
+                context.pushRoute(const AddAlarmPage());
+              },
               child: const Icon(
                 Icons.add_alarm,
                 size: 40.0,
@@ -41,6 +46,7 @@ class _AlarmClockScreenState extends State<AlarmClockScreen> {
     );
   }
 
+  // überbleibsel der alten Navigation
   Future<void> _pushAddAlarmScreen(BuildContext context) async {
     await Navigator.push(
       context,

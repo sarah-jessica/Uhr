@@ -1,11 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/models/alarm_model.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
-import 'package:uhr/ui/screens/alarm_clock/change_alarm_screen.dart';
 import 'package:uhr/utils/extensions.dart';
-import 'package:uhr/view_models/change_alarm_view_model.dart';
 
 class AlarmTile extends StatefulWidget {
   final AlarmModel alarm;
@@ -53,27 +53,15 @@ class _AlarmTileState extends State<AlarmTile> {
                 },
                 activeColor: Colors.black,
               ),
-              onTap: () async {
-                await _pushChangeAlarmScreen(context);
-              },
+              onTap: () => context.pushRoute(
+                ChangeAlarmPage(
+                  alarm: widget.alarm,
+                ),
+              ),
             ),
           ),
         );
       },
-    );
-  }
-
-  Future<void> _pushChangeAlarmScreen(BuildContext context) async {
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (_) => ChangeAlarmViewModel(
-            context.read<MyAlarmList>(),
-            widget.alarm,
-          ),
-          child: const ChangeAlarmScreen(),
-        ),
-      ),
     );
   }
 }
