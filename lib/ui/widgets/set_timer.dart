@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:uhr/provider/timer/mytimer_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:uhr/provider/timer/mytimer_provider.dart';
 
 // Widget mit dem der TimerScreen eingestellt werden kann
 
@@ -22,11 +22,9 @@ class _SetTimerState extends State<SetTimer> {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            //const SizedBox(height: 80.0),
             TimePickerSpinner(
               time: time,
               isShowSeconds: true,
-              is24HourMode: true,
               isForce2Digits: true,
               normalTextStyle: const TextStyle(fontSize: 30, color: Colors.black12),
               highlightedTextStyle: const TextStyle(fontSize: 30, color: Colors.black),
@@ -41,14 +39,14 @@ class _SetTimerState extends State<SetTimer> {
             FloatingActionButton(
               heroTag: 'start',
               onPressed: () {
-                myTimer.setTime = time;
-                myTimer.start();
+                myTimer..setTime = time
+                ..start();
               },
               backgroundColor: Colors.white,
               foregroundColor: Colors.black,
               child: const Icon(
                 Icons.play_arrow_outlined,
-                size: 40.0,
+                size: 40,
               ),
             )
           ],

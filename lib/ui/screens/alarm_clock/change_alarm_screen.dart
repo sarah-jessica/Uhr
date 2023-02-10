@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:uhr/enums/repetition_type.dart';
-import 'package:uhr/ui/widgets/text_input_decoration.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:provider/provider.dart';
+import 'package:uhr/enums/repetition_type.dart';
+import 'package:uhr/models/alarm_model.dart';
+import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
+import 'package:uhr/ui/widgets/text_input_decoration.dart';
 import 'package:uhr/view_models/change_alarm_view_model.dart';
 
-import '../../../models/alarm_model.dart';
-import '../../../provider/alarm_clock/myalarmlist_provider.dart';
 
 class ChangeAlarmScreen extends StatelessWidget {
   final AlarmModel alarm;
@@ -40,7 +40,7 @@ class _ChangeAlarmScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: const Text('Change Alarm Clock'),
-            elevation: 0.0,
+            elevation: 0,
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
             centerTitle: true,
@@ -56,17 +56,16 @@ class _ChangeAlarmScreen extends StatelessWidget {
           ),
           body: Container(
             padding: const EdgeInsets.symmetric(
-              vertical: 20.0,
-              horizontal: 50.0,
+              vertical: 20,
+              horizontal: 50,
             ),
             child: Form(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 20),
                     TimePickerSpinner(
                       time: viewModel.currentAlarm.time,
-                      is24HourMode: true,
                       isForce2Digits: true,
                       normalTextStyle: const TextStyle(
                         fontSize: 30,
@@ -80,22 +79,22 @@ class _ChangeAlarmScreen extends StatelessWidget {
                       itemHeight: 80,
                       onTimeChange: viewModel.onDateSelected,
                     ),
-                    const SizedBox(height: 40.0),
+                    const SizedBox(height: 40),
                     TextFormField(
                       controller: viewModel.alarmNameTextEditingController,
                       decoration: textInputDecoration.copyWith(
                         label: const Text(
                           'Alarm Name',
-                          style: TextStyle(fontSize: 25.0),
+                          style: TextStyle(fontSize: 25),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 40.0),
+                    const SizedBox(height: 40),
                     DropdownButtonFormField<RepetitionType>(
                       decoration: textInputDecoration.copyWith(
                         label: const Text(
                           'Repetition',
-                          style: TextStyle(fontSize: 25.0),
+                          style: TextStyle(fontSize: 25),
                         ),
                       ),
                       value: viewModel.currentAlarm.repetition,
@@ -109,7 +108,7 @@ class _ChangeAlarmScreen extends StatelessWidget {
                       }).toList(),
                       onChanged: viewModel.onRepetitionSelected,
                     ),
-                    const SizedBox(height: 40.0),
+                    const SizedBox(height: 40),
                     ElevatedButton(
                       onPressed: () {
                         viewModel.updateAlarm();
@@ -119,8 +118,8 @@ class _ChangeAlarmScreen extends StatelessWidget {
                         primary: Colors.white,
                         onPrimary: Colors.black,
                         padding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 30.0,
+                          vertical: 15,
+                          horizontal: 30,
                         ),
                       ),
                       child: const Text('Save'),

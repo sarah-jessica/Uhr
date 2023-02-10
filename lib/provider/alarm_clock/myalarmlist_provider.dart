@@ -30,9 +30,9 @@ class MyAlarmList extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> changeAlarmState(int id, bool isOn) async {
-    int index = alarms.indexWhere((alarm) => alarm.id == id);
-    AlarmModel alarm = alarms[index];
+  Future<void> changeAlarmState({required int id, required bool isOn}) async {
+    final int index = alarms.indexWhere((alarm) => alarm.id == id);
+    final AlarmModel alarm = alarms[index];
     if (alarm.isOn != isOn) {
       if (isOn) {
         DateTime time = alarm.time;
@@ -45,44 +45,50 @@ class MyAlarmList extends ChangeNotifier {
         }
         alarms[index] = alarm.copyWith(
             time: time,
-            isOn: true
+            isOn: true,
         );
         // set alarm
-        NotificationService().showNotification(id, alarms[index].name, alarms[index].time.toFormattedTimeString(), alarms[index].time);
+        await NotificationService().showNotification(id, alarms[index].name, alarms[index].time.toFormattedTimeString(), alarms[index].time);
       } else {
         alarms[index] = alarm.copyWith(
-            isOn: false
+            isOn: false,
         );
-        NotificationService().cancelNotification(id);
+        await NotificationService().cancelNotification(id);
       }
     }
     notifyListeners();
   }
 
-  void changeAlarmData(id, time, name, rep) async {
-    int index = alarms.indexWhere((alarm) => alarm.id == id);
-    NotificationService().cancelNotification(id);
+  Future<void> changeAlarmData(
+      {required int id, required DateTime time, required String name, required RepetitionType rep,}) async {
+    final int index = alarms.indexWhere((alarm) => alarm.id == id);
+    late DateTime newTime;
+    await NotificationService().cancelNotification(id);
     if (time.isBefore(DateTime.now())) {
       //set day for alarm to the next day
-      time = time.add(const Duration(days: 1));
+      newTime = time.add(const Duration(days: 1));
     } else if (time.subtract(const Duration(days: 1)).isAfter(DateTime.now())) {
       //set day for alarm to today
-      time = time.subtract(const Duration(days: 1));
+      newTime = time.subtract(const Duration(days: 1));
+    } else {
+      newTime = time;
     }
     alarms[index] = alarms[index].copyWith(
         name: name,
-        time: time,
+        time: newTime,
         type: rep,
-        isOn: true
+        isOn: true,
     );
-    NotificationService().showNotification(id, alarms[index].name, alarms[index].time.toFormattedTimeString(), alarms[index].time);
+    await NotificationService().showNotification(id, alarms[index].name, alarms[index].time.toFormattedTimeString(), alarms[index].time);
     notifyListeners();
   }
 
   void updateAlarms() {
     for (int i = 0; i < alarms.length; i++) {
+      print('alarm time check: ${alarms[i].time.isBefore(DateTime.now())} ; Alarm type check: ${alarms[i].repetition == RepetitionType.once}');
       if (alarms[i].time.isBefore(DateTime.now()) && alarms[i].repetition == RepetitionType.once) {
-        changeAlarmState(alarms[i].id, false);
+        print('change alarm with time: ${alarms[i].time}');
+        changeAlarmState(id: alarms[i].id, isOn: false);
       }
     }
   }

@@ -35,7 +35,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 style: const TextStyle(
                     fontSize: 40,
                     fontFamily: 'Helvetica',
-                    fontWeight: FontWeight.bold
+                    fontWeight: FontWeight.bold,
                 ),
               );
             },
@@ -47,22 +47,22 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 onPressed: () {_stopWatchTimerScreen.onStartTimer();},
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
-                child: const Icon(Icons.play_arrow_outlined, size: 40.0,),
+                child: const Icon(Icons.play_arrow_outlined, size: 40,),
               ),
               FloatingActionButton(
                 onPressed: () {_stopWatchTimerScreen.onStopTimer();},
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
-                child: const Icon(Icons.pause, size: 30.0,),
+                child: const Icon(Icons.pause, size: 30,),
               ),
               FloatingActionButton(
                 onPressed: () {_stopWatchTimerScreen.onResetTimer();},
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
-                child: const Icon(Icons.stop_outlined, size: 40.0,),
+                child: const Icon(Icons.stop_outlined, size: 40,),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

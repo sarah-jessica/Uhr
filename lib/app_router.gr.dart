@@ -45,6 +45,7 @@ class AppRouter extends _i8.RootStackRouter {
           _i2.loadLibrary,
           () => _i2.AlarmClockRouter(),
         ),
+        maintainState: false,
       );
     },
     StopwatchPage.name: (routeData) {
@@ -63,6 +64,7 @@ class AppRouter extends _i8.RootStackRouter {
       return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.AlarmClockScreen(),
+        maintainState: false,
       );
     },
     AddAlarmPage.name: (routeData) {

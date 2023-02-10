@@ -1,6 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 // Klasse um Benachrichtigungen zu erstellen
 
@@ -35,9 +35,7 @@ class NotificationService {
       importance: Importance.max,
       priority: Priority.max,
       icon: '@mipmap/ic_launcher',
-      playSound: true,
       //sound: RawResourceAndroidNotificationSound('alarm_buzzer_experia'),
-      enableVibration: true,
     ),
   );
 
@@ -51,7 +49,7 @@ class NotificationService {
       notificationDetails,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle: true,
-      matchDateTimeComponents: DateTimeComponents.time
+      matchDateTimeComponents: DateTimeComponents.time,
     );
   }
 
@@ -59,7 +57,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.cancel(id);
   }
 
-  void timerNotification (int id, String title, String body) async {
+  Future<void> timerNotification (int id, String title, String body) async {
     await flutterLocalNotificationsPlugin.show(
       id,
       title,

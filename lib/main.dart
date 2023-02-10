@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uhr/services/notification_service.dart';
-import 'package:uhr/provider/timer/mytimer_provider.dart';
-import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:uhr/app_router.gr.dart';
+import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
+import 'package:uhr/provider/timer/mytimer_provider.dart';
+import 'package:uhr/services/notification_service.dart';
 
 /*
  - Warning beim Starten der App: 'Operand of null-aware operation '!' has type 'WidgetsBinding' which excludes null.'

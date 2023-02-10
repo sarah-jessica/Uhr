@@ -25,31 +25,31 @@ class _AlarmTileState extends State<AlarmTile> {
     return Consumer<MyAlarmList>(
       builder: (context, myAlarmList, child) {
         return Padding(
-          padding: const EdgeInsets.only(top: 8.0),
+          padding: const EdgeInsets.only(top: 8),
           child: Card(
             margin: const EdgeInsets.fromLTRB(
-              20.0,
-              6.0,
-              20.0,
-              0.0,
+              20,
+              6,
+              20,
+              0,
             ),
             child: ListTile(
               leading: Text(
                 widget.alarm.time.toFormattedTimeString(),
-                style: const TextStyle(fontSize: 25.0),
+                style: const TextStyle(fontSize: 25),
               ),
               title: Text(
                 widget.alarm.name,
-                style: const TextStyle(fontSize: 20.0),
+                style: const TextStyle(fontSize: 20),
               ),
               subtitle: Text(
                 widget.alarm.repetition == RepetitionType.daily ? 'Daily' : 'Once',
-                style: const TextStyle(fontSize: 20.0),
+                style: const TextStyle(fontSize: 20),
               ),
               trailing: Switch(
-                value: widget.alarm.isOn!,
+                value: widget.alarm.isOn,
                 onChanged: (val) {
-                  myAlarmList.changeAlarmState(widget.alarm.id, val);
+                  myAlarmList.changeAlarmState(id: widget.alarm.id, isOn: val);
                 },
                 activeColor: Colors.black,
               ),

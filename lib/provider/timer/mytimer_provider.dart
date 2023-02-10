@@ -26,10 +26,10 @@ class MyTimer extends ChangeNotifier {
         mode: StopWatchMode.countDown,
         onEnded: () => NotificationService().timerNotification(999, 'Timer expired', ''),
       );
-      _stopWatchTimer.setPresetHoursTime(setTime.hour);
-      _stopWatchTimer.setPresetMinuteTime(setTime.minute);
-      _stopWatchTimer.setPresetSecondTime(setTime.second);
-      _stopWatchTimer.onStartTimer();
+      _stopWatchTimer..setPresetHoursTime(setTime.hour)
+      ..setPresetMinuteTime(setTime.minute)
+      ..setPresetSecondTime(setTime.second)
+      ..onStartTimer();
       notifyListeners();
     }
   }

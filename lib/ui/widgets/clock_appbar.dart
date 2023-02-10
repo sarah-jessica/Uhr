@@ -16,7 +16,7 @@ class _ClockAppBarState extends State<ClockAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0.0,
+      elevation: 0,
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       automaticallyImplyLeading: false,
@@ -43,7 +43,7 @@ class _ClockAppBarState extends State<ClockAppBar> {
               },
             ),
           ],
-      )
+      ),
     );
   }
 }

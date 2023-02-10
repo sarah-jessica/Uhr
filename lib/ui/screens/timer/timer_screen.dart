@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uhr/provider/timer/mytimer_provider.dart';
 import 'package:uhr/ui/widgets/running_timer.dart';
 import 'package:uhr/ui/widgets/set_timer.dart';
-import 'package:provider/provider.dart';
 
 // Screen mit dem der TimerScreen eingestellt werden kann
 

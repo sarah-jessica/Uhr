@@ -37,7 +37,7 @@ class _RunningTimerState extends State<RunningTimer> {
                     style: const TextStyle(
                         fontSize: 40,
                         fontFamily: 'Helvetica',
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
                     ),
                   );
                 },
@@ -52,7 +52,7 @@ class _RunningTimerState extends State<RunningTimer> {
                       },
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
-                    child: const Icon(Icons.play_arrow_outlined, size: 40.0,),
+                    child: const Icon(Icons.play_arrow_outlined, size: 40,),
                   ),
                   FloatingActionButton(
                     heroTag: 'pause',
@@ -61,7 +61,7 @@ class _RunningTimerState extends State<RunningTimer> {
                     },
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
-                    child: const Icon(Icons.pause, size: 30.0,),
+                    child: const Icon(Icons.pause, size: 30,),
                   ),
                   FloatingActionButton(
                     heroTag: 'stop',
@@ -70,13 +70,13 @@ class _RunningTimerState extends State<RunningTimer> {
                     },
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
-                    child: const Icon(Icons.stop_outlined, size: 40.0,),
+                    child: const Icon(Icons.stop_outlined, size: 40,),
                   ),
                 ],
-              )
+              ),
             ],
         );
-      }
+      },
     );
   }
 }

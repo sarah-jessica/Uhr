@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../enums/repetition_type.dart';
+import 'package:uhr/enums/repetition_type.dart';
 import '../models/alarm_model.dart';
 import '../provider/alarm_clock/myalarmlist_provider.dart';
 
@@ -35,10 +34,10 @@ class ChangeAlarmViewModel extends ChangeNotifier {
 
   void updateAlarm() {
     myAlarmListProvider.changeAlarmData(
-      currentAlarm.id,
-      selectedDate,
-      alarmNameTextEditingController.text,
-      selectedRepetition,
+      id: currentAlarm.id,
+      time: selectedDate,
+      name: alarmNameTextEditingController.text,
+      rep: selectedRepetition,
     );
   }
 
