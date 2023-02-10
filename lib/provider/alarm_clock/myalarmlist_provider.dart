@@ -85,9 +85,7 @@ class MyAlarmList extends ChangeNotifier {
 
   void updateAlarms() {
     for (int i = 0; i < alarms.length; i++) {
-      print('alarm time check: ${alarms[i].time.isBefore(DateTime.now())} ; Alarm type check: ${alarms[i].repetition == RepetitionType.once}');
       if (alarms[i].time.isBefore(DateTime.now()) && alarms[i].repetition == RepetitionType.once) {
-        print('change alarm with time: ${alarms[i].time}');
         changeAlarmState(id: alarms[i].id, isOn: false);
       }
     }
