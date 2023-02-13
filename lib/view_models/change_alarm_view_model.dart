@@ -3,7 +3,7 @@ import 'package:uhr/enums/repetition_type.dart';
 import '../models/alarm_model.dart';
 import '../provider/alarm_clock/myalarmlist_provider.dart';
 
-class ChangeAlarmViewModel extends ChangeNotifier {
+class ChangeAlarmViewModel {
   final MyAlarmList myAlarmListProvider;
   final AlarmModel currentAlarm;
 
@@ -21,7 +21,6 @@ class ChangeAlarmViewModel extends ChangeNotifier {
 
   void onDateSelected(DateTime date) {
     selectedDate = date;
-    notifyListeners();
   }
 
   void onRepetitionSelected(RepetitionType? repetition) {
@@ -29,7 +28,6 @@ class ChangeAlarmViewModel extends ChangeNotifier {
       return;
     }
     selectedRepetition = repetition;
-    notifyListeners();
   }
 
   void updateAlarm() {

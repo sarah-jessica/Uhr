@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:uhr/services/notification_service.dart';
 
-class MyTimer extends ChangeNotifier {
-  DateTime setTime = DateTime(0, 0, 0, 0, 0, 0);
+class MyTimer {
+  DateTime setTime = DateTime(0, 0, 0,);
 
   StopWatchTimer _stopWatchTimer = StopWatchTimer(
     mode: StopWatchMode.countDown,
@@ -30,7 +29,6 @@ class MyTimer extends ChangeNotifier {
       ..setPresetMinuteTime(setTime.minute)
       ..setPresetSecondTime(setTime.second)
       ..onStartTimer();
-      notifyListeners();
     }
   }
 
@@ -42,7 +40,6 @@ class MyTimer extends ChangeNotifier {
   void stop () {
     _stopWatchTimer.onStopTimer();
     _isPaused = false;
-    notifyListeners();
   }
 
 }
