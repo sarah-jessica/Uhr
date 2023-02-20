@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/models/alarm_model.dart';
 import 'package:uhr/services/notification_service.dart';
 import 'package:uhr/utils/extensions.dart';
 
-class MyAlarmList extends ChangeNotifier {
+class MyAlarmList{
   final alarms = <AlarmModel>[];
 
   void addAlarm ({
@@ -21,13 +20,11 @@ class MyAlarmList extends ChangeNotifier {
 
     alarms.add(alarm);
     NotificationService().showNotification(alarm.id, alarm.name, alarm.time.toFormattedTimeString(), alarm.time);
-    notifyListeners();
   }
 
   void deleteAlarm(int id) {
     NotificationService().cancelNotification(id);
     alarms.removeWhere((alarm) => alarm.id == id);
-    notifyListeners();
   }
 
   Future<void> changeAlarmState({required int id, required bool isOn}) async {
@@ -56,7 +53,6 @@ class MyAlarmList extends ChangeNotifier {
         await NotificationService().cancelNotification(id);
       }
     }
-    notifyListeners();
   }
 
   Future<void> changeAlarmData(
@@ -80,7 +76,6 @@ class MyAlarmList extends ChangeNotifier {
         isOn: true,
     );
     await NotificationService().showNotification(id, alarms[index].name, alarms[index].time.toFormattedTimeString(), alarms[index].time);
-    notifyListeners();
   }
 
   void updateAlarms() {
