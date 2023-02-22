@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:uhr/bloc/alarm/alarmlist_bloc.dart';
 import 'package:uhr/enums/repetition_type.dart';
+import 'package:uhr/main.dart';
 import 'package:uhr/models/alarm_model.dart';
 import 'package:uhr/ui/widgets/text_input_decoration.dart';
 
-
-class ChangeAlarmScreen extends StatelessWidget {
+class ChangeAlarmScreen extends ConsumerWidget {
   final AlarmModel alarm;
 
   const ChangeAlarmScreen({
@@ -17,8 +16,9 @@ class ChangeAlarmScreen extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
 
+    final alarmList = ref.watch(alarmListChangeNotifierProvider);
     DateTime newTime = alarm.time;
     String newName = alarm.name;
     RepetitionType newRepetition = alarm.repetition;
@@ -35,7 +35,7 @@ class ChangeAlarmScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.delete_outline),
             onPressed: () {
-              BlocProvider.of<AlarmListBloc>(context).add(DeleteAlarm(id: alarm.id));
+              alarmList.deleteAlarm(alarm.id);
               context.popRoute();
             },
           ),
@@ -99,13 +99,11 @@ class ChangeAlarmScreen extends StatelessWidget {
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () {
-                    BlocProvider.of<AlarmListBloc>(context).add(
-                        ChangeAlarmData(
-                          id: alarm.id,
-                          name: newName,
-                          time: newTime,
-                          repetition: newRepetition,
-                        ),
+                    alarmList.changeAlarmData(
+                        id: alarm.id,
+                        time: newTime,
+                        name: newName,
+                        rep: newRepetition,
                     );
                     context.popRoute();
                   },

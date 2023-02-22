@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:uhr/services/notification_service.dart';
 
-class MyTimer {
+class MyTimer extends ChangeNotifier{
   DateTime setTime = DateTime(0, 0, 0,);
 
   StopWatchTimer _stopWatchTimer = StopWatchTimer(
@@ -30,6 +31,7 @@ class MyTimer {
       ..setPresetSecondTime(setTime.second)
       ..onStartTimer();
     }
+    notifyListeners();
   }
 
   void pause () {
@@ -40,6 +42,7 @@ class MyTimer {
   void stop () {
     _stopWatchTimer.onStopTimer();
     _isPaused = false;
+    notifyListeners();
   }
 
 }

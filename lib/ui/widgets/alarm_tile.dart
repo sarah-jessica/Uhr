@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uhr/app_router.gr.dart';
-import 'package:uhr/bloc/alarm/alarmlist_bloc.dart';
 import 'package:uhr/enums/repetition_type.dart';
+import 'package:uhr/main.dart';
 import 'package:uhr/models/alarm_model.dart';
 import 'package:uhr/utils/extensions.dart';
 
-class AlarmTile extends StatefulWidget {
+class AlarmTile extends ConsumerStatefulWidget {
   final AlarmModel alarm;
 
   const AlarmTile({
@@ -16,12 +16,13 @@ class AlarmTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<AlarmTile> createState() => _AlarmTileState();
+  ConsumerState<AlarmTile> createState() => _AlarmTileState();
 }
 
-class _AlarmTileState extends State<AlarmTile> {
+class _AlarmTileState extends ConsumerState<AlarmTile> {
   @override
   Widget build(BuildContext context) {
+    final alarmList = ref.watch(alarmListChangeNotifierProvider);
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Card(
@@ -47,7 +48,7 @@ class _AlarmTileState extends State<AlarmTile> {
           trailing: Switch(
             value: widget.alarm.isOn,
             onChanged: (val) {
-              BlocProvider.of<AlarmListBloc>(context).add(ChangeAlarm(id: widget.alarm.id, isOn: val));
+              alarmList.changeAlarmState(id: widget.alarm.id, isOn: val);
             },
             activeColor: Colors.black,
           ),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:uhr/bloc/timer/timer_bloc.dart';
+import 'package:uhr/main.dart';
 
-class SetTimer extends StatefulWidget {
+class SetTimer extends ConsumerStatefulWidget {
   const SetTimer({Key? key}) : super(key: key);
 
   @override
-  State<SetTimer> createState() => _SetTimerState();
+  ConsumerState<SetTimer> createState() => _SetTimerState();
 }
 
-class _SetTimerState extends State<SetTimer> {
+class _SetTimerState extends ConsumerState<SetTimer> {
   DateTime time = DateTime(0, 0, 0,);
 
   @override
@@ -35,7 +35,8 @@ class _SetTimerState extends State<SetTimer> {
         FloatingActionButton(
           heroTag: 'start',
           onPressed: () {
-            BlocProvider.of<TimerBloc>(context).add(StartTimer(time: time));
+            ref.watch(timerChangeNotifierProvider).setTime = time;
+            ref.watch(timerChangeNotifierProvider).start();
           },
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
