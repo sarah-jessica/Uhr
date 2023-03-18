@@ -10,8 +10,8 @@ class StartScreen extends StatelessWidget {
     return AutoTabsRouter(
         routes: const [
           AlarmClockRouter(),
-          StopwatchPage(),
-          TimerPage(),
+          StopwatchRouter(),
+          TimerRouter(),
         ],
         builder: (context, child, animation) {
           final tabsRouter = AutoTabsRouter.of(context);
@@ -21,22 +21,24 @@ class StartScreen extends StatelessWidget {
               child: child,
             ),
             bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).backgroundColor,
+              selectedItemColor: Theme.of(context).textTheme.headline1?.color,
+              unselectedItemColor: Theme.of(context).textTheme.headline2?.color,
               currentIndex: tabsRouter.activeIndex,
               onTap: (index) {
                 tabsRouter.setActiveIndex(index);
               },
-              items: const [
+              items: const[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.alarm, color: Colors.black),
+                  icon: Icon(Icons.alarm,),
                   label: '',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.timer_sharp, color: Colors.black),
+                  icon: Icon(Icons.timer_sharp,),
                   label: '',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.hourglass_empty, color: Colors.black),
+                  icon: Icon(Icons.hourglass_empty,),
                   label: '',
                 ),
               ],

@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localization/localization.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/main.dart';
 import 'package:uhr/ui/widgets/alarm_tile.dart';
+import 'package:uhr/ui/widgets/clock_appbar.dart';
 
 class AlarmClockScreen extends ConsumerStatefulWidget {
   const AlarmClockScreen({Key? key}) : super(key: key);
@@ -18,7 +20,8 @@ class _AlarmClockScreenState extends ConsumerState<AlarmClockScreen> {
     final alarmList = ref.watch(alarmListChangeNotifierProvider)
       ..updateAlarms();
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: ClockAppBar(title: 'alarm-clock-title'.i18n()),
+      backgroundColor: Theme.of(context).backgroundColor,
       body: ListView.builder(
           itemCount: alarmList.alarms.length,
           itemBuilder: (context, index) {
@@ -29,8 +32,8 @@ class _AlarmClockScreenState extends ConsumerState<AlarmClockScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: '1',
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        foregroundColor: Theme.of(context).textTheme.headline1?.color,
+        backgroundColor: Theme.of(context).backgroundColor,
         onPressed: () {
           context.pushRoute(const AddAlarmPage());
         },

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localization/localization.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/main.dart';
@@ -26,6 +27,7 @@ class _AlarmTileState extends ConsumerState<AlarmTile> {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Card(
+        color: Theme.of(context).backgroundColor,
         margin: const EdgeInsets.fromLTRB(
           20,
           6,
@@ -35,22 +37,31 @@ class _AlarmTileState extends ConsumerState<AlarmTile> {
         child: ListTile(
           leading: Text(
             widget.alarm.time.toFormattedTimeString(),
-            style: const TextStyle(fontSize: 25),
+            style: TextStyle(
+              fontSize: 25,
+              color: Theme.of(context).textTheme.headline1?.color,
+            ),
           ),
           title: Text(
             widget.alarm.name,
-            style: const TextStyle(fontSize: 20),
+            style: TextStyle(
+              fontSize: 20,
+              color: Theme.of(context).textTheme.headline1?.color,
+            ),
           ),
           subtitle: Text(
-            widget.alarm.repetition == RepetitionType.daily ? 'Daily' : 'Once',
-            style: const TextStyle(fontSize: 20),
+            widget.alarm.repetition == RepetitionType.daily ? 'daily'.i18n() : 'once'.i18n(),
+            style: TextStyle(
+              fontSize: 20,
+              color: Theme.of(context).textTheme.headline2?.color,
+            ),
           ),
           trailing: Switch(
             value: widget.alarm.isOn,
+            activeColor: Theme.of(context).textTheme.headline1?.color,
             onChanged: (val) {
               alarmList.changeAlarmState(id: widget.alarm.id, isOn: val);
             },
-            activeColor: Colors.black,
           ),
           onTap: () => context.pushRoute(
             ChangeAlarmPage(

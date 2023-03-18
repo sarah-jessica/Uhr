@@ -1,0 +1,18 @@
+{
+  "alarm-clock-title": "Alarm Clock",
+  "add-alarm-clock-title": "Add Alarm Clock",
+  "alarm-name-title": "Alarm Name",
+  "default-alarm-name": "Alarm",
+  "repetition-title": "Repetition",
+  "change-alarm-clock-title": "Change Alarm Clock",
+  "once": "once",
+  "daily": "daily",
+  "save": "Save",
+  "timer-title": "Timer",
+  "stopwatch-title": "Stopwatch",
+  "settings": "Settings",
+  "theme": "Theme",
+  "dark": "Dark",
+  "light": "Light",
+  "language": "Language"
+}

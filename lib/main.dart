@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localization/localization.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
+import 'package:uhr/provider/settings/language_provider.dart';
+import 'package:uhr/provider/settings/theme_provider.dart';
 import 'package:uhr/provider/timer/mytimer_provider.dart';
 import 'package:uhr/services/notification_service.dart';
 
@@ -18,28 +21,64 @@ final alarmListChangeNotifierProvider = ChangeNotifierProvider<MyAlarmList>((ref
   return MyAlarmList();
 });
 
+final languageChangeNotifierProvider = ChangeNotifierProvider<LanguageProvider>((ref) {
+  return LanguageProvider();
+});
+
+final themeChangeNotifierProvider = ChangeNotifierProvider<CustomTheme>((ref) {
+  return CustomTheme();
+});
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().initNotification();
 
   runApp(
-    ProviderScope(
+    const ProviderScope(
       child: MyApp(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+class MyApp extends ConsumerStatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
   final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
+    LanguageProvider language = ref.watch(languageChangeNotifierProvider);
+    CustomTheme theme = ref.watch(themeChangeNotifierProvider);
+    LocalJsonLocalization.delegate.directories = ['lib/i18n'];
     return MaterialApp(
+      locale: language.getLanguageAsLocale(),
+      localeResolutionCallback: (locale, supportedLocales) {
+
+        if (supportedLocales.contains(locale)) {
+          return locale;
+        }
+        if (locale?.languageCode == 'de') {
+          return const Locale('de', 'DE');
+        } else if (locale?.languageCode == 'es') {
+          return const Locale('es', 'ES');
+        }
+        return const Locale('en', 'US');
+      },
+      localizationsDelegates: [
+        LocalJsonLocalization.delegate,
+      ],
       home: MaterialApp.router(
-          routerDelegate: _appRouter.delegate(),
-          routeInformationParser: _appRouter.defaultRouteParser(),
-        ),
+        theme: CustomTheme.lightTheme,
+        darkTheme: CustomTheme.darkTheme,
+        themeMode: theme.currentTheme,
+        routerDelegate: _appRouter.delegate(),
+        routeInformationParser: _appRouter.defaultRouteParser(),
+      ),
     );
   }
 }

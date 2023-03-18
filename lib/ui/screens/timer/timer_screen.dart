@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localization/localization.dart';
 import 'package:uhr/main.dart';
 import 'package:uhr/provider/timer/mytimer_provider.dart';
+import 'package:uhr/ui/widgets/clock_appbar.dart';
 import 'package:uhr/ui/widgets/running_timer.dart';
 import 'package:uhr/ui/widgets/set_timer.dart';
 
@@ -18,7 +20,8 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
   Widget build(BuildContext context) {
     final MyTimer timer = ref.watch(timerChangeNotifierProvider);
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: ClockAppBar(title: 'timer-title'.i18n()),
+      backgroundColor: Theme.of(context).backgroundColor,
       body: timer.isRunning || timer.isPaused ?
           const RunningTimer() :
           const SetTimer(),
