@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
-import 'package:uhr/provider/settings/language_provider.dart';
 import 'package:uhr/provider/settings/theme_provider.dart';
 import 'package:uhr/provider/timer/mytimer_provider.dart';
 import 'package:uhr/services/notification_service.dart';
+import 'package:uhr/utils/config.dart';
 
 /*
  - Warning beim Starten der App: 'Operand of null-aware operation '!' has type 'WidgetsBinding' which excludes null.'
@@ -22,11 +22,6 @@ final alarmListChangeNotifierProvider =
   return MyAlarmList();
 });
 
-final languageChangeNotifierProvider =
-ChangeNotifierProvider<LanguageProvider>((ref) {
-  return LanguageProvider();
-});
-
 final themeChangeNotifierProvider = ChangeNotifierProvider<CustomTheme>((ref) {
   return CustomTheme();
 });
@@ -40,7 +35,7 @@ void main() async {
     ProviderScope(
       child: EasyLocalization(
           startLocale: const Locale('en', 'US'),
-          supportedLocales: const [Locale('en', 'US'), Locale('de', 'DE'), Locale('es', 'ES')],
+          supportedLocales: supportedLocales,
           path: 'lib/translations',
           fallbackLocale: const Locale('en', 'US'),
           child: const MyApp(),
@@ -61,9 +56,8 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final LanguageProvider language = ref.watch(languageChangeNotifierProvider);
     final CustomTheme theme = ref.watch(themeChangeNotifierProvider);
-    language.setContext(context);
+
     return MaterialApp(
       home: MaterialApp.router(
         theme: CustomTheme.lightTheme,
