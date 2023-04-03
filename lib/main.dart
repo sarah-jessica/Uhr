@@ -65,13 +65,13 @@ class _MyAppState extends ConsumerState<MyApp> {
     final CustomTheme theme = ref.watch(themeChangeNotifierProvider);
     language.setContext(context);
     return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: language.getLanguageAsLocale(),
       home: MaterialApp.router(
         theme: CustomTheme.lightTheme,
         darkTheme: CustomTheme.darkTheme,
         themeMode: theme.currentTheme,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),
       ),
