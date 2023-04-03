@@ -8,43 +8,49 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-        routes: const [
-          AlarmClockRouter(),
-          StopwatchRouter(),
-          TimerRouter(),
-        ],
-        builder: (context, child, animation) {
-          final tabsRouter = AutoTabsRouter.of(context);
-          return Scaffold(
-            body: FadeTransition(
-              opacity: animation,
-              child: child,
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: Theme.of(context).backgroundColor,
-              selectedItemColor: Theme.of(context).textTheme.headline1?.color,
-              unselectedItemColor: Theme.of(context).textTheme.headline2?.color,
-              currentIndex: tabsRouter.activeIndex,
-              onTap: (index) {
-                tabsRouter.setActiveIndex(index);
-              },
-              items: const[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.alarm,),
-                  label: '',
+      routes: const [
+        AlarmClockRouter(),
+        StopwatchRouter(),
+        TimerRouter(),
+      ],
+      builder: (context, child, animation) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        return Scaffold(
+          body: FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Theme.of(context).backgroundColor,
+            selectedItemColor: Theme.of(context).textTheme.headline1?.color,
+            unselectedItemColor: Theme.of(context).textTheme.headline2?.color,
+            currentIndex: tabsRouter.activeIndex,
+            onTap: (index) {
+              tabsRouter.setActiveIndex(index);
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.alarm,
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.timer_sharp,),
-                  label: '',
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.timer_sharp,
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.hourglass_empty,),
-                  label: '',
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.hourglass_empty,
                 ),
-              ],
-            ),
-          );
-        },
+                label: '',
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

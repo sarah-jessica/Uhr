@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:localization/localization.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/main.dart';
 
@@ -14,11 +14,10 @@ class AddAlarmScreen extends ConsumerStatefulWidget {
 }
 
 class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
-
   DateTime time = DateTime.now();
-  String name = 'default-alarm-name'.i18n();
+  String name = 'default-alarm-name'.tr();
   RepetitionType rep = RepetitionType.once;
-  List<String> reps = ['once'.i18n(), 'daily'.i18n()];
+  List<String> reps = ['once'.tr(), 'daily'.tr()];
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'add-alarm-clock-title'.i18n(),
+          'add-alarm-clock-title'.tr(),
           style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
         ),
         backgroundColor: Theme.of(context).backgroundColor,
@@ -39,23 +38,25 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
             context.popRoute();
           },
         ),
-        actions: [IconButton(
-          icon: const Icon(Icons.check),
-          color: Theme.of(context).textTheme.headline1?.color,
-          onPressed: () {
-            if (time.isBefore(DateTime.now())) {
-              //set day for alarm to the next day
-              time = time.add(const Duration(days: 1));
-            }
-            alarmList.addAlarm(time: time, name: name, repetition: rep);
-            context.popRoute();
-          },
-        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.check),
+            color: Theme.of(context).textTheme.headline1?.color,
+            onPressed: () {
+              if (time.isBefore(DateTime.now())) {
+                //set day for alarm to the next day
+                time = time.add(const Duration(days: 1));
+              }
+              alarmList.addAlarm(time: time, name: name, repetition: rep);
+              context.popRoute();
+            },
+          ),
         ],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(
-            vertical: 20, horizontal: 50,
+          vertical: 20,
+          horizontal: 50,
         ),
         child: Form(
           child: SingleChildScrollView(
@@ -75,14 +76,18 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                   spacing: 40,
                   itemHeight: 80,
                   onTimeChange: (time) {
-                    this.time = time.subtract(Duration(
-                      seconds: time.second,),);
+                    this.time = time.subtract(
+                      Duration(
+                        seconds: time.second,
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 40),
                 TextFormField(
                   initialValue: name,
-                  style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.headline1?.color,),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -97,7 +102,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                       ),
                     ),
                     label: Text(
-                      'alarm-name-title'.i18n(),
+                      'alarm-name-title'.tr(),
                       style: TextStyle(
                         fontSize: 25,
                         color: Theme.of(context).textTheme.headline2?.color,
@@ -114,8 +119,8 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                          width: 2,
-                          color: Theme.of(context).textTheme.headline2!.color!,
+                        width: 2,
+                        color: Theme.of(context).textTheme.headline2!.color!,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -125,7 +130,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                       ),
                     ),
                     label: Text(
-                      'repetition-title'.i18n(),
+                      'repetition-title'.tr(),
                       style: TextStyle(
                         fontSize: 25,
                         color: Theme.of(context).textTheme.headline2?.color,
@@ -138,7 +143,9 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                       value: r,
                       child: Text(
                         r,
-                        style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.headline1?.color,),
                       ),
                     );
                   }).toList(),

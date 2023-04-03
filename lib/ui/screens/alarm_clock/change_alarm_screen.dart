@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:localization/localization.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/main.dart';
 import 'package:uhr/models/alarm_model.dart';
@@ -17,7 +17,6 @@ class ChangeAlarmScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final alarmList = ref.watch(alarmListChangeNotifierProvider);
     DateTime newTime = alarm.time;
     String newName = alarm.name;
@@ -26,7 +25,7 @@ class ChangeAlarmScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'change-alarm-clock-title'.i18n(),
+          'change-alarm-clock-title'.tr(),
           style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
         ),
         backgroundColor: Theme.of(context).backgroundColor,
@@ -78,7 +77,8 @@ class ChangeAlarmScreen extends ConsumerWidget {
                 const SizedBox(height: 40),
                 TextFormField(
                   initialValue: alarm.name,
-                  style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.headline1?.color,),
                   onChanged: (val) => newName = val,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -94,7 +94,7 @@ class ChangeAlarmScreen extends ConsumerWidget {
                       ),
                     ),
                     label: Text(
-                      'alarm-name-title'.i18n(),
+                      'alarm-name-title'.tr(),
                       style: TextStyle(
                         fontSize: 25,
                         color: Theme.of(context).textTheme.headline2?.color,
@@ -119,7 +119,7 @@ class ChangeAlarmScreen extends ConsumerWidget {
                       ),
                     ),
                     label: Text(
-                      'repetition-title'.i18n(),
+                      'repetition-title'.tr(),
                       style: TextStyle(
                         fontSize: 25,
                         color: Theme.of(context).textTheme.headline2?.color,
@@ -132,7 +132,9 @@ class ChangeAlarmScreen extends ConsumerWidget {
                       value: r,
                       child: Text(
                         r.asString(),
-                        style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.headline1?.color,),
                       ),
                     );
                   }).toList(),
@@ -142,10 +144,10 @@ class ChangeAlarmScreen extends ConsumerWidget {
                 ElevatedButton(
                   onPressed: () {
                     alarmList.changeAlarmData(
-                        id: alarm.id,
-                        time: newTime,
-                        name: newName,
-                        rep: newRepetition,
+                      id: alarm.id,
+                      time: newTime,
+                      name: newName,
+                      rep: newRepetition,
                     );
                     context.popRoute();
                   },
@@ -159,8 +161,9 @@ class ChangeAlarmScreen extends ConsumerWidget {
                     ),
                   ),
                   child: Text(
-                      'save'.i18n(),
-                    style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
+                    'save'.tr(),
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.headline1?.color,),
                   ),
                 ),
               ],

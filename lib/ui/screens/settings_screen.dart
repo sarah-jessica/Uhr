@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localization/localization.dart';
 import 'package:uhr/enums/languages.dart';
 import 'package:uhr/enums/theme_type.dart';
 import 'package:uhr/main.dart';
 import 'package:uhr/provider/settings/language_provider.dart';
 import 'package:uhr/provider/settings/theme_provider.dart';
-
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -26,11 +25,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('settings'.i18n()),
+        title: Text('settings'.tr()),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {context.popRoute();},
+          onPressed: () {
+            context.popRoute();
+          },
         ),
         elevation: 0.8,
         backgroundColor: Theme.of(context).backgroundColor,
@@ -66,7 +67,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
                   ),
                   label: Text(
-                    'theme'.i18n(),
+                    'theme'.tr(),
                     style: TextStyle(
                       fontSize: 25,
                       color: Theme.of(context).textTheme.headline2?.color,
@@ -79,7 +80,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     value: r,
                     child: Text(
                       r.asString(),
-                      style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.headline1?.color,),
                     ),
                   );
                 }).toList(),
@@ -117,7 +119,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
                   ),
                   label: Text(
-                    'language'.i18n(),
+                    'language'.tr(),
                     style: TextStyle(
                       fontSize: 25,
                       color: Theme.of(context).textTheme.headline2?.color,
@@ -130,7 +132,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     value: r,
                     child: Text(
                       r.asString(),
-                      style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.headline1?.color,),
                     ),
                   );
                 }).toList(),
@@ -156,7 +159,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 horizontal: 30,
               ),
             ),
-            child: Text('save'.i18n()),
+            child: Text('save'.tr()),
           ),
         ],
       ),

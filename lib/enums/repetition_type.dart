@@ -1,13 +1,13 @@
-import 'package:localization/localization.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 enum RepetitionType { once, daily }
 
 extension RepetitionTypeExtension on RepetitionType {
   String asString() {
-    return this == RepetitionType.daily ? 'daily'.i18n() : 'once'.i18n();
+    return this == RepetitionType.daily ? 'daily'.tr() : 'once'.tr();
   }
 
   static RepetitionType stringToRepetition(String rep) {
-    return rep == 'daily'.i18n() ? RepetitionType.daily : RepetitionType.once;
+    return rep == 'daily'.tr() ? RepetitionType.daily : RepetitionType.once;
   }
 }

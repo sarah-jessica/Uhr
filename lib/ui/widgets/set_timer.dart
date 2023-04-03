@@ -11,7 +11,11 @@ class SetTimer extends ConsumerStatefulWidget {
 }
 
 class _SetTimerState extends ConsumerState<SetTimer> {
-  DateTime time = DateTime(0, 0, 0,);
+  DateTime time = DateTime(
+    0,
+    0,
+    0,
+  );
 
   @override
   Widget build(BuildContext context) {

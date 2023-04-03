@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localization/localization.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/main.dart';
@@ -50,7 +50,9 @@ class _AlarmTileState extends ConsumerState<AlarmTile> {
             ),
           ),
           subtitle: Text(
-            widget.alarm.repetition == RepetitionType.daily ? 'daily'.i18n() : 'once'.i18n(),
+            widget.alarm.repetition == RepetitionType.daily
+                ? 'daily'.tr()
+                : 'once'.tr(),
             style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).textTheme.headline2?.color,

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localization/localization.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/main.dart';
 import 'package:uhr/ui/widgets/alarm_tile.dart';
@@ -20,15 +20,15 @@ class _AlarmClockScreenState extends ConsumerState<AlarmClockScreen> {
     final alarmList = ref.watch(alarmListChangeNotifierProvider)
       ..updateAlarms();
     return Scaffold(
-      appBar: ClockAppBar(title: 'alarm-clock-title'.i18n()),
+      appBar: ClockAppBar(title: 'alarm-clock-title'.tr()),
       backgroundColor: Theme.of(context).backgroundColor,
       body: ListView.builder(
-          itemCount: alarmList.alarms.length,
-          itemBuilder: (context, index) {
-           return AlarmTile(
-                alarm: alarmList.alarms[index],
-            );
-          },
+        itemCount: alarmList.alarms.length,
+        itemBuilder: (context, index) {
+          return AlarmTile(
+            alarm: alarmList.alarms[index],
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: '1',

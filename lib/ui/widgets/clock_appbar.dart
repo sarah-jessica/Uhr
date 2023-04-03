@@ -15,7 +15,6 @@ class ClockAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _ClockAppBarState extends State<ClockAppBar> {
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -25,7 +24,9 @@ class _ClockAppBarState extends State<ClockAppBar> {
       backgroundColor: Theme.of(context).backgroundColor,
       leading: IconButton(
         icon: const Icon(Icons.settings),
-        onPressed: () {context.pushRoute(const SettingsPage());},
+        onPressed: () {
+          context.pushRoute(const SettingsPage());
+        },
       ),
       elevation: 0.8,
     );

@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:localization/localization.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:uhr/provider/settings/language_provider.dart';
@@ -17,11 +17,13 @@ final timerChangeNotifierProvider = ChangeNotifierProvider<MyTimer>((ref) {
   return MyTimer();
 });
 
-final alarmListChangeNotifierProvider = ChangeNotifierProvider<MyAlarmList>((ref) {
+final alarmListChangeNotifierProvider =
+    ChangeNotifierProvider<MyAlarmList>((ref) {
   return MyAlarmList();
 });
 
-final languageChangeNotifierProvider = ChangeNotifierProvider<LanguageProvider>((ref) {
+final languageChangeNotifierProvider =
+ChangeNotifierProvider<LanguageProvider>((ref) {
   return LanguageProvider();
 });
 
@@ -32,10 +34,17 @@ final themeChangeNotifierProvider = ChangeNotifierProvider<CustomTheme>((ref) {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().initNotification();
+  await EasyLocalization.ensureInitialized();
 
   runApp(
-    const ProviderScope(
-      child: MyApp(),
+    ProviderScope(
+      child: EasyLocalization(
+          startLocale: const Locale('en', 'US'),
+          supportedLocales: const [Locale('en', 'US'), Locale('de', 'DE'), Locale('es', 'ES')],
+          path: 'lib/translations',
+          fallbackLocale: const Locale('en', 'US'),
+          child: const MyApp(),
+      ),
     ),
   );
 }
@@ -52,26 +61,13 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    LanguageProvider language = ref.watch(languageChangeNotifierProvider);
-    CustomTheme theme = ref.watch(themeChangeNotifierProvider);
-    LocalJsonLocalization.delegate.directories = ['lib/i18n'];
+    final LanguageProvider language = ref.watch(languageChangeNotifierProvider);
+    final CustomTheme theme = ref.watch(themeChangeNotifierProvider);
+    language.setContext(context);
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
       locale: language.getLanguageAsLocale(),
-      localeResolutionCallback: (locale, supportedLocales) {
-
-        if (supportedLocales.contains(locale)) {
-          return locale;
-        }
-        if (locale?.languageCode == 'de') {
-          return const Locale('de', 'DE');
-        } else if (locale?.languageCode == 'es') {
-          return const Locale('es', 'ES');
-        }
-        return const Locale('en', 'US');
-      },
-      localizationsDelegates: [
-        LocalJsonLocalization.delegate,
-      ],
       home: MaterialApp.router(
         theme: CustomTheme.lightTheme,
         darkTheme: CustomTheme.darkTheme,

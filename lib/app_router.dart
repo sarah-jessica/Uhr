@@ -10,7 +10,6 @@ import 'package:uhr/ui/screens/start_screen.dart';
 import 'package:uhr/ui/screens/stopwatch/stopwatch_screen.dart';
 import 'package:uhr/ui/screens/timer/timer_screen.dart';
 
-
 @MaterialAutoRouter(
   replaceInRouteName: 'Screen,Page',
   routes: <AutoRoute>[
@@ -25,7 +24,7 @@ import 'package:uhr/ui/screens/timer/timer_screen.dart';
           deferredLoading: true,
           children: [
             AutoRoute(
-                page: SettingsScreen,
+              page: SettingsScreen,
             ),
             AutoRoute(
               page: AlarmClockScreen,
@@ -44,18 +43,18 @@ import 'package:uhr/ui/screens/timer/timer_screen.dart';
           ],
         ),
         AutoRoute(
-            page: StopwatchRouter,
-            name: 'StopwatchRouter',
-            path: 'stopwatchRouter',
-            maintainState: false,
-            deferredLoading: true,
-            children: [
-              AutoRoute(
-                page: StopwatchScreen,
-                path: '',
-              ),
-              AutoRoute(page: SettingsScreen),
-            ],
+          page: StopwatchRouter,
+          name: 'StopwatchRouter',
+          path: 'stopwatchRouter',
+          maintainState: false,
+          deferredLoading: true,
+          children: [
+            AutoRoute(
+              page: StopwatchScreen,
+              path: '',
+            ),
+            AutoRoute(page: SettingsScreen),
+          ],
         ),
         AutoRoute(
           page: TimerRouter,
@@ -75,7 +74,4 @@ import 'package:uhr/ui/screens/timer/timer_screen.dart';
     ),
   ],
 )
-
 class $AppRouter {}
-
-
