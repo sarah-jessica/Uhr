@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:uhr/enums/languages.dart';
 import 'package:uhr/enums/theme_type.dart';
 import 'package:uhr/main.dart';
-import 'package:uhr/provider/settings/language_provider.dart';
 import 'package:uhr/provider/settings/theme_provider.dart';
+import 'package:uhr/utils/config.dart';
+import 'package:uhr/utils/extensions.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -18,10 +18,10 @@ class SettingsScreen extends ConsumerStatefulWidget {
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    final LanguageProvider language = ref.watch(languageChangeNotifierProvider);
     final CustomTheme theme = ref.watch(themeChangeNotifierProvider);
     ThemeType newTheme = theme.themeType;
-    Languages newLanguage = language.getLocaleAsLanguages();
+    Locale? newLanguage = context.locale;
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -81,7 +81,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     child: Text(
                       r.asString(),
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.headline1?.color,),
+                        color: Theme.of(context).textTheme.headline1?.color,
+                      ),
                     ),
                   );
                 }).toList(),
@@ -101,7 +102,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 20,
                 0,
               ),
-              child: DropdownButtonFormField<Languages>(
+              child: DropdownButtonFormField<Locale>(
                 dropdownColor: Theme.of(context).backgroundColor,
                 decoration: InputDecoration(
                   fillColor: Theme.of(context).backgroundColor,
@@ -126,19 +127,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
                   ),
                 ),
-                value: language.getLocaleAsLanguages(),
-                items: Languages.values.map((r) {
-                  return DropdownMenuItem(
-                    value: r,
+                value: context.locale,
+                items: supportedLocales.map((locale) {
+                  return DropdownMenuItem<Locale>(
+                    value: locale,
                     child: Text(
-                      r.asString(),
+                      locale.asString(),
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.headline1?.color,),
+                        color: Theme.of(context).textTheme.headline1?.color,
+                      ),
                     ),
                   );
                 }).toList(),
-                onChanged: (val) {
-                  newLanguage = val!;
+                onChanged: (language) {
+                  newLanguage = language;
                 },
               ),
             ),
@@ -146,7 +148,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              language.setLanguage(newLanguage);
+              if (newLanguage != null && newLanguage != context.locale) {
+                context.setLocale(newLanguage!);
+              }
               theme.changeTheme(newTheme);
               context.popRoute();
             },
