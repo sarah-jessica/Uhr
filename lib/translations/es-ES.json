@@ -1,0 +1,18 @@
+{
+  "alarm-clock-title": "Despertador",
+  "timer-title": "Ampolleta",
+  "stopwatch-title": "Cronómetro",
+  "add-alarm-clock-title": "Agragar un despertador",
+  "alarm-name-title": "Nombre de despertador",
+  "default-alarm-name": "Despertador",
+  "repetition-title": "Repaso",
+  "daily": "diario",
+  "once": "único",
+  "change-alarm-clock-title": "Modificar el despertador",
+  "save": "Almacenar",
+  "settings": "Ajuste",
+  "theme": "Thema",
+  "dark": "Oscuro",
+  "light": "Claro",
+  "language": "Lengua"
+}

@@ -1,0 +1,18 @@
+{
+  "alarm-clock-title": "Wecker",
+  "timer-title": "Timer",
+  "stopwatch-title": "Stoppuhr",
+  "add-alarm-clock-title": "Wecker hinzufügen",
+  "alarm-name-title": "Name",
+  "default-alarm-name": "Wecker",
+  "repetition-title": "Wiederholung",
+  "daily": "täglich",
+  "once": "einmalig",
+  "change-alarm-clock-title": "Wecker ändern",
+  "save": "Speichern",
+  "settings": "Einstellungen",
+  "theme": "Thema",
+  "dark": "Dunkel",
+  "light": "Hell",
+  "language": "Sprache"
+}

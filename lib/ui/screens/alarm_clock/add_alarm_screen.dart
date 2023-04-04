@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/main.dart';
-import 'package:uhr/ui/widgets/text_input_decoration.dart';
 
 class AddAlarmScreen extends ConsumerStatefulWidget {
   const AddAlarmScreen({Key? key}) : super(key: key);
@@ -14,45 +14,49 @@ class AddAlarmScreen extends ConsumerStatefulWidget {
 }
 
 class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
-
   DateTime time = DateTime.now();
-  String name = 'Alarm';
+  String name = 'default-alarm-name'.tr();
   RepetitionType rep = RepetitionType.once;
-  List<String> reps = ['Once', 'Daily'];
+  List<String> reps = ['once'.tr(), 'daily'.tr()];
 
   @override
   Widget build(BuildContext context) {
     final alarmList = ref.watch(alarmListChangeNotifierProvider);
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Add Alarm Clock'),
+        title: Text(
+          'add-alarm-clock-title'.tr(),
+          style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
+        ),
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
+          color: Theme.of(context).textTheme.headline1?.color,
           onPressed: () {
             context.popRoute();
           },
         ),
-        actions: [IconButton(
-          icon: const Icon(Icons.check),
-          onPressed: () {
-            if (time.isBefore(DateTime.now())) {
-              //set day for alarm to the next day
-              time = time.add(const Duration(days: 1));
-            }
-            alarmList.addAlarm(time: time, name: name, repetition: rep);
-            context.popRoute();
-          },
-        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.check),
+            color: Theme.of(context).textTheme.headline1?.color,
+            onPressed: () {
+              if (time.isBefore(DateTime.now())) {
+                //set day for alarm to the next day
+                time = time.add(const Duration(days: 1));
+              }
+              alarmList.addAlarm(time: time, name: name, repetition: rep);
+              context.popRoute();
+            },
+          ),
         ],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(
-            vertical: 20, horizontal: 50,
+          vertical: 20,
+          horizontal: 50,
         ),
         child: Form(
           child: SingleChildScrollView(
@@ -61,44 +65,93 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                 const SizedBox(height: 20),
                 TimePickerSpinner(
                   isForce2Digits: true,
-                  normalTextStyle: const TextStyle(
-                      fontSize: 30,
-                      color: Colors.black12,
+                  normalTextStyle: TextStyle(
+                    fontSize: 30,
+                    color: Theme.of(context).textTheme.headline2?.color,
                   ),
-                  highlightedTextStyle: const TextStyle(
-                      fontSize: 30,
-                      color: Colors.black,
+                  highlightedTextStyle: TextStyle(
+                    fontSize: 30,
+                    color: Theme.of(context).textTheme.headline1?.color,
                   ),
                   spacing: 40,
                   itemHeight: 80,
                   onTimeChange: (time) {
-                    this.time = time.subtract(Duration(
-                      seconds: time.second,),);
+                    this.time = time.subtract(
+                      Duration(
+                        seconds: time.second,
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 40),
                 TextFormField(
                   initialValue: name,
-                  decoration: textInputDecoration.copyWith(
-                      label: const Text(
-                          'Alarm Name', style: TextStyle(fontSize: 25),),),
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.headline1?.color,),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Theme.of(context).textTheme.headline2!.color!,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Theme.of(context).textTheme.headline1!.color!,
+                      ),
+                    ),
+                    label: Text(
+                      'alarm-name-title'.tr(),
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Theme.of(context).textTheme.headline2?.color,
+                      ),
+                    ),
+                  ),
                   onChanged: (val) {
                     name = val;
                   },
                 ),
                 const SizedBox(height: 40),
-                DropdownButtonFormField<RepetitionType>(
-                  decoration: textInputDecoration.copyWith(
-                      label: const Text(
-                          'Repetition', style: TextStyle(fontSize: 25),),),
-                  value: rep,
-                  items: RepetitionType.values.map((r) {
+                DropdownButtonFormField<String>(
+                  dropdownColor: Theme.of(context).backgroundColor,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Theme.of(context).textTheme.headline2!.color!,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Theme.of(context).textTheme.headline1!.color!,
+                      ),
+                    ),
+                    label: Text(
+                      'repetition-title'.tr(),
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Theme.of(context).textTheme.headline2?.color,
+                      ),
+                    ),
+                  ),
+                  value: reps[0],
+                  items: reps.map((r) {
                     return DropdownMenuItem(
                       value: r,
-                      child: Text(r.asString()),
+                      child: Text(
+                        r,
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.headline1?.color,),
+                      ),
                     );
                   }).toList(),
-                  onChanged: (val) => rep = val!,
+                  onChanged: (val) {
+                    rep = RepetitionTypeExtension.stringToRepetition(val!);
+                  },
                 ),
               ],
             ),

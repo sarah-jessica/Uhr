@@ -11,7 +11,11 @@ class SetTimer extends ConsumerStatefulWidget {
 }
 
 class _SetTimerState extends ConsumerState<SetTimer> {
-  DateTime time = DateTime(0, 0, 0,);
+  DateTime time = DateTime(
+    0,
+    0,
+    0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +26,14 @@ class _SetTimerState extends ConsumerState<SetTimer> {
           time: time,
           isShowSeconds: true,
           isForce2Digits: true,
-          normalTextStyle: const TextStyle(fontSize: 30, color: Colors.black12),
-          highlightedTextStyle: const TextStyle(fontSize: 30, color: Colors.black),
+          normalTextStyle: TextStyle(
+            fontSize: 30,
+            color: Theme.of(context).textTheme.headline2?.color,
+          ),
+          highlightedTextStyle: TextStyle(
+            fontSize: 30,
+            color: Theme.of(context).textTheme.headline1?.color,
+          ),
           spacing: 40,
           itemHeight: 80,
           onTimeChange: (time) {
@@ -38,8 +48,8 @@ class _SetTimerState extends ConsumerState<SetTimer> {
             ref.watch(timerChangeNotifierProvider).setTime = time;
             ref.watch(timerChangeNotifierProvider).start();
           },
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
+          backgroundColor: Theme.of(context).backgroundColor,
+          foregroundColor: Theme.of(context).textTheme.headline1?.color,
           child: const Icon(
             Icons.play_arrow_outlined,
             size: 40,

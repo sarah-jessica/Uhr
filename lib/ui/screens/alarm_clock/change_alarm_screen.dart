@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:uhr/enums/repetition_type.dart';
 import 'package:uhr/main.dart';
 import 'package:uhr/models/alarm_model.dart';
-import 'package:uhr/ui/widgets/text_input_decoration.dart';
 
 class ChangeAlarmScreen extends ConsumerWidget {
   final AlarmModel alarm;
@@ -17,23 +17,31 @@ class ChangeAlarmScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final alarmList = ref.watch(alarmListChangeNotifierProvider);
     DateTime newTime = alarm.time;
     String newName = alarm.name;
     RepetitionType newRepetition = alarm.repetition;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Change Alarm Clock'),
+        title: Text(
+          'change-alarm-clock-title'.tr(),
+          style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
+        ),
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: Theme.of(context).textTheme.headline1?.color,
+          onPressed: () {
+            context.popRoute();
+          },
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.delete_outline),
+            color: Theme.of(context).textTheme.headline1?.color,
             onPressed: () {
               alarmList.deleteAlarm(alarm.id);
               context.popRoute();
@@ -54,13 +62,13 @@ class ChangeAlarmScreen extends ConsumerWidget {
                 TimePickerSpinner(
                   time: alarm.time,
                   isForce2Digits: true,
-                  normalTextStyle: const TextStyle(
+                  normalTextStyle: TextStyle(
                     fontSize: 30,
-                    color: Colors.black12,
+                    color: Theme.of(context).textTheme.headline2?.color,
                   ),
-                  highlightedTextStyle: const TextStyle(
+                  highlightedTextStyle: TextStyle(
                     fontSize: 30,
-                    color: Colors.black,
+                    color: Theme.of(context).textTheme.headline1?.color,
                   ),
                   spacing: 40,
                   itemHeight: 80,
@@ -69,20 +77,53 @@ class ChangeAlarmScreen extends ConsumerWidget {
                 const SizedBox(height: 40),
                 TextFormField(
                   initialValue: alarm.name,
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.headline1?.color,),
                   onChanged: (val) => newName = val,
-                  decoration: textInputDecoration.copyWith(
-                    label: const Text(
-                      'Alarm Name',
-                      style: TextStyle(fontSize: 25),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Theme.of(context).textTheme.headline2!.color!,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Theme.of(context).textTheme.headline1!.color!,
+                      ),
+                    ),
+                    label: Text(
+                      'alarm-name-title'.tr(),
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Theme.of(context).textTheme.headline2?.color,
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 40),
                 DropdownButtonFormField<RepetitionType>(
-                  decoration: textInputDecoration.copyWith(
-                    label: const Text(
-                      'Repetition',
-                      style: TextStyle(fontSize: 25),
+                  dropdownColor: Theme.of(context).backgroundColor,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Theme.of(context).textTheme.headline2!.color!,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: Theme.of(context).textTheme.headline1!.color!,
+                      ),
+                    ),
+                    label: Text(
+                      'repetition-title'.tr(),
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Theme.of(context).textTheme.headline2?.color,
+                      ),
                     ),
                   ),
                   value: alarm.repetition,
@@ -91,6 +132,9 @@ class ChangeAlarmScreen extends ConsumerWidget {
                       value: r,
                       child: Text(
                         r.asString(),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.headline1?.color,),
                       ),
                     );
                   }).toList(),
@@ -100,22 +144,27 @@ class ChangeAlarmScreen extends ConsumerWidget {
                 ElevatedButton(
                   onPressed: () {
                     alarmList.changeAlarmData(
-                        id: alarm.id,
-                        time: newTime,
-                        name: newName,
-                        rep: newRepetition,
+                      id: alarm.id,
+                      time: newTime,
+                      name: newName,
+                      rep: newRepetition,
                     );
                     context.popRoute();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
+                    primary: Theme.of(context).backgroundColor,
+                    shadowColor: Theme.of(context).textTheme.headline1?.color,
+                    elevation: 5,
                     padding: const EdgeInsets.symmetric(
                       vertical: 15,
                       horizontal: 30,
                     ),
                   ),
-                  child: const Text('Save'),
+                  child: Text(
+                    'save'.tr(),
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.headline1?.color,),
+                  ),
                 ),
               ],
             ),

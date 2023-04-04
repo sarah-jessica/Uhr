@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:uhr/enums/repetition_type.dart';
 
-
 class AlarmModel {
   final int id;
   final String name;

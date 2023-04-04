@@ -5,7 +5,8 @@ import 'package:timezone/timezone.dart' as tz;
 // Klasse um Benachrichtigungen zu erstellen
 
 class NotificationService {
-  static final NotificationService _notificationService = NotificationService._internal();
+  static final NotificationService _notificationService =
+      NotificationService._internal();
 
   factory NotificationService() {
     return _notificationService;
@@ -17,12 +18,11 @@ class NotificationService {
 
   Future<void> initNotification() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
     const InitializationSettings initializationSettings =
-    InitializationSettings(
-        android: initializationSettingsAndroid,
-
+        InitializationSettings(
+      android: initializationSettingsAndroid,
     );
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
     tz.initializeTimeZones();
@@ -39,15 +39,16 @@ class NotificationService {
     ),
   );
 
-
-  Future<void> showNotification(int id, String title, String body, DateTime time) async {
+  Future<void> showNotification(
+      int id, String title, String body, DateTime time,) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
       body,
       tz.TZDateTime.from(time, tz.getLocation('Europe/Berlin')),
       notificationDetails,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle: true,
       matchDateTimeComponents: DateTimeComponents.time,
     );
@@ -57,7 +58,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.cancel(id);
   }
 
-  Future<void> timerNotification (int id, String title, String body) async {
+  Future<void> timerNotification(int id, String title, String body) async {
     await flutterLocalNotificationsPlugin.show(
       id,
       title,
@@ -65,6 +66,4 @@ class NotificationService {
       notificationDetails,
     );
   }
-
-
 }

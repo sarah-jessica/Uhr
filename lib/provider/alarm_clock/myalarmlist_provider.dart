@@ -4,10 +4,10 @@ import 'package:uhr/models/alarm_model.dart';
 import 'package:uhr/services/notification_service.dart';
 import 'package:uhr/utils/extensions.dart';
 
-class MyAlarmList extends ChangeNotifier{
+class MyAlarmList extends ChangeNotifier {
   final alarms = <AlarmModel>[];
 
-  void addAlarm ({
+  void addAlarm({
     required DateTime time,
     required String name,
     required RepetitionType repetition,
@@ -20,7 +20,8 @@ class MyAlarmList extends ChangeNotifier{
     );
 
     alarms.add(alarm);
-    NotificationService().showNotification(alarm.id, alarm.name, alarm.time.toFormattedTimeString(), alarm.time);
+    NotificationService().showNotification(
+        alarm.id, alarm.name, alarm.time.toFormattedTimeString(), alarm.time,);
     notifyListeners();
   }
 
@@ -39,19 +40,22 @@ class MyAlarmList extends ChangeNotifier{
         if (time.isBefore(DateTime.now())) {
           //set day for alarm to the next day
           time = time.add(const Duration(days: 1));
-        } else if (time.subtract(const Duration(days: 1)).isAfter(DateTime.now())) {
+        } else if (time
+            .subtract(const Duration(days: 1))
+            .isAfter(DateTime.now())) {
           //set day for alarm to today
           time = time.subtract(const Duration(days: 1));
         }
         alarms[index] = alarm.copyWith(
-            time: time,
-            isOn: true,
+          time: time,
+          isOn: true,
         );
         // set alarm
-        await NotificationService().showNotification(id, alarms[index].name, alarms[index].time.toFormattedTimeString(), alarms[index].time);
+        await NotificationService().showNotification(id, alarms[index].name,
+            alarms[index].time.toFormattedTimeString(), alarms[index].time,);
       } else {
         alarms[index] = alarm.copyWith(
-            isOn: false,
+          isOn: false,
         );
         await NotificationService().cancelNotification(id);
       }
@@ -59,8 +63,12 @@ class MyAlarmList extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> changeAlarmData(
-      {required int id, required DateTime time, required String name, required RepetitionType rep,}) async {
+  Future<void> changeAlarmData({
+    required int id,
+    required DateTime time,
+    required String name,
+    required RepetitionType rep,
+  }) async {
     final int index = alarms.indexWhere((alarm) => alarm.id == id);
     late DateTime newTime;
     await NotificationService().cancelNotification(id);
@@ -74,18 +82,20 @@ class MyAlarmList extends ChangeNotifier{
       newTime = time;
     }
     alarms[index] = alarms[index].copyWith(
-        name: name,
-        time: newTime,
-        type: rep,
-        isOn: true,
+      name: name,
+      time: newTime,
+      type: rep,
+      isOn: true,
     );
-    await NotificationService().showNotification(id, alarms[index].name, alarms[index].time.toFormattedTimeString(), alarms[index].time);
+    await NotificationService().showNotification(id, alarms[index].name,
+        alarms[index].time.toFormattedTimeString(), alarms[index].time,);
     notifyListeners();
   }
 
   void updateAlarms() {
     for (int i = 0; i < alarms.length; i++) {
-      if (alarms[i].time.isBefore(DateTime.now()) && alarms[i].repetition == RepetitionType.once) {
+      if (alarms[i].time.isBefore(DateTime.now()) &&
+          alarms[i].repetition == RepetitionType.once) {
         changeAlarmState(id: alarms[i].id, isOn: false);
       }
     }
