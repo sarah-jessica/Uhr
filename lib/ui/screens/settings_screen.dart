@@ -20,6 +20,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final CustomTheme theme = ref.watch(themeChangeNotifierProvider);
     ThemeType newTheme = theme.themeType;
+    Locale? newLanguage = context.locale;
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -138,10 +139,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
                   );
                 }).toList(),
-                onChanged: (newLanguage) {
-                  if (newLanguage != null) {
-                    context.setLocale(newLanguage);
-                  }
+                onChanged: (language) {
+                  newLanguage = language;
                 },
               ),
             ),
@@ -149,6 +148,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
+              if (newLanguage != null && newLanguage != context.locale) {
+                context.setLocale(newLanguage!);
+              }
               theme.changeTheme(newTheme);
               context.popRoute();
             },
