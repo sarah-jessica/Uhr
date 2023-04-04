@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:uhr/bloc/timer/timer_bloc.dart';
+import 'package:uhr/main.dart';
+import 'package:uhr/provider/timer/mytimer_provider.dart';
 
 
-class RunningTimer extends StatefulWidget {
+class RunningTimer extends ConsumerStatefulWidget {
 
   const RunningTimer({Key? key,}) : super(key: key);
 
   @override
-  State<RunningTimer> createState() => _RunningTimerState();
+  ConsumerState<RunningTimer> createState() => _RunningTimerState();
 }
 
-class _RunningTimerState extends State<RunningTimer> {
+class _RunningTimerState extends ConsumerState<RunningTimer> {
 
   final _isHours = true;
 
   @override
   Widget build(BuildContext context) {
 
-    final TimerBloc timerBloc = BlocProvider.of<TimerBloc>(context);
+    final MyTimer timer = ref.watch(timerChangeNotifierProvider);
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           StreamBuilder<int>(
-            stream: timerBloc.state.timer.rawTime,
-            initialData: timerBloc.state.timer.rawTimeValue,
+            stream: timer.rawTime,
+            initialData: timer.rawTimeValue,
             builder: (context, snap) {
               final value = snap.data!;
               final displayTime =
@@ -47,8 +48,8 @@ class _RunningTimerState extends State<RunningTimer> {
               FloatingActionButton(
                 heroTag: 'start',
                 onPressed: () {
-                  timerBloc.state.timer.start();
-                  },
+                  timer.start();
+                },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 child: const Icon(Icons.play_arrow_outlined, size: 40,),
@@ -56,7 +57,7 @@ class _RunningTimerState extends State<RunningTimer> {
               FloatingActionButton(
                 heroTag: 'pause',
                 onPressed: () {
-                  timerBloc.state.timer.pause();
+                  timer.pause();
                 },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
@@ -65,7 +66,7 @@ class _RunningTimerState extends State<RunningTimer> {
               FloatingActionButton(
                 heroTag: 'stop',
                 onPressed: () {
-                  BlocProvider.of<TimerBloc>(context).add(StopTimer());
+                  timer.stop();
                 },
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,

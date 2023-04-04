@@ -1,19 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:uhr/bloc/alarm/alarmlist_bloc.dart';
 import 'package:uhr/enums/repetition_type.dart';
+import 'package:uhr/main.dart';
 import 'package:uhr/ui/widgets/text_input_decoration.dart';
 
-class AddAlarmScreen extends StatefulWidget {
+class AddAlarmScreen extends ConsumerStatefulWidget {
   const AddAlarmScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddAlarmScreen> createState() => _AddAlarmScreenState();
+  ConsumerState<AddAlarmScreen> createState() => _AddAlarmScreenState();
 }
 
-class _AddAlarmScreenState extends State<AddAlarmScreen> {
+class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
 
   DateTime time = DateTime.now();
   String name = 'Alarm';
@@ -22,6 +22,7 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final alarmList = ref.watch(alarmListChangeNotifierProvider);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -43,13 +44,7 @@ class _AddAlarmScreenState extends State<AddAlarmScreen> {
               //set day for alarm to the next day
               time = time.add(const Duration(days: 1));
             }
-            BlocProvider.of<AlarmListBloc>(context).add(
-              AddAlarm(
-                time: time,
-                name: name,
-                repetition: rep,
-              ),
-            );
+            alarmList.addAlarm(time: time, name: name, repetition: rep);
             context.popRoute();
           },
         ),
