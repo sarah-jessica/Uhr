@@ -2,8 +2,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-// Klasse um Benachrichtigungen zu erstellen
-
 class NotificationService {
   static final NotificationService _notificationService =
       NotificationService._internal();
@@ -30,12 +28,13 @@ class NotificationService {
 
   final notificationDetails = const NotificationDetails(
     android: AndroidNotificationDetails(
+      'channel_id',
       'main_channel',
-      'Main Channel',
+      channelDescription: 'Main Channel',
       importance: Importance.max,
       priority: Priority.max,
       icon: '@mipmap/ic_launcher',
-      //sound: RawResourceAndroidNotificationSound('alarm_buzzer_experia'),
+      sound: RawResourceAndroidNotificationSound('alarm_buzzer_experia'),
     ),
   );
 
