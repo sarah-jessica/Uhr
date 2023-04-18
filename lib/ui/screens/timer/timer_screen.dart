@@ -19,7 +19,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
   Widget build(BuildContext context) {
     final MyTimer timer = ref.watch(timerChangeNotifierProvider);
     return Scaffold(
-      appBar: ClockAppBar(title: 'timer-title'.tr()),
+      appBar: ClockAppBar(title: 'timer'.tr()),
       backgroundColor: Theme.of(context).backgroundColor,
       body: timer.isRunning || timer.isPaused
           ? const RunningTimer()

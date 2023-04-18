@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:uhr/app_router.gr.dart';
 
@@ -22,11 +23,14 @@ class _ClockAppBarState extends State<ClockAppBar> {
       centerTitle: true,
       foregroundColor: Theme.of(context).textTheme.headline1?.color,
       backgroundColor: Theme.of(context).backgroundColor,
-      leading: IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          context.pushRoute(const SettingsPage());
-        },
+      leading: Semantics(
+        label: tr('settings'),
+        child: IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              context.pushRoute(const SettingsPage());
+            },
+          ),
       ),
       elevation: 0.8,
     );

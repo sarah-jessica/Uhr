@@ -25,31 +25,37 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'add-alarm-clock-title'.tr(),
+          'add-alarm-clock'.tr(),
           style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
         ),
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Theme.of(context).textTheme.headline1?.color,
-          onPressed: () {
-            context.popRoute();
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.check),
+        leading: Semantics(
+          label: tr('back'),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
             color: Theme.of(context).textTheme.headline1?.color,
             onPressed: () {
-              if (time.isBefore(DateTime.now())) {
-                //set day for alarm to the next day
-                time = time.add(const Duration(days: 1));
-              }
-              alarmList.addAlarm(time: time, name: name, repetition: rep);
               context.popRoute();
             },
+          ),
+        ),
+        actions: [
+          Semantics(
+            label: tr('save'),
+            child: IconButton(
+              icon: const Icon(Icons.check),
+              color: Theme.of(context).textTheme.headline1?.color,
+              onPressed: () {
+                if (time.isBefore(DateTime.now())) {
+                  //set day for alarm to the next day
+                  time = time.add(const Duration(days: 1));
+                }
+                alarmList.addAlarm(time: time, name: name, repetition: rep);
+                context.popRoute();
+              },
+            ),
           ),
         ],
       ),
@@ -102,7 +108,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                       ),
                     ),
                     label: Text(
-                      'alarm-name-title'.tr(),
+                      'alarm-name'.tr(),
                       style: TextStyle(
                         fontSize: 25,
                         color: Theme.of(context).textTheme.headline2?.color,
@@ -130,7 +136,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                       ),
                     ),
                     label: Text(
-                      'repetition-title'.tr(),
+                      'repetition'.tr(),
                       style: TextStyle(
                         fontSize: 25,
                         color: Theme.of(context).textTheme.headline2?.color,

@@ -27,11 +27,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       appBar: AppBar(
         title: Text('settings'.tr()),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            context.popRoute();
-          },
+        leading: Semantics(
+          label: tr('back'),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              context.popRoute();
+            },
+          ),
         ),
         elevation: 0.8,
         backgroundColor: Theme.of(context).backgroundColor,

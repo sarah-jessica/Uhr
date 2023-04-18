@@ -20,7 +20,7 @@ class _AlarmClockScreenState extends ConsumerState<AlarmClockScreen> {
     final alarmList = ref.watch(alarmListChangeNotifierProvider)
       ..updateAlarms();
     return Scaffold(
-      appBar: ClockAppBar(title: 'alarm-clock-title'.tr()),
+      appBar: ClockAppBar(title: 'alarm-clock'.tr()),
       backgroundColor: Theme.of(context).backgroundColor,
       body: ListView.builder(
         itemCount: alarmList.alarms.length,
@@ -37,9 +37,12 @@ class _AlarmClockScreenState extends ConsumerState<AlarmClockScreen> {
         onPressed: () {
           context.pushRoute(const AddAlarmPage());
         },
-        child: const Icon(
-          Icons.add_alarm,
-          size: 40,
+        child: Semantics(
+          label: tr('add-alarm-clock'),
+          child: const Icon(
+            Icons.add_alarm,
+            size: 40,
+          ),
         ),
       ),
     );

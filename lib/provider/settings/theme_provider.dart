@@ -23,7 +23,7 @@ class CustomTheme extends ChangeNotifier {
       shadowColor: Colors.white54,
       textTheme: const TextTheme(
         headline1: TextStyle(color: Colors.black),
-        headline2: TextStyle(color: Colors.black38),
+        headline2: TextStyle(color: Colors.black54),
       ),
     );
   }
@@ -36,8 +36,8 @@ class CustomTheme extends ChangeNotifier {
       shadowColor: Colors.white54,
       dialogBackgroundColor: Colors.grey[900],
       textTheme: const TextTheme(
-        headline1: TextStyle(color: Colors.white60),
-        headline2: TextStyle(color: Colors.white24),
+        headline1: TextStyle(color: Colors.white),
+        headline2: TextStyle(color: Colors.white60),
       ),
     );
   }
