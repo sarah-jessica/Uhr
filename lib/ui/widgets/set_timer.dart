@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
@@ -50,9 +51,12 @@ class _SetTimerState extends ConsumerState<SetTimer> {
           },
           backgroundColor: Theme.of(context).backgroundColor,
           foregroundColor: Theme.of(context).textTheme.headline1?.color,
-          child: const Icon(
-            Icons.play_arrow_outlined,
-            size: 40,
+          child: Semantics(
+            label: tr('start'),
+            child: const Icon(
+              Icons.play_arrow_outlined,
+              size: 40,
+            ),
           ),
         ),
       ],

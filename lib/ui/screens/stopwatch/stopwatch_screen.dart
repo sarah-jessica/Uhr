@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:uhr/ui/widgets/clock_appbar.dart';
+import 'package:uhr/utils/extensions.dart';
 
 class StopwatchScreen extends StatefulWidget {
   const StopwatchScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ClockAppBar(title: 'stopwatch-title'.tr()),
+      appBar: ClockAppBar(title: 'stopwatch'.tr()),
       backgroundColor: Theme.of(context).backgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -29,13 +30,18 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
               final value = snap.data!;
               final displayTime =
                   StopWatchTimer.getDisplayTime(value, hours: _isHours);
-              return Text(
-                displayTime,
-                style: TextStyle(
-                  fontSize: 40,
-                  fontFamily: 'Helvetica',
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).textTheme.headline1?.color,
+              return Semantics(
+                label: StopWatchTimerExtension.timeAsString(value),
+                child: ExcludeSemantics(
+                  child: Text(
+                    displayTime,
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontFamily: 'Helvetica',
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.headline1?.color,
+                    ),
+                  ),
                 ),
               );
             },
@@ -49,9 +55,12 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 },
                 backgroundColor: Theme.of(context).backgroundColor,
                 foregroundColor: Theme.of(context).textTheme.headline1?.color,
-                child: const Icon(
-                  Icons.play_arrow_outlined,
-                  size: 40,
+                child: Semantics(
+                  label: tr('start'),
+                  child: const Icon(
+                    Icons.play_arrow_outlined,
+                    size: 40,
+                  ),
                 ),
               ),
               FloatingActionButton(
@@ -60,9 +69,12 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 },
                 backgroundColor: Theme.of(context).backgroundColor,
                 foregroundColor: Theme.of(context).textTheme.headline1?.color,
-                child: const Icon(
-                  Icons.pause,
-                  size: 30,
+                child: Semantics(
+                  label: tr('pause'),
+                  child: const Icon(
+                    Icons.pause,
+                    size: 30,
+                  ),
                 ),
               ),
               FloatingActionButton(
@@ -71,9 +83,12 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 },
                 backgroundColor: Theme.of(context).backgroundColor,
                 foregroundColor: Theme.of(context).textTheme.headline1?.color,
-                child: const Icon(
-                  Icons.stop_outlined,
-                  size: 40,
+                child: Semantics(
+                  label: tr('stop'),
+                  child: const Icon(
+                    Icons.stop_outlined,
+                    size: 40,
+                  ),
                 ),
               ),
             ],

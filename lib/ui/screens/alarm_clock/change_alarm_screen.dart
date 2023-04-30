@@ -25,27 +25,33 @@ class ChangeAlarmScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'change-alarm-clock-title'.tr(),
+          'change-alarm-clock'.tr(),
           style: TextStyle(color: Theme.of(context).textTheme.headline1?.color),
         ),
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Semantics(
+            label: tr('back'),
+            child: const Icon(Icons.arrow_back),
+          ),
           color: Theme.of(context).textTheme.headline1?.color,
           onPressed: () {
             context.popRoute();
           },
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.delete_outline),
-            color: Theme.of(context).textTheme.headline1?.color,
-            onPressed: () {
-              alarmList.deleteAlarm(alarm.id);
-              context.popRoute();
-            },
+          Semantics(
+            label: tr('delete_alarm'),
+            child: IconButton(
+              icon: const Icon(Icons.delete_outline),
+              color: Theme.of(context).textTheme.headline1?.color,
+              onPressed: () {
+                alarmList.deleteAlarm(alarm.id);
+                context.popRoute();
+              },
+            ),
           ),
         ],
       ),
