@@ -14,7 +14,7 @@
 import 'package:auto_route/auto_route.dart' as _i11;
 import 'package:flutter/material.dart' as _i12;
 
-import 'models/alarm_model.dart' as _i13;
+import 'enums/repetition_type.dart' as _i13;
 import 'services/router/alarm_clock_router.dart' deferred as _i2;
 import 'services/router/stopwatch_router.dart' deferred as _i3;
 import 'services/router/timer_router.dart' deferred as _i4;
@@ -96,7 +96,11 @@ class AppRouter extends _i11.RootStackRouter {
         routeData: routeData,
         child: _i8.ChangeAlarmScreen(
           key: args.key,
-          alarm: args.alarm,
+          id: args.id,
+          name: args.name,
+          time: args.time,
+          repetition: args.repetition,
+          isOn: args.isOn,
         ),
       );
     },
@@ -283,13 +287,21 @@ class AddAlarmPage extends _i11.PageRouteInfo<void> {
 class ChangeAlarmPage extends _i11.PageRouteInfo<ChangeAlarmPageArgs> {
   ChangeAlarmPage({
     _i12.Key? key,
-    required _i13.AlarmModel alarm,
+    required int id,
+    required String name,
+    required DateTime time,
+    required _i13.RepetitionType repetition,
+    required bool isOn,
   }) : super(
           ChangeAlarmPage.name,
           path: 'changeAlarmScreen',
           args: ChangeAlarmPageArgs(
             key: key,
-            alarm: alarm,
+            id: id,
+            name: name,
+            time: time,
+            repetition: repetition,
+            isOn: isOn,
           ),
         );
 
@@ -299,16 +311,28 @@ class ChangeAlarmPage extends _i11.PageRouteInfo<ChangeAlarmPageArgs> {
 class ChangeAlarmPageArgs {
   const ChangeAlarmPageArgs({
     this.key,
-    required this.alarm,
+    required this.id,
+    required this.name,
+    required this.time,
+    required this.repetition,
+    required this.isOn,
   });
 
   final _i12.Key? key;
 
-  final _i13.AlarmModel alarm;
+  final int id;
+
+  final String name;
+
+  final DateTime time;
+
+  final _i13.RepetitionType repetition;
+
+  final bool isOn;
 
   @override
   String toString() {
-    return 'ChangeAlarmPageArgs{key: $key, alarm: $alarm}';
+    return 'ChangeAlarmPageArgs{key: $key, id: $id, name: $name, time: $time, repetition: $repetition, isOn: $isOn}';
   }
 }
 

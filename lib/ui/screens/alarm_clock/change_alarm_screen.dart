@@ -4,23 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:uhr/enums/repetition_type.dart';
-import 'package:uhr/main.dart';
-import 'package:uhr/models/alarm_model.dart';
+import 'package:uhr/services/firestore_services.dart';
 
 class ChangeAlarmScreen extends ConsumerWidget {
-  final AlarmModel alarm;
+  final int id;
+  final String name;
+  final DateTime time;
+  final RepetitionType repetition;
+  final bool isOn;
 
   const ChangeAlarmScreen({
     Key? key,
-    required this.alarm,
+    required this.id,
+    required this.name,
+    required this.time,
+    required this.repetition,
+    required this.isOn,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final alarmList = ref.watch(alarmListChangeNotifierProvider);
-    DateTime newTime = alarm.time;
-    String newName = alarm.name;
-    RepetitionType newRepetition = alarm.repetition;
+    //final alarmList = ref.watch(alarmListChangeNotifierProvider);
+    DateTime newTime = time;
+    String newName = name;
+    RepetitionType newRepetition = repetition;
 
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +55,7 @@ class ChangeAlarmScreen extends ConsumerWidget {
               icon: const Icon(Icons.delete_outline),
               color: Theme.of(context).textTheme.headline1?.color,
               onPressed: () {
-                alarmList.deleteAlarm(alarm.id);
+                FirestoreServices().deleteAlarm(id);
                 context.popRoute();
               },
             ),
@@ -66,7 +73,7 @@ class ChangeAlarmScreen extends ConsumerWidget {
               children: [
                 const SizedBox(height: 20),
                 TimePickerSpinner(
-                  time: alarm.time,
+                  time: time,
                   isForce2Digits: true,
                   normalTextStyle: TextStyle(
                     fontSize: 30,
@@ -82,7 +89,7 @@ class ChangeAlarmScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 40),
                 TextFormField(
-                  initialValue: alarm.name,
+                  initialValue: name,
                   style: TextStyle(
                       color: Theme.of(context).textTheme.headline1?.color,),
                   onChanged: (val) => newName = val,
@@ -100,7 +107,7 @@ class ChangeAlarmScreen extends ConsumerWidget {
                       ),
                     ),
                     label: Text(
-                      'alarm-name-title'.tr(),
+                      'alarm-name'.tr(),
                       style: TextStyle(
                         fontSize: 25,
                         color: Theme.of(context).textTheme.headline2?.color,
@@ -125,14 +132,14 @@ class ChangeAlarmScreen extends ConsumerWidget {
                       ),
                     ),
                     label: Text(
-                      'repetition-title'.tr(),
+                      'repetition'.tr(),
                       style: TextStyle(
                         fontSize: 25,
                         color: Theme.of(context).textTheme.headline2?.color,
                       ),
                     ),
                   ),
-                  value: alarm.repetition,
+                  value: repetition,
                   items: RepetitionType.values.map((r) {
                     return DropdownMenuItem(
                       value: r,
@@ -149,8 +156,8 @@ class ChangeAlarmScreen extends ConsumerWidget {
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () {
-                    alarmList.changeAlarmData(
-                      id: alarm.id,
+                    FirestoreServices().changeAlarmData(
+                      id: id,
                       time: newTime,
                       name: newName,
                       rep: newRepetition,

@@ -4,16 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/enums/repetition_type.dart';
-import 'package:uhr/main.dart';
-import 'package:uhr/models/alarm_model.dart';
+import 'package:uhr/services/firestore_services.dart';
 import 'package:uhr/utils/extensions.dart';
 
 class AlarmTile extends ConsumerStatefulWidget {
-  final AlarmModel alarm;
+  final int id;
+  final String name;
+  final DateTime time;
+  final RepetitionType repetition;
+  final bool isOn;
 
   const AlarmTile({
     Key? key,
-    required this.alarm,
+    required this.id,
+    required this.name,
+    required this.time,
+    required this.repetition,
+    required this.isOn,
   }) : super(key: key);
 
   @override
@@ -23,7 +30,6 @@ class AlarmTile extends ConsumerStatefulWidget {
 class _AlarmTileState extends ConsumerState<AlarmTile> {
   @override
   Widget build(BuildContext context) {
-    final alarmList = ref.watch(alarmListChangeNotifierProvider);
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Card(
@@ -36,21 +42,21 @@ class _AlarmTileState extends ConsumerState<AlarmTile> {
         ),
         child: ListTile(
           leading: Text(
-            widget.alarm.time.toFormattedTimeString(),
+            widget.time.toFormattedTimeString(),
             style: TextStyle(
               fontSize: 25,
               color: Theme.of(context).textTheme.headline1?.color,
             ),
           ),
           title: Text(
-            widget.alarm.name,
+            widget.name,
             style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).textTheme.headline1?.color,
             ),
           ),
           subtitle: Text(
-            widget.alarm.repetition == RepetitionType.daily
+            widget.repetition == RepetitionType.daily
                 ? 'daily'.tr()
                 : 'once'.tr(),
             style: TextStyle(
@@ -59,15 +65,19 @@ class _AlarmTileState extends ConsumerState<AlarmTile> {
             ),
           ),
           trailing: Switch(
-            value: widget.alarm.isOn,
+            value: widget.isOn,
             activeColor: Theme.of(context).textTheme.headline1?.color,
             onChanged: (val) {
-              alarmList.changeAlarmState(id: widget.alarm.id, isOn: val);
+              FirestoreServices().changeAlarmState(id: widget.id, isOn: val);
             },
           ),
           onTap: () => context.pushRoute(
             ChangeAlarmPage(
-              alarm: widget.alarm,
+              id: widget.id,
+              name: widget.name,
+              time: widget.time,
+              repetition: widget.repetition,
+              isOn: widget.isOn,
             ),
           ),
         ),
