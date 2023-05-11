@@ -24,7 +24,6 @@ class ChangeAlarmScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final alarmList = ref.watch(alarmListChangeNotifierProvider);
     DateTime newTime = time;
     String newName = name;
     RepetitionType newRepetition = repetition;

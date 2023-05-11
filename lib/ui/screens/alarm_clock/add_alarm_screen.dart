@@ -21,7 +21,6 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //final alarmList = ref.watch(alarmListChangeNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(

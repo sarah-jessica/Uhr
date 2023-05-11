@@ -74,6 +74,7 @@ flutter:
   assets:
     - packages/timezone/data/latest.tzf
     - lib/translations/
+    - lib/assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -61,12 +61,12 @@ class FirestoreServices {
       if (isOn) {
         DateTime time = DateTime.fromMillisecondsSinceEpoch(alarm['time'].seconds * 1000);
         if (time.isBefore(DateTime.now())) {
-          //set day for alarm to the next day
-          time = time.add(const Duration(days: 1));
+          final int difference = DateTime.now().difference(time).inDays;
+          time = time.add(Duration(days: difference));
+          time.isBefore(DateTime.now()) ? time = time.add(const Duration(days: 1)) : null;
         } else if (time
             .subtract(const Duration(days: 1))
             .isAfter(DateTime.now())) {
-          //set day for alarm to today
           time = time.subtract(const Duration(days: 1));
         }
         await NotificationService().showNotification(id, alarm['name'],
@@ -98,6 +98,5 @@ class FirestoreServices {
     NotificationService().cancelNotification(id);
     alarmclocksCollection.doc(id.toString()).delete();
   }
-
 
 }

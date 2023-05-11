@@ -17,11 +17,6 @@ final timerChangeNotifierProvider = ChangeNotifierProvider<MyTimer>((ref) {
   return MyTimer();
 });
 
-/*final alarmListChangeNotifierProvider =
-    ChangeNotifierProvider<MyAlarmList>((ref) {
-  return MyAlarmList();
-});*/
-
 final themeChangeNotifierProvider = ChangeNotifierProvider<CustomTheme>((ref) {
   return CustomTheme();
 });

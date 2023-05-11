@@ -20,46 +20,47 @@ class _SetTimerState extends ConsumerState<SetTimer> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        TimePickerSpinner(
-          time: time,
-          isShowSeconds: true,
-          isForce2Digits: true,
-          normalTextStyle: TextStyle(
-            fontSize: 30,
-            color: Theme.of(context).textTheme.headline2?.color,
-          ),
-          highlightedTextStyle: TextStyle(
-            fontSize: 30,
-            color: Theme.of(context).textTheme.headline1?.color,
-          ),
-          spacing: 40,
-          itemHeight: 80,
-          onTimeChange: (time) {
-            setState(
-              () => this.time = time,
-            );
-          },
+    final Size size = MediaQuery.of(context).size;
+    final List<Widget> children = [
+      TimePickerSpinner(
+        time: time,
+        isShowSeconds: true,
+        isForce2Digits: true,
+        normalTextStyle: TextStyle(
+          fontSize: 30,
+          color: Theme.of(context).textTheme.headline2?.color,
         ),
-        FloatingActionButton(
-          heroTag: 'start',
-          onPressed: () {
-            ref.watch(timerChangeNotifierProvider).setTime = time;
-            ref.watch(timerChangeNotifierProvider).start();
-          },
-          backgroundColor: Theme.of(context).backgroundColor,
-          foregroundColor: Theme.of(context).textTheme.headline1?.color,
-          child: Semantics(
-            label: tr('start'),
-            child: const Icon(
-              Icons.play_arrow_outlined,
-              size: 40,
-            ),
+        highlightedTextStyle: TextStyle(
+          fontSize: 30,
+          color: Theme.of(context).textTheme.headline1?.color,
+        ),
+        spacing: 40,
+        itemHeight: 80,
+        onTimeChange: (time) {
+          this.time = time;
+        },
+      ),
+      FloatingActionButton(
+        heroTag: 'start',
+        onPressed: () {
+          ref.watch(timerChangeNotifierProvider).setTime = time;
+          ref.watch(timerChangeNotifierProvider).start();
+        },
+        backgroundColor: Theme.of(context).backgroundColor,
+        foregroundColor: Theme.of(context).textTheme.headline1?.color,
+        child: Semantics(
+          label: tr('start'),
+          child: const Icon(
+            Icons.play_arrow_outlined,
+            size: 40,
           ),
         ),
-      ],
-    );
+      ),
+    ];
+
+    return size.width < 400 ?
+      Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: children,)
+        : Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: children,);
   }
 }
+

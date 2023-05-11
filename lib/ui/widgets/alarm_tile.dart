@@ -32,7 +32,8 @@ class _AlarmTileState extends ConsumerState<AlarmTile> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
-      child: Card(
+      child:
+      Card(
         color: Theme.of(context).backgroundColor,
         margin: const EdgeInsets.fromLTRB(
           20,
@@ -48,11 +49,16 @@ class _AlarmTileState extends ConsumerState<AlarmTile> {
               color: Theme.of(context).textTheme.headline1?.color,
             ),
           ),
-          title: Text(
-            widget.name,
-            style: TextStyle(
-              fontSize: 20,
-              color: Theme.of(context).textTheme.headline1?.color,
+          title: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 25,
+            ),
+            child: Text(
+              widget.name,
+              style: TextStyle(
+                fontSize: 20,
+                color: Theme.of(context).textTheme.headline1?.color,
+              ),
             ),
           ),
           subtitle: Text(
@@ -82,6 +88,6 @@ class _AlarmTileState extends ConsumerState<AlarmTile> {
           ),
         ),
       ),
-    );
+      );
   }
 }
