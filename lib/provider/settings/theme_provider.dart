@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uhr/enums/theme_type.dart';
 
 class CustomTheme extends ChangeNotifier {
-  static bool _isLightTheme = true;
-  ThemeMode get currentTheme =>
-      _isLightTheme ? ThemeMode.light : ThemeMode.dark;
-  ThemeType get themeType => _isLightTheme ? ThemeType.light : ThemeType.dark;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  ThemeMode? mode;
+  ThemeType get themeType => mode == ThemeMode.dark ? ThemeType.dark : ThemeType.light;
+  ThemeMode get themeMode => mode == ThemeMode.dark ? ThemeMode.dark : ThemeMode.light;
 
-  void changeTheme(ThemeType theme) {
+  Future<void> initializeThemeMode() async {
+    if (mode == null) {
+      final SharedPreferences prefs = await _prefs;
+      final String? theme = prefs.getString('theme');
+      mode = theme == 'dark' ? ThemeMode.dark : ThemeMode.light;
+      notifyListeners();
+    }
+  }
+
+  Future<void> setThemeMode(ThemeType theme) async {
+    final SharedPreferences prefs = await _prefs;
     if (theme == ThemeType.light) {
-      _isLightTheme = true;
+      await prefs.setString('theme', 'light');
+      mode = ThemeMode.light;
     } else {
-      _isLightTheme = false;
+      await prefs.setString('theme', 'dark');
+      mode = ThemeMode.dark;
     }
     notifyListeners();
   }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:uhr/provider/settings/theme_provider.dart';
@@ -25,6 +26,8 @@ final alarmListChangeNotifierProvider =
 final themeChangeNotifierProvider = ChangeNotifierProvider<CustomTheme>((ref) {
   return CustomTheme();
 });
+
+final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,13 +59,14 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final CustomTheme theme = ref.watch(themeChangeNotifierProvider);
+    final CustomTheme theme = ref.watch(themeChangeNotifierProvider)
+      ..initializeThemeMode();
 
     return MaterialApp(
       home: MaterialApp.router(
         theme: CustomTheme.lightTheme,
         darkTheme: CustomTheme.darkTheme,
-        themeMode: theme.currentTheme,
+        themeMode: theme.themeMode,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

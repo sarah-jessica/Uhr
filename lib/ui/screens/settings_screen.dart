@@ -10,7 +10,6 @@ import 'package:uhr/utils/extensions.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
-
   @override
   ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
 }
@@ -151,7 +150,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               if (newLanguage != null && newLanguage != context.locale) {
                 context.setLocale(newLanguage!);
               }
-              theme.changeTheme(newTheme);
+              //theme.changeTheme(newTheme);
+              theme.setThemeMode(newTheme);
               context.popRoute();
             },
             style: ElevatedButton.styleFrom(
