@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:uhr/enums/repetition_type.dart';
-import 'package:uhr/main.dart';
 import 'package:uhr/models/alarm_model.dart';
+import 'package:uhr/services/database_helper.dart';
 
 class ChangeAlarmScreen extends ConsumerWidget {
   final AlarmModel alarm;
@@ -17,7 +17,6 @@ class ChangeAlarmScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final alarmList = ref.watch(alarmListChangeNotifierProvider);
     DateTime newTime = alarm.time;
     String newName = alarm.name;
     RepetitionType newRepetition = alarm.repetition;
@@ -43,7 +42,7 @@ class ChangeAlarmScreen extends ConsumerWidget {
             icon: const Icon(Icons.delete_outline),
             color: Theme.of(context).textTheme.headline1?.color,
             onPressed: () {
-              alarmList.deleteAlarm(alarm.id);
+              DatabaseHelper.instance.delete(alarm.id);
               context.popRoute();
             },
           ),
@@ -143,11 +142,13 @@ class ChangeAlarmScreen extends ConsumerWidget {
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () {
-                    alarmList.changeAlarmData(
-                      id: alarm.id,
-                      time: newTime,
-                      name: newName,
-                      rep: newRepetition,
+                    DatabaseHelper.instance.update(
+                        alarm.copyWith(
+                            name: newName,
+                            time: newTime,
+                            type: newRepetition,
+                            isOn: true,
+                        ),
                     );
                     context.popRoute();
                   },

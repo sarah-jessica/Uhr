@@ -4,6 +4,8 @@ import 'package:uhr/models/alarm_model.dart';
 import 'package:uhr/services/notification_service.dart';
 import 'package:uhr/utils/extensions.dart';
 
+//only used in change_alarm_view_model.dart which is not used anymore
+
 class MyAlarmList extends ChangeNotifier {
   final alarms = <AlarmModel>[];
 

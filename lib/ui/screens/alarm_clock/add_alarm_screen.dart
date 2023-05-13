@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:uhr/enums/repetition_type.dart';
-import 'package:uhr/main.dart';
+import 'package:uhr/models/alarm_model.dart';
+import 'package:uhr/services/database_helper.dart';
 
 class AddAlarmScreen extends ConsumerStatefulWidget {
   const AddAlarmScreen({Key? key}) : super(key: key);
@@ -21,7 +22,6 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final alarmList = ref.watch(alarmListChangeNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -47,7 +47,14 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                 //set day for alarm to the next day
                 time = time.add(const Duration(days: 1));
               }
-              alarmList.addAlarm(time: time, name: name, repetition: rep);
+              DatabaseHelper.instance.add(
+                  AlarmModel.create(
+                      time: time,
+                      name: name,
+                      repetition: rep,
+                      isOn: true,
+                  ),
+              );
               context.popRoute();
             },
           ),

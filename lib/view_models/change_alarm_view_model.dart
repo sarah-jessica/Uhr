@@ -3,6 +3,8 @@ import 'package:uhr/enums/repetition_type.dart';
 import '../models/alarm_model.dart';
 import '../provider/alarm_clock/myalarmlist_provider.dart';
 
+//not used anymore
+
 class ChangeAlarmViewModel extends ChangeNotifier {
   final MyAlarmList myAlarmListProvider;
   final AlarmModel currentAlarm;

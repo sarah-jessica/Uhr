@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/enums/repetition_type.dart';
-import 'package:uhr/main.dart';
 import 'package:uhr/models/alarm_model.dart';
+import 'package:uhr/services/database_helper.dart';
 import 'package:uhr/utils/extensions.dart';
 
 class AlarmTile extends ConsumerStatefulWidget {
@@ -23,7 +23,6 @@ class AlarmTile extends ConsumerStatefulWidget {
 class _AlarmTileState extends ConsumerState<AlarmTile> {
   @override
   Widget build(BuildContext context) {
-    final alarmList = ref.watch(alarmListChangeNotifierProvider);
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Card(
@@ -62,7 +61,10 @@ class _AlarmTileState extends ConsumerState<AlarmTile> {
             value: widget.alarm.isOn,
             activeColor: Theme.of(context).textTheme.headline1?.color,
             onChanged: (val) {
-              alarmList.changeAlarmState(id: widget.alarm.id, isOn: val);
+              DatabaseHelper.instance.updateState(
+                alarm: widget.alarm,
+                isOn: val,
+              );
             },
           ),
           onTap: () => context.pushRoute(

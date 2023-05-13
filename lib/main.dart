@@ -3,24 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uhr/app_router.gr.dart';
-import 'package:uhr/provider/alarm_clock/myalarmlist_provider.dart';
 import 'package:uhr/provider/settings/theme_provider.dart';
 import 'package:uhr/provider/timer/mytimer_provider.dart';
+import 'package:uhr/services/database_helper.dart';
 import 'package:uhr/services/notification_service.dart';
 import 'package:uhr/utils/config.dart';
-
-/*
- - Warning beim Starten der App: 'Operand of null-aware operation '!' has type 'WidgetsBinding' which excludes null.'
- - ob der Alarm bei der Einstellung 'daily' jeden Tag ausgelöst wird, ist nicht getestet
-*/
 
 final timerChangeNotifierProvider = ChangeNotifierProvider<MyTimer>((ref) {
   return MyTimer();
 });
 
-final alarmListChangeNotifierProvider =
-    ChangeNotifierProvider<MyAlarmList>((ref) {
-  return MyAlarmList();
+final databaseChangeNotifierProvider =
+ChangeNotifierProvider<DatabaseHelper>((ref) {
+  return DatabaseHelper.instance;
 });
 
 final themeChangeNotifierProvider = ChangeNotifierProvider<CustomTheme>((ref) {
