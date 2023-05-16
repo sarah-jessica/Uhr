@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uhr/app_router.gr.dart';
 import 'package:uhr/provider/settings/theme_provider.dart';
 import 'package:uhr/provider/timer/mytimer_provider.dart';
+import 'package:uhr/services.dart';
 import 'package:uhr/services/database_helper.dart';
 import 'package:uhr/services/notification_service.dart';
 import 'package:uhr/utils/config.dart';
@@ -28,6 +29,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().initNotification();
   await EasyLocalization.ensureInitialized();
+
+  setupServices();
+  await services.allReady();
 
   runApp(
     ProviderScope(
